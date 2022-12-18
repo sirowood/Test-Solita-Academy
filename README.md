@@ -70,11 +70,11 @@ According to the test requirement, the application will have the following featu
   - React.js
   - Redux
   - Axios
-  - Tailwind
 
 ### Testing
-  - Jest
-  - Cypress
+  - Jest: Unit
+  - Supertest: Integration
+  - Cypress: E2E
 
 ## Prerequisites
 TODO

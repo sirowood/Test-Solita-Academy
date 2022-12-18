@@ -1,0 +1,11 @@
+services:
+  server:
+    image: server-solita-dev-xuefeng
+    build:
+      context: ./server
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./server:/usr/src/app
+    ports:
+      - 3001:3001
+    container_name: server-solita-dev-xuefeng   

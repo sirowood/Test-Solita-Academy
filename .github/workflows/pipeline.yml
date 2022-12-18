@@ -1,0 +1,25 @@
+name: Development pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  Server:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check files
+        uses: actions/checkout@v3
+      - name: Install node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Install npm
+        run: |
+          cd server
+          npm install
+      - name: Eslint
+        run: npm run eslint
+      - name: Tests
+        run: npm run test
