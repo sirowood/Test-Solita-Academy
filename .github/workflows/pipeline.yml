@@ -20,6 +20,10 @@ jobs:
           cd server
           npm install
       - name: Eslint
-        run: npm run eslint
+        run: |
+          cd server
+          npm run eslint
       - name: Tests
-        run: npm run test
+        run: |
+          cd server
+          npm run test
