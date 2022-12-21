@@ -23,6 +23,8 @@ jobs:
         run: |
           cd server
           npm run eslint
+      - name: Run docker-compose
+        run: docker-compose -f docker-compose.dev.yml up -d
       - name: Tests
         run: |
           cd server

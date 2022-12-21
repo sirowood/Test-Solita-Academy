@@ -1,9 +1,15 @@
 const info = (...params: [string]) => {
-  console.info(...params);
+  if (process.env.NODE_ENV === 'test') {
+    return;
+  }
+  console.info('[INFO]', ...params);
 };
 
 const error = (...params: [string]) => {
-  console.error(...params);
+  if (process.env.NODE_ENV === 'test') {
+    return;
+  }
+  console.error('[ERROR]', ...params);
 };
 
 export {

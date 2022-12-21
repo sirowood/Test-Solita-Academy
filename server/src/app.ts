@@ -1,9 +1,9 @@
 import cors from 'cors';
-import express from 'express';
+import express, { Application } from 'express';
 import { loggerMiddleware, unknownEndPointMiddleware } from './utils/middleware';
 import routes from './routes';
 
-const app = express();
+const app: Application = express();
 
 app.use(cors());
 app.use(express.json());
