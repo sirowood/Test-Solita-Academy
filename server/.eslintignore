@@ -1,2 +1,5 @@
-build
-tests
+build/
+coverage/
+data/
+node_modules/
+tests/

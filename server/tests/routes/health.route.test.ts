@@ -1,11 +1,11 @@
 import request from 'supertest';
-import app from '../src/app';
+import app from '../../src/app';
 
 const api = request(app);
 
 describe("Health and unknown end point", () => {
-  it('GET /health should return "ok" with status code 200', async () => {
-    const response = await api.get('/health');
+  it('GET /api/health should return "ok" with status code 200', async () => {
+    const response = await api.get('/api/health');
 
     expect(response.status).toBe(200);
     expect(response.text).toEqual('ok');

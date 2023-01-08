@@ -1,26 +1,26 @@
-import { Sequelize } from 'sequelize-typescript';
+import { Sequelize } from "sequelize";
 import { Umzug, SequelizeStorage } from 'umzug';
 import { info, error } from '../utils/logger';
-import { DATABASE_URL } from "../utils/config";
+import { DATABASE_URL } from '../utils/config';
 
-const DB = new Sequelize(DATABASE_URL, {
+const sequelize = new Sequelize(DATABASE_URL, {
   dialect: 'postgres',
   logging: false,
-  models: [__dirname + '/models'],
 });
 
 const migrationConfig = {
   migrations: {
     glob: 'src/database/migrations/*.ts',
   },
-  storage: new SequelizeStorage({ sequelize: DB, tableName: 'migrations' }),
-  context: DB.getQueryInterface(),
-  logger: console,
+  storage: new SequelizeStorage({ sequelize, tableName: 'migrations' }),
+  context: sequelize.getQueryInterface(),
+  logger: process.env.NODE_ENV !== 'test' ? console : undefined,
 };
 
 const migrator = new Umzug(migrationConfig);
 
-type Migration = typeof migrator._types.migration;
+export type Migration = typeof migrator._types.migration;
+
 
 const runMigrations = async () => {
   try {
@@ -36,10 +36,10 @@ const runMigrations = async () => {
 const rollbackMigrations = async () => {
   info('Establishing database connection...');
   try {
-    await DB.authenticate();
+    await sequelize.authenticate();
     info('Database connection established.');
     await migrator.down();
-    await DB.close();
+    await sequelize.close();
   } catch (e: unknown) {
     if (e instanceof Error) {
       error(`Migration down failed: ${e.message}`);
@@ -50,21 +50,19 @@ const rollbackMigrations = async () => {
 const connectToDatabase = async () => {
   info('Establishing database connection...');
   try {
-    await DB.authenticate();
+    await sequelize.authenticate();
     info('Database connection established.');
     await runMigrations();
   } catch (e: unknown) {
     if (e instanceof Error) {
       error(`Database connection faild: ${e.message}`);
+      throw new Error(e.message);
     }
   }
-
-  return null;
 };
 
 export {
-  type Migration,
-  DB,
+  sequelize,
   connectToDatabase,
   rollbackMigrations,
 };
