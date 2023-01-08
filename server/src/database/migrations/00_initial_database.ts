@@ -137,7 +137,7 @@ const up: Migration = async ({ context: queryInterface }) => {
     },
   );
 
-  if (process.env.NODE_ENV === 'development' && process.env.PLATFORM !== 'github') {
+  if (process.env.NODE_ENV === 'development') {
     info('Initial data from csv files');
     await initializeData();
   }

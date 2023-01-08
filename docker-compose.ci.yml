@@ -13,19 +13,3 @@ services:
     ports:
       - 3003:5432
     container_name: database-test
-
-  server:
-    image: server-solita-dev-xuefeng
-    build:
-      context: ./server
-      dockerfile: dev.Dockerfile
-    environment:
-      TZ: Europe/Helsinki
-    ports:
-      - 3001:3001
-    volumes:
-      - ./server:/usr/src/app
-    container_name: server-solita-dev-xuefeng
-    depends_on:
-      - database-test
-    command: ["./wait-for-test.sh", "database-test", "npm", "run", "ci"]

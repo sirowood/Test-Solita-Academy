@@ -1,22 +1,23 @@
 import { Journey, Station } from '../database/models';
 
 const formatDateTime = (date: Date) => {
-  const options: Intl.DateTimeFormatOptions = {
+  const dateOtions: Intl.DateTimeFormatOptions = {
     day: '2-digit',
     month: '2-digit',
     year: 'numeric',
+  };
+
+  const timeOptions: Intl.DateTimeFormatOptions = {
     second: '2-digit',
     minute: '2-digit',
     hour: '2-digit',
     hour12: false,
   };
 
-  const localeDateTime = date.toLocaleString('fi-FI', options);
+  const localeDate = date.toLocaleDateString('fi-FI', dateOtions);
+  const localeTime = date.toLocaleTimeString('fi-FI', timeOptions).replace(/\./g, ':');
 
-  const formatedDate = localeDateTime.split(' ')[0];
-  const formatedTime = localeDateTime.split(' ')[1].replace(/\./g, ':');
-
-  return [formatedDate, formatedTime].join(' ');
+  return [localeDate, localeTime].join(' ');
 };
 
 const getTotalPages = (total: number, size: number) => {
@@ -24,7 +25,14 @@ const getTotalPages = (total: number, size: number) => {
   return totalPages;
 };
 
-const transformJourney = (allJourneys: { count: number, rows: Journey[]}, size: number, currentPage: number) => ({
+const transformJourney = (
+  allJourneys: {
+    count: number,
+    rows: Journey[]
+  },
+  size: number,
+  currentPage: number,
+) => ({
   totalItems: allJourneys.count,
   totalPages: getTotalPages(allJourneys.count, size),
   currentPage,
@@ -35,7 +43,14 @@ const transformJourney = (allJourneys: { count: number, rows: Journey[]}, size: 
   })),
 });
 
-const transformStation = (allStations: { count: number, rows: Station[]}, size: number, currentPage: number) => ({
+const transformStation = (
+  allStations: {
+    count: number,
+    rows: Station[]
+  },
+  size: number,
+  currentPage: number,
+) => ({
   totalItems: allStations.count,
   totalPages: getTotalPages(allStations.count, size),
   currentPage,
