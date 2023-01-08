@@ -1,5 +1,3 @@
-import { Station } from "src/database/models";
-
 type StationFields = {
   nimi: unknown,
   namn: unknown,
@@ -42,19 +40,9 @@ type GetAllStationsParams = {
   searchString: string
 };
 
-type TransformStationParams = {
-  allStations: {
-    count: number,
-    rows: Station[]
-  },
-  size: number,
-  currentPage: number,
-};
-
 export {
   StationFields,
   NewStation,
   FullStation,
   GetAllStationsParams,
-  TransformStationParams,
 };

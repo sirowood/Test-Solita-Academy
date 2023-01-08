@@ -2,7 +2,7 @@ FROM node:16
 
 RUN npm install -g npm@latest
 RUN apt-get update && apt-get install -y
-RUN apt-get install -y postgresql-client
+RUN apt-get install apt-utils -y postgresql-client
 
 WORKDIR /usr/src/app
 
