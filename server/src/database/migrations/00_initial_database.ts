@@ -1,8 +1,9 @@
-import { DataTypes } from "sequelize";
-import type { Migration } from "../";
+import { DataTypes } from 'sequelize';
+import { Migration } from '../';
+import initializeData from '../initial';
 import { info } from '../../utils/logger';
 
-const { INTEGER, TEXT, FLOAT, DATE } = DataTypes;
+const { INTEGER, TEXT, FLOAT, DATE, NOW } = DataTypes;
 
 const up: Migration = async ({ context: queryInterface }) => {
   info('Initializing database...');
@@ -12,11 +13,6 @@ const up: Migration = async ({ context: queryInterface }) => {
       type: INTEGER,
       primaryKey: true,
       autoIncrement: true,
-    },
-    fid: {
-      type: INTEGER,
-      allowNull: false,
-      unique: true,
     },
     nimi: {
       type: TEXT,
@@ -76,11 +72,11 @@ const up: Migration = async ({ context: queryInterface }) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    departure: {
+    departure_time: {
       type: DATE,
       allowNull: false,
     },
-    return: {
+    arrival_time: {
       type: DATE,
       allowNull: false,
     },
@@ -89,18 +85,10 @@ const up: Migration = async ({ context: queryInterface }) => {
       allowNull: false,
       references: { model: 'stations', key: 'id' },
     },
-    departure_station_name: {
-      type:TEXT,
-      allowNull: false,
-    },
-    return_station_id: {
+    arrival_station_id: {
       type: INTEGER,
       allowNull: false,
       references: { model: 'stations', key: 'id' },
-    },
-    return_station_name: {
-      type:TEXT,
-      allowNull: false,
     },
     covered_distance: {
       type:FLOAT,
@@ -113,19 +101,51 @@ const up: Migration = async ({ context: queryInterface }) => {
     created_at: {
       type: DATE,
       allowNull: false,
+      defaultValue: NOW,
     },
     updated_at: {
       type: DATE,
       allowNull: false,
+      defaultValue: NOW,
     },
   });
-  info('Database initialization done.');
+
+  info('Add index to journeys for possible better query performance');
+  await queryInterface.addIndex(
+    'journeys',
+    ['departure_station_id', 'arrival_station_id'],
+    { name: 'departure_arrival_stations'}
+  );
+  await queryInterface.addIndex(
+    'journeys',
+    ['departure_station_id'],
+    { name: 'departure_stations'}
+  );
+  await queryInterface.addIndex(
+    'journeys',
+    ['arrival_station_id'],
+    { name: 'arrival_stations'}
+  );
+
+  info('Add composite unique constraint to journeys');
+  await queryInterface.addConstraint(
+    'journeys',
+    {
+      name: 'unique_journey_constraint',
+      type: 'unique',
+      fields: ['departure_time', 'arrival_time','departure_station_id', 'arrival_station_id', 'covered_distance', 'duration']
+    },
+  );
+
+  if (process.env.NODE_ENV === 'development' && process.env.PLATFORM !== 'github') {
+    info('Initial data from csv files');
+    await initializeData();
+  }
 };
 
 const down: Migration = async ({ context: queryInterface }) => {
   info('Drop all tables');
   await queryInterface.dropAllTables();
-  info('Done');
 };
 
 export { up, down };
