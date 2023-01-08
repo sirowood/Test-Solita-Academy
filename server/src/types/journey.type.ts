@@ -1,5 +1,3 @@
-import { Journey } from "src/database/models";
-
 type JourneyFields = {
   departureTime: unknown,
   arrivalTime: unknown,
@@ -35,19 +33,9 @@ type GetAllJourneysParams = {
   searchString: string
 };
 
-type TransformJourneyParams = {
-  allJourneys: {
-    count: number,
-    rows: Journey[]
-  },
-  size: number,
-  currentPage: number
-};
-
 export {
   JourneyFields,
   NewJourney,
   FullJourney,
   GetAllJourneysParams,
-  TransformJourneyParams,
 };

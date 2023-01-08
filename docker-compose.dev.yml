@@ -36,6 +36,8 @@ services:
       dockerfile: dev.Dockerfile
     environment:
       TZ: Europe/Helsinki
+      DATABASE_URL: postgres://xuefeng:password@database:5432/solita
+      PORT: 3001
     ports:
       - 3001:3001
     volumes:
