@@ -1,6 +1,9 @@
 server/node_modules
 server/build
+server/coverage
 
 server/.env
+server/data
 
+**/.DS_Store
 **/*/.DS_Store

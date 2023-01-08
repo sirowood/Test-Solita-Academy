@@ -88,3 +88,14 @@ TODO
 ## Tests
 TODO
 
+## Others
+### Additional handling the invalid journey records
+#### With invalid station id
+There are some journey records has departure/arrival station id which is not in the given station data.
+
+For example, there are 37 records with the ```departure_station_id = 999``` in 05.csv
+
+Such journey records has been handled as invalid record as well.
+
+#### Possible duplicates
+When writing the journeys filter function, I notices there are many cases that two journey records has exactly the same values, then I found each csv file has two sets of record with identical data, I assume only one set of the data is valid. That's why I added the constriant for journey table.

@@ -1,21 +1,6 @@
 version: '3'
 
 services:
-  database:
-    image: postgres:14.6
-    restart: always
-    environment:
-      POSTGRES_DB: solita
-      POSTGRES_USER: xuefeng
-      POSTGRES_PASSWORD: password
-      TZ: Europe/Helsinki
-      PGTZ: Europe/Helsinki
-    ports:
-      - 3002:5432
-    volumes:
-      - ./server/data:/var/lib/postgresql/data
-    container_name: database-solita-dev-xuefeng
-
   database-test:
     image: postgres:14.6
     restart: always
@@ -42,5 +27,5 @@ services:
       - ./server:/usr/src/app
     container_name: server-solita-dev-xuefeng
     depends_on:
-      - database
-    command: ["./wait-for-postgres.sh", "database", "npm", "run", "dev"]
+      - database-test
+    command: ["./wait-for-test.sh", "database-test", "npm", "run", "ci"]

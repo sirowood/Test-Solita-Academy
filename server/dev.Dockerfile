@@ -1,5 +1,9 @@
 FROM node:16
 
+RUN npm install -g npm@latest
+RUN apt-get update && apt-get install -y
+RUN apt-get install -y postgresql-client
+
 WORKDIR /usr/src/app
 
 COPY --chown=node:node . .
