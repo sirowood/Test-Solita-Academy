@@ -27,7 +27,7 @@ services:
       PGTZ: Europe/Helsinki
     ports:
       - 3003:5432
-    container_name: database-test
+    container_name: database-test-solita-dev-xuefeng
 
   server:
     image: server-solita-dev-xuefeng
@@ -46,3 +46,19 @@ services:
     depends_on:
       - database
     command: ["./wait-for-postgres.sh", "database", "npm", "run", "dev"]
+  
+  client:
+    image: client-solita-dev-xuefeng
+    build:
+      context: ./client
+      dockerfile: dev.Dockerfile
+    environment:
+      TZ: Europe/Helsinki
+    ports:
+      - 3000:3000
+    volumes:
+      - ./client:/usr/src/app
+    container_name: client-solita-dev-xuefeng
+    depends_on:
+      - server
+    command: ["./wait-for-server.sh", "npm", "start"]

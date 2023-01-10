@@ -1,0 +1,11 @@
+dist/
+coverage/
+node_modules/
+tests/
+
+webpack.config.build.ts
+webpack.config.dev.ts
+webpack.config.ts
+
+tailwind.config.js
+postcss.config.js
