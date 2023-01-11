@@ -1,9 +1,20 @@
+# Server folders
 server/node_modules
 server/build
 server/coverage
-
-server/.env
 server/data
 
+# Server files
+server/.env
+
+# Client folders
+client/node_modules
+client/dist
+client/coverage
+
+# Client files
+client/.env
+
+# Other files
 **/.DS_Store
 **/*/.DS_Store
