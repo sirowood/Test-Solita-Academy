@@ -17,7 +17,6 @@ const rules = [
   },
 ];
 
-const publicDir = path.resolve(__dirname, 'src/public');
 const config = {
   entry: './src/index.tsx',
   resolve: {
@@ -28,8 +27,8 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: `${publicDir}/index.html`,
-      favicon: `${publicDir}/favicon.ico`,
+      template: path.resolve(__dirname, 'src/public/index.html'),
+      favicon: path.resolve(__dirname, 'src/public/favicon.ico'),
     }),
   ],
 };

@@ -1,4 +1,5 @@
 import path from 'path';
+import { DefinePlugin } from 'webpack';
 import baseConfig from './webpack.config';
 
 const config = {
@@ -6,8 +7,15 @@ const config = {
   mode: 'production',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].bundle.js',
+    publicPath: '/',
+    filename: 'main.js',
   },
+  plugins: [
+    ...baseConfig.plugins,
+    new DefinePlugin({
+      API_URL: JSON.stringify('/api'),
+    })
+  ]
 };
 
 export default config;

@@ -15,6 +15,7 @@ describe('Independent station controllers:', () => {
     offset: 0,
     sortField: 'id',
     sortOrder: 'ASC',
+    filters: {},
     searchString: ''
   };
 
@@ -66,19 +67,19 @@ describe('Dependent station controllers:', () => {
 
   it('Correct avgDepartureDistance', async () => {
     const result = await stationController.getSingleStation(1);
-    
+
     expect(result!.avgDepartureDistance).toBe(2177.6);
   });
 
   it('Correct avgArrivalDistance', async () => {
     const result = await stationController.getSingleStation(1);
-    
+
     expect(result!.avgArrivalDistance).toBe(1086.2);
   });
 
   it('Correct topOriginStations', async () => {
     const result = await stationController.getSingleStation(1);
-    const popularDepartureStations = result!.topOriginStations as { nimi: string}[];
+    const popularDepartureStations = result!.topOriginStations as { nimi: string }[];
 
     expect(popularDepartureStations.length).toBe(1);
     expect(popularDepartureStations[0]['nimi']).toBe('Sepänkatu');
@@ -86,7 +87,7 @@ describe('Dependent station controllers:', () => {
 
   it('Correct topDestinationStations', async () => {
     const result = await stationController.getSingleStation(1);
-    const popularDepartureStations = result?.topDestinationStations as {'nimi': string}[];
+    const popularDepartureStations = result?.topDestinationStations as { 'nimi': string }[];
 
     expect(popularDepartureStations.length).toBe(1);
     expect(popularDepartureStations[0]['nimi']).toBe('Sepänkatu');

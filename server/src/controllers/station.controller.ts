@@ -24,7 +24,7 @@ const addStation = async (newStationEntry: NewStation) => {
 };
 
 const getAllStations = async (
-  { size, currentPage, limit, offset, sortField, sortOrder, searchString }: GetAllStationsParams
+  { size, currentPage, limit, offset, sortField, sortOrder, filters, searchString }: GetAllStationsParams
 ) => {
   const searchFields = [
     'nimi', 'namn', 'name', 'osoite',
@@ -32,6 +32,7 @@ const getAllStations = async (
   ];
 
   const where = {
+    ...filters,
     [Op.or]: searchFields.map((field) => ({
       [field]: { [Op.like]: `%${searchString}%` }
     }))
@@ -60,8 +61,8 @@ const getSingleStation = async (id: number) => {
       ]
     },
     include: [
-      { model: Journey, as: 'departureJourneys', attributes: []},
-      { model: Journey, as: 'arrivalJourneys', attributes: []},
+      { model: Journey, as: 'departureJourneys', attributes: [] },
+      { model: Journey, as: 'arrivalJourneys', attributes: [] },
     ],
     group: ['stations.id'],
     where: { id },
@@ -90,9 +91,9 @@ const getSingleStation = async (id: number) => {
     ORDER BY COUNT(journeys.departure_station_id) DESC
     LIMIT 5;
     `, {
-      bind: { id },
-      type: QueryTypes.SELECT,
-    }
+    bind: { id },
+    type: QueryTypes.SELECT,
+  }
   );
 
   const topDestinationStations = await sequelize.query(
@@ -105,9 +106,9 @@ const getSingleStation = async (id: number) => {
     ORDER BY COUNT(journeys.arrival_station_id) DESC
     LIMIT 5;
     `, {
-      bind: { id },
-      type: QueryTypes.SELECT,
-    }
+    bind: { id },
+    type: QueryTypes.SELECT,
+  }
   );
 
   const result = {

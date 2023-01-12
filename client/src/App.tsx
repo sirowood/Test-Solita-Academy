@@ -1,12 +1,16 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import Router from './components/Router';
+import Navigation from './components/Navigation';
 
 function App() {
   return (
-    <main className="flex h-screen w-full items-center justify-center bg-slate-600">
-      <h1 className="select-none text-6xl font-extrabold text-white">
-        Hello, Solita
-      </h1>
-    </main>
+    <BrowserRouter>
+      <main className="flex flex-row w-screen h-screen text-white bg-solita-400">
+        <Navigation />
+        <Router />
+      </main>
+    </BrowserRouter>
   );
 }
 

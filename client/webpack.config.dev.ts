@@ -1,4 +1,5 @@
 import path from 'path';
+import { DefinePlugin } from 'webpack';
 import baseConfig from './webpack.config';
 
 const config = {
@@ -12,6 +13,12 @@ const config = {
     compress: true,
     historyApiFallback: true,
   },
+  plugins: [
+    ...baseConfig.plugins,
+    new DefinePlugin({
+      API_URL: JSON.stringify('http://localhost:3001/api'),
+    })
+  ]
 };
 
 export default config;
