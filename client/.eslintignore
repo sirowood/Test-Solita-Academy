@@ -6,6 +6,7 @@ tests/
 webpack.config.build.ts
 webpack.config.dev.ts
 webpack.config.ts
+jest.config.ts
 
 tailwind.config.js
 postcss.config.js

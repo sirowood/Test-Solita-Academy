@@ -2,7 +2,7 @@ import { FilterStateProps } from '../hooks/useFilterDebounce.type';
 
 type FilterProps = {
   filters: FilterStateProps,
-  showFilter: boolean,
+  showFilters: boolean,
   resetFilters: () => void,
   changeFilters: (
     filterName: string,

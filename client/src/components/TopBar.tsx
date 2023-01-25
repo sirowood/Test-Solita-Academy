@@ -11,11 +11,11 @@ function TopBar({
   filters,
   pageTitle,
   searchText,
-  showFilter,
+  showFilters,
   resetFilters,
   setSearchText,
   changeFilters,
-  changeShowFilter,
+  changeShowFilters,
 }: TopBarProps) {
   return (
     <section className="flex flex-row items-center justify-between h-12 p-2 shadow-lg">
@@ -34,13 +34,13 @@ function TopBar({
         <button
           type="button"
           className="p-0 text-xl text-white/50 hover:text-white"
-          onClick={changeShowFilter}
+          onClick={changeShowFilters}
         >
           <FilterIcon />
         </button>
         <Filter
           filters={filters}
-          showFilter={showFilter}
+          showFilters={showFilters}
           resetFilters={resetFilters}
           changeFilters={changeFilters}
         />
