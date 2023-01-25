@@ -130,6 +130,18 @@ describe('GET /api/stations', () => {
     expect(items[0].nimi).toBe('Sepänkatu');
     expect(items[4].nimi).toBe('Laivasillankatu');
   });
+
+  it('Filter with kapasiteetFrom and kapasiteetTo', async () => {
+    const capacityFrom = 12;
+    const capacityTo = 14;
+
+    const response = await api.get(`/api/stations?kapasiteetFrom=${capacityFrom}&kapasiteetTo=${capacityTo}`);
+    const { totalItems } = response.body;
+
+    const expectation = stations.filter((station) => station.kapasiteet >= 12 && station.kapasiteet <= 14);
+
+    expect(totalItems).toBe(expectation.length);
+  })
 })
 
 describe('GET /api/stations/:id', () => {

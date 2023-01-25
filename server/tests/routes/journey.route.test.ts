@@ -26,7 +26,7 @@ describe('GET /api/journeys', () => {
     const response = await api.get('/api/journeys');
     const { totalItems } = response.body;
 
-    expect(totalItems).toBe(10);
+    expect(totalItems).toBe(journeys.length);
   });
 
   it('Search of journeys exists in database', async () => {
@@ -43,25 +43,35 @@ describe('GET /api/journeys', () => {
     expect(totalItems).toBe(0);
   });
 
-  it('Filter of journeys with valid number', async () => {
-    const response = await api.get('/api/journeys?departureStationId=1');
+  it('Filter of journeys with departureTimeFrom and departureTimeTo', async () => {
+    const dateFrom = '2021-05-28';
+    const dateTo = '2021-05-29';
+    const response = await api.get(`/api/journeys?departureTimeFrom=${dateFrom}&departureTimeTo=${dateTo}`);
     const { totalItems } = response.body;
 
-    expect(totalItems).toBe(5);
+    expect(totalItems).toBe(1);
   });
 
-  it('Filter of journeys with invalid number', async () => {
-    const response = await api.get('/api/journeys?departureStationId=-112');
+  it('Filter of journeys with coveredDistanceFrom and coveredDistanceTo', async () => {
+    const distanceFrom = 3434;
+    const distanceTo = 3574;
+    const response = await api.get(`/api/journeys?coveredDistanceFrom=${distanceFrom}&coveredDistanceTo=${distanceTo}`);
     const { totalItems } = response.body;
 
-    expect(totalItems).toBe(10);
+    const expectation = journeys.filter((journey) => journey.coveredDistance >= distanceFrom && journey.coveredDistance <= distanceTo);
+
+    expect(totalItems).toBe(expectation.length);
   });
 
-  it('Filter of journeys with string', async () => {
-    const response = await api.get('/api/journeys?departureStationId=justForFun');
+  it('Filter of journeys with durationFrom and durationTo', async () => {
+    const durationFrom = 300;
+    const durationTo = 400;
+    const response = await api.get(`/api/journeys?durationFrom=${durationFrom}&durationTo=${durationTo}`);
     const { totalItems } = response.body;
 
-    expect(totalItems).toBe(10);
+    const expectation = journeys.filter((journey) => journey.duration >= durationFrom && journey.duration <= durationTo);
+
+    expect(totalItems).toBe(expectation.length);
   });
 })
 

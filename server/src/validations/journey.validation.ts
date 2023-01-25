@@ -1,14 +1,14 @@
 import { isDate, isString, isNumber, throwMissingError, throwInvalidError } from './helper.validation';
 import { JourneyFields, NewJourney } from '../types/journey.type';
 
-const parseDate = (date: unknown, target: string): Date => {
-  if (!date ) {
+const parseDate = (date: unknown, target: string): string => {
+  if (!date) {
     throwMissingError(target);
   }
   if (!isString(date) || !isDate(date)) {
     throwInvalidError(`Unable to convert ${target}: '${date}' to Date`);
   }
-  return new Date(date as string);
+  return date as string;
 };
 
 const isValidDate = (arrivalTime: unknown, departureTime: unknown) => {

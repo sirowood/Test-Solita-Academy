@@ -38,6 +38,8 @@ const transformJourney = (
   currentPage,
   items: allJourneys.rows.map((journey) => ({
     ...journey,
+    coveredDistance: +(journey.coveredDistance / 1000).toFixed(3),
+    duration: +(journey.duration / 60).toFixed(3),
     departureTime: formatDateTime(journey.departureTime),
     arrivalTime: formatDateTime(journey.arrivalTime),
   })),

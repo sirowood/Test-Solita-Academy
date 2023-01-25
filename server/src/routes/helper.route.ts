@@ -1,13 +1,8 @@
 import { ParsedQs } from 'qs';
+import { Op } from 'sequelize';
+import { PaginationProps, FilterProps } from '../types/routes.type';
 
-type Paginatioin = {
-  size: number,
-  currentPage: number,
-  limit: number,
-  offset: number,
-};
-
-const getPagination = (query: ParsedQs): Paginatioin => {
+const getPagination = (query: ParsedQs): PaginationProps => {
   const size = Math.max(Number(query.size) || 10, 10);
   const currentPage = Math.max(Number(query.page) || 1, 1);
 
@@ -30,12 +25,18 @@ const getSort = (query: ParsedQs, allowedFields: string[]) => {
 };
 
 const getFilter = (query: ParsedQs, allowedFilters: string[]) => {
-  const filters: { [key: string]: string} = {};
+  const filters: FilterProps = {};
 
-  for (const filter of allowedFilters) {
-    const validFilter = query[filter] && Number(query[filter]) && Number(query[filter]) > 0;
-    if (validFilter) {
-      filters[filter] = query[filter] as string;
+  for (const filterName of allowedFilters) {
+    const filterFrom = query[`${filterName}From`] as string | undefined;
+    const filterTo = query[`${filterName}To`] as string | undefined;
+
+    if (filterFrom && filterTo) {
+      filters[filterName] = { [Op.between]: [filterFrom, filterTo] };
+    } else if (filterFrom) {
+      filters[filterName] = { [Op.gte]: filterFrom };
+    } else if (filterTo) {
+      filters[filterName] = { [Op.lte]: filterTo };
     }
   }
 
@@ -49,11 +50,13 @@ const getSearchString = (query: ParsedQs) => {
 };
 
 const getAllJourneysParams = (query: ParsedQs) => {
-  const allowedFilters = ['departureStationId', 'arrivalStationId'];
-  const allowedSortFields = [
-    ...allowedFilters,
+  const allowedFilters = [
     'departureTime', 'arrivalTime',
     'coveredDistance', 'duration',
+  ];
+  const allowedSortFields = [
+    ...allowedFilters,
+    'departureStationName', 'arrivalStationName',
   ];
 
   const { currentPage, size, limit, offset } = getPagination(query);
@@ -65,17 +68,20 @@ const getAllJourneysParams = (query: ParsedQs) => {
 };
 
 const getAllStationsParams = (query: ParsedQs) => {
+  const allowedFilters = ['kapasiteet'];
   const allowedSortFields = [
+    ...allowedFilters,
     'id', 'nimi', 'namn', 'name', 'osoite',
     'adress', 'kaupunki', 'stad', 'operaattor',
-    'kapasiteet', 'x', 'y',
+    'x', 'y',
   ];
 
   const { currentPage, size, limit, offset } = getPagination(query);
   const { sortField, sortOrder } = getSort(query, allowedSortFields);
+  const filters = getFilter(query, allowedFilters);
   const searchString = getSearchString(query);
 
-  return { size, currentPage, limit, offset, sortField, sortOrder, searchString };
+  return { size, currentPage, limit, offset, sortField, sortOrder, filters, searchString };
 };
 
 export {

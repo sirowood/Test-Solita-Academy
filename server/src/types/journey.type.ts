@@ -1,3 +1,5 @@
+import { FilterProps } from "./routes.type";
+
 type JourneyFields = {
   departureTime: unknown,
   arrivalTime: unknown,
@@ -8,8 +10,8 @@ type JourneyFields = {
 };
 
 type NewJourney = {
-  departureTime: Date,
-  arrivalTime: Date,
+  departureTime: string,
+  arrivalTime: string,
   departureStationId: number,
   arrivalStationId: number,
   coveredDistance: number,
@@ -29,7 +31,7 @@ type GetAllJourneysParams = {
   offset: number,
   sortField: string,
   sortOrder: string,
-  filters: { [key: string]: string },
+  filters: FilterProps,
   searchString: string
 };
 

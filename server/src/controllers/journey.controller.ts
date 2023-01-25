@@ -28,17 +28,20 @@ const getAllJourneys = async (
       [sequelize.col('"arrivalStation"."nimi"'), 'arrivalStationName']
     ],
   };
+
   const include = [
     { model: Station, as: 'departureStation', attributes: [] as never },
-    { model: Station, as: 'arrivalStation', attributes: [] as never},
+    { model: Station, as: 'arrivalStation', attributes: [] as never },
   ];
+
   const where = {
     ...filters,
     [sequelize.Op.or]: [
-      sequelize.where(sequelize.col('departureStation.nimi'), { [sequelize.Op.like]:`%${searchString}%` }),
+      sequelize.where(sequelize.col('departureStation.nimi'), { [sequelize.Op.like]: `%${searchString}%` }),
       sequelize.where(sequelize.col('arrivalStation.nimi'), { [sequelize.Op.like]: `%${searchString}%` }),
     ],
   };
+
   const order: Order = [[sortField, sortOrder]];
 
   const allJourneys = await Journey.findAndCountAll({

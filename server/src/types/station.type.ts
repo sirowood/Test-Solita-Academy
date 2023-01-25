@@ -1,3 +1,5 @@
+import { FilterProps } from "./routes.type";
+
 type StationFields = {
   nimi: unknown,
   namn: unknown,
@@ -37,6 +39,7 @@ type GetAllStationsParams = {
   offset: number,
   sortField: string,
   sortOrder: string,
+  filters: FilterProps,
   searchString: string
 };
 

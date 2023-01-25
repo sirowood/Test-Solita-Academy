@@ -1,6 +1,10 @@
 {
-  "trailingComma": "es5",
+  "trailingComma": "all",
   "semi": true,
   "singleQuote": true,
-  "singleAttributePerLine": true
+  "singleAttributePerLine": true,
+  "bracketSameLine": false,
+  "bracketSpacing": true,
+  "arrowParens": "always",
+  "endOfLine": "lf"
 }
