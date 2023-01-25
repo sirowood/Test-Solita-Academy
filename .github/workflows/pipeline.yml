@@ -18,18 +18,36 @@ jobs:
       - name: Install npm
         run: |
           cd server
-          npm install
+          npm ci
       - name: Eslint
         run: |
           cd server
           npm run lint
       - name: Run docker-compose
         run: docker-compose -f docker-compose.ci.yml up -d
-      - name: Server tests
+      - name: Tests
         run: |
           cd server
           npm run test
-      - name: Client tests
+
+  Client:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check files
+        uses: actions/checkout@v3
+      - name: Install node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Install npm
+        run: |
+          cd client
+          npm ci
+      - name: Eslint
+        run: |
+          cd client
+          npm run lint
+      - name: Tests
         run: |
           cd client
           npm run test
