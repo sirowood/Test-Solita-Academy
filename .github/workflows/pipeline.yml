@@ -15,18 +15,21 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - name: Set working directory
-        working-directory: server/
       - name: Install npm
-        run: npm ci
-      - name: Eslint
-        run: npm run lint
-      - name: Run docker-compose
         run: |
-          cd ..
-          docker-compose -f docker-compose.ci.yml up -d
+          cd server
+          npm ci
+      - name: Eslint
+        run: |
+          cd server
+          npm run lint
+      - name: Run docker-compose
+        run: docker-compose -f docker-compose.ci.yml up -d
       - name: Tests
-        run: npm run test
+        run: |
+          cd server
+          npm run test
+
   Client:
     runs-on: ubuntu-22.04
     steps:
@@ -36,11 +39,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - name: Set working directory
-        working-directory: client/
       - name: Install npm
-        run: npm ci
+        run: |
+          cd client
+          npm ci
       - name: Eslint
-        run: npm run lint
+        run: |
+          cd client
+          npm run lint
       - name: Tests
-        run: npm run test
+        run: |
+          cd client
+          npm run test
