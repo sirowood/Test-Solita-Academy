@@ -31,11 +31,11 @@ function useTables({
 
   const {
     filters,
-    showFilter,
+    showFilters,
     debouncedFilters,
     resetFilters,
     changeFilters,
-    changeShowFilter,
+    changeShowFilters,
   } = useFilterDebounce({ initialFilters, milliseconds: 500 });
 
   const {
@@ -64,14 +64,14 @@ function useTables({
     filters,
     ordering,
     searchText,
-    showFilter,
+    showFilters,
     currentPage: pagination.currentPage,
     resetFilters,
     setSearchText,
     changeFilters,
     changeOrdering,
     changePageSize,
-    changeShowFilter,
+    changeShowFilters,
     changeCurrentPage,
   };
 }

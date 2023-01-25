@@ -1,15 +1,3 @@
-const USETABLE_INITIAL_STATES = {
-  searchText: '',
-  isLoading: false,
-  visiblePages: [],
-  data: {
-    items: [],
-    totalItems: 0,
-    totalPages: 1,
-    currentPage: 1,
-  },
-};
-
 const USEORDERING_INITIAL_STATE = {
   orderBy: 'id',
   orderASC: true,
@@ -106,7 +94,6 @@ const JOURNEYS_FILTERS = [
 ];
 
 export {
-  USETABLE_INITIAL_STATES,
   USEORDERING_INITIAL_STATE,
   USEPAGINATION_INITIAL_STATE,
   USEDATA_INITIAL_STATE,

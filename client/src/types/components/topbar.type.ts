@@ -4,11 +4,11 @@ type TopBarProps = {
   filters: FilterStateProps,
   pageTitle: string,
   searchText: string,
-  showFilter: boolean,
+  showFilters: boolean,
   resetFilters: () => void,
   changeFilters: (filterName: string, filterProperty: string, newValue: string) => void,
   setSearchText: (newSearchText: string) => void,
-  changeShowFilter: () => void,
+  changeShowFilters: () => void,
 };
 
 export default TopBarProps;

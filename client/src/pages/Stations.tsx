@@ -11,14 +11,14 @@ function Stations() {
     filters,
     ordering,
     searchText,
-    showFilter,
+    showFilters,
     currentPage,
     resetFilters,
     changeFilters,
     setSearchText,
     changeOrdering,
     changePageSize,
-    changeShowFilter,
+    changeShowFilters,
     changeCurrentPage,
   } = useTables({
     initialFilters: STATIONS_FILTERS,
@@ -31,11 +31,11 @@ function Stations() {
         pageTitle="Stations"
         filters={filters}
         searchText={searchText}
-        showFilter={showFilter}
+        showFilters={showFilters}
         resetFilters={resetFilters}
         changeFilters={changeFilters}
         setSearchText={setSearchText}
-        changeShowFilter={changeShowFilter}
+        changeShowFilters={changeShowFilters}
       />
       <Table
         ordering={ordering}

@@ -4,11 +4,11 @@ import FilterProps from '../types/components/filter.type';
 
 function Filter({
   filters,
-  showFilter,
+  showFilters,
   resetFilters,
   changeFilters,
 }: FilterProps) {
-  if (!showFilter) {
+  if (!showFilters) {
     return null;
   }
 

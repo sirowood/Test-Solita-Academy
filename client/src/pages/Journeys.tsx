@@ -11,14 +11,14 @@ function Journeys() {
     filters,
     ordering,
     searchText,
-    showFilter,
+    showFilters,
     currentPage,
     resetFilters,
     changeFilters,
     setSearchText,
     changeOrdering,
     changePageSize,
-    changeShowFilter,
+    changeShowFilters,
     changeCurrentPage,
   } = useTables({
     initialFilters: JOURNEYS_FILTERS,
@@ -30,11 +30,11 @@ function Journeys() {
         pageTitle="Journeys"
         filters={filters}
         searchText={searchText}
-        showFilter={showFilter}
+        showFilters={showFilters}
         resetFilters={resetFilters}
         changeFilters={changeFilters}
         setSearchText={setSearchText}
-        changeShowFilter={changeShowFilter}
+        changeShowFilters={changeShowFilters}
       />
       <Table
         ordering={ordering}
