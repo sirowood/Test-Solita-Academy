@@ -7,13 +7,19 @@ const changePageSize = jest.fn();
 const changeCurrentPage = jest.fn();
 
 const fakeProps = {
+  data: {
+    isLoading: true,
+    visiblePages: ['1', '2', '3', '4', '5'],
+    response: {
+      totalItems: 100,
+      totalPages: 10,
+      currentPage: 1,
+      items: [],
+    },
+  },
   columns: [{ displayName: 'Name', queryName: 'name', isNumber: false }],
-  children: <div></div>,
   ordering: { orderBy: 'id', orderASC: true },
-  isLoading: true,
-  totalPages: 10,
   currentPage: '1',
-  visiblePages: ['1', '2', '3', '4', '5'],
   changeOrdering,
   changePageSize,
   changeCurrentPage,

@@ -37,27 +37,14 @@ function Journeys() {
         changeShowFilters={changeShowFilters}
       />
       <Table
+        data={data}
         ordering={ordering}
         currentPage={currentPage}
         columns={JOURNEYS_COLUMNS}
-        isLoading={data.isLoading}
-        visiblePages={data.visiblePages}
-        totalPages={data.response.totalPages}
         changeOrdering={changeOrdering}
         changePageSize={changePageSize}
         changeCurrentPage={changeCurrentPage}
-      >
-        {data.response.items.map((item) => (
-          <tr key={item.id}>
-            <td>{item.departureTime}</td>
-            <td>{item.arrivalTime}</td>
-            <td>{item.departureStationName}</td>
-            <td>{item.arrivalStationName}</td>
-            <td className="text-right">{item.coveredDistance}</td>
-            <td className="text-right">{item.duration}</td>
-          </tr>
-        ))}
-      </Table>
+      ></Table>
     </section>
   );
 }

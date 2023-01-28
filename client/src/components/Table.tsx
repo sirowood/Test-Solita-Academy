@@ -17,13 +17,10 @@ function SortingArrow({ queryName, ordering }: SortingArrowProps) {
 }
 
 function Table({
+  data,
   columns,
-  children,
   ordering,
-  isLoading,
-  totalPages,
   currentPage,
-  visiblePages,
   changeOrdering,
   changePageSize,
   changeCurrentPage,
@@ -55,13 +52,28 @@ function Table({
           </tr>
         </thead>
         <tbody>
-          {isLoading ? <Loading colSpan={columns.length} /> : children}
+          {data.isLoading ? (
+            <Loading colSpan={columns.length} />
+          ) : (
+            data.response.items.map((item) => (
+              <tr key={item.id}>
+                {columns.map((column) => (
+                  <td
+                    className={column.isNumber ? 'text-right' : ''}
+                    key={column.displayName}
+                  >
+                    {item[column.queryName]}
+                  </td>
+                ))}
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
       <Pagination
-        totalPages={totalPages}
+        totalPages={data.response.totalPages}
         currentPage={currentPage}
-        visiblePages={visiblePages}
+        visiblePages={data.visiblePages}
         changePageSize={changePageSize}
         changeCurrentPage={changeCurrentPage}
       />
