@@ -13,7 +13,7 @@
     "React",
     "Typescript",
     "Webpack",
-    "Bootstrap"
+    "TailwindCSS"
   ],
   "author": "Xuefeng Wu",
   "license": "ISC",
