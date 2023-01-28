@@ -38,24 +38,14 @@ function Stations() {
         changeShowFilters={changeShowFilters}
       />
       <Table
+        data={data}
         ordering={ordering}
         currentPage={currentPage}
         columns={STATIONS_COLUMNS}
-        isLoading={data.isLoading}
-        visiblePages={data.visiblePages}
-        totalPages={data.response.totalPages}
         changeOrdering={changeOrdering}
         changePageSize={changePageSize}
         changeCurrentPage={changeCurrentPage}
-      >
-        {data.response.items.map((item) => (
-          <tr key={item.id}>
-            <td>{item.nimi}</td>
-            <td>{item.osoite}</td>
-            <td className="text-right">{item.kapasiteet}</td>
-          </tr>
-        ))}
-      </Table>
+      ></Table>
     </section>
   );
 }

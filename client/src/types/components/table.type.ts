@@ -1,13 +1,11 @@
 import React from 'react';
+import { DataStateProps } from '../hooks/useData.type';
 import OrderingStateProps from '../hooks/useOdering.type';
 
 type TableProps = {
+  data: DataStateProps,
   ordering: OrderingStateProps,
   currentPage: string,
-  isLoading: boolean,
-  visiblePages: string[],
-  children: React.ReactNode,
-  totalPages: number,
   columns: { displayName: string, queryName: string, isNumber: boolean }[],
   changeOrdering: (column: string) => void,
   changePageSize: (event: React.ChangeEvent<HTMLSelectElement>) => void,
