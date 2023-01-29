@@ -5,7 +5,7 @@ import {
   BsFilterCircle as FilterIcon,
 } from 'react-icons/bs';
 import Filter from './Filter';
-import TopBarProps from '../types/components/topbar.type';
+import TopBarProps from '../../types/components/table/topbar.type';
 
 function TopBar({
   filters,

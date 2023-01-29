@@ -1,6 +1,6 @@
 import React from 'react';
-import Table from '../components/Table';
-import TopBar from '../components/TopBar';
+import Table from '../components/table/Table';
+import TopBar from '../components/table/TopBar';
 import useTables from '../hooks/useTables';
 import { fetchAllJourneys } from '../services/journey.service';
 import { JOURNEYS_COLUMNS, JOURNEYS_FILTERS } from '../constants';

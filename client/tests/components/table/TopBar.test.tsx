@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import TopBar from '../../src/components/TopBar';
+import TopBar from '../../../src/components/table/TopBar';
 
 const resetFilters = jest.fn();
 const changeFilters = jest.fn();

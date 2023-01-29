@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import Pagination from '../../src/components/Pagination';
+import Pagination from '../../../src/components/table/Pagination';
 
 const changePageSize = jest.fn();
 const changeCurrentPage = jest.fn();

@@ -93,6 +93,29 @@ const JOURNEYS_FILTERS = [
   },
 ];
 
+const STATION_INITIAL_STATE = {
+  id: 0,
+  nimi: '',
+  namn: '',
+  name: '',
+  osoite: '',
+  adress: '',
+  kaupunki: '',
+  stad: '',
+  operaattor: '',
+  kapasiteet: 0,
+  x: 0,
+  y: 0,
+  avgDepartureDistance: 0,
+  avgArrivalDistance: 0,
+  numDepartureJourneys: 0,
+  numArrivalJourneys: 0,
+  topOriginStations: [{ id: 0, nimi: '' }],
+  topDestinationStations: [{ id: 0, nimi: '' }],
+};
+
+const CARD_DETAILS_INITIAL_STATE = [{ name: '', value: '' }];
+
 export {
   USEORDERING_INITIAL_STATE,
   USEPAGINATION_INITIAL_STATE,
@@ -103,4 +126,6 @@ export {
   PAGINATION_OPTIONS,
   STATIONS_FILTERS,
   JOURNEYS_FILTERS,
+  STATION_INITIAL_STATE,
+  CARD_DETAILS_INITIAL_STATE,
 };

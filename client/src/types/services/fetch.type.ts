@@ -11,10 +11,15 @@ type FetchAllFunctionProps = {
   pagination: PaginationStateProps,
 };
 
+type FetchFunctionProps = {
+  id: string | undefined,
+};
+
 type FetchFunction =
   (params: FetchAllFunctionProps) => Promise<StationsResponse | JourneysResponse>;
 
 export {
   FetchAllFunctionProps,
+  FetchFunctionProps,
   FetchFunction,
 };

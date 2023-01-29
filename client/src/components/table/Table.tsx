@@ -1,12 +1,16 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   TiArrowUnsorted,
   TiArrowSortedUp,
   TiArrowSortedDown,
 } from 'react-icons/ti';
-import Loading from './Loading';
+import Loading from '../Loading';
 import Pagination from './Pagination';
-import { TableProps, SortingArrowProps } from '../types/components/table.type';
+import {
+  TableProps,
+  SortingArrowProps,
+} from '../../types/components/table/table.type';
 
 function SortingArrow({ queryName, ordering }: SortingArrowProps) {
   if (queryName !== ordering.orderBy) {
@@ -25,15 +29,23 @@ function Table({
   changePageSize,
   changeCurrentPage,
 }: TableProps) {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const navigatable = pathname === '/stations';
+
+  if (data.isLoading) {
+    return <Loading />;
+  }
+
   return (
-    <section className="flex flex-col h-full p-2">
+    <section className="flex flex-col h-full gap-2">
       <table className="w-full">
         <thead className="select-none">
-          <tr className="border-b-2">
+          <tr className="h-12 border-b-2">
             {columns.map((column) => (
               <td
                 key={column.queryName}
-                className="hover:cursor-pointer"
+                className="hover:cursor-pointer hover:bg-solita-500/80"
                 onClick={() => changeOrdering(column.queryName)}
               >
                 <div
@@ -53,10 +65,26 @@ function Table({
         </thead>
         <tbody>
           {data.isLoading ? (
-            <Loading colSpan={columns.length} />
+            <tr>
+              <td colSpan={columns.length}>
+                <div className="text-">
+                  <Loading />
+                </div>
+              </td>
+            </tr>
           ) : (
             data.response.items.map((item) => (
-              <tr key={item.id}>
+              <tr
+                className={`${
+                  navigatable
+                    ? 'hover:cursor-pointer hover:bg-solita-500/80'
+                    : ''
+                } h-12 border-b-[1px]`}
+                key={item.id}
+                // prettier-ignore
+                onClick={() => navigatable && navigate(`${pathname}/${item.id}`)
+                }
+              >
                 {columns.map((column) => (
                   <td
                     className={column.isNumber ? 'text-right' : ''}
