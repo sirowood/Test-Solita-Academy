@@ -4,12 +4,12 @@ import { FetchAllFunctionProps } from '../types/services/fetch.type';
 
 const URL = `${API_URL}/journeys`;
 
-const fetchAllJourneys = async ({
+async function fetchAllJourneys({
   filters,
   ordering,
   pagination,
   searchText,
-}: FetchAllFunctionProps) => {
+}: FetchAllFunctionProps) {
   const queryParams = {
     search: searchText,
     orderBy: ordering.orderBy,
@@ -23,12 +23,12 @@ const fetchAllJourneys = async ({
   const fullURL = `${URL}?${new URLSearchParams(queryParams).toString()}${queryFilters.join('')}`;
   const response = await axios.get(fullURL);
   return response.data as JourneysResponse;
-};
+}
 
-const addNewJourney = async (data: unknown) => {
+async function addNewJourney(data: unknown) {
   const response = await axios.post(URL, data);
   return response;
-};
+}
 
 export {
   fetchAllJourneys,

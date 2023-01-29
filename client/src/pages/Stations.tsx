@@ -1,6 +1,6 @@
 import React from 'react';
-import Table from '../components/Table';
-import TopBar from '../components/TopBar';
+import Table from '../components/table/Table';
+import TopBar from '../components/table/TopBar';
 import useTables from '../hooks/useTables';
 import { fetchAllStations } from '../services/station.service';
 import { STATIONS_COLUMNS, STATIONS_FILTERS } from '../constants';
@@ -26,7 +26,7 @@ function Stations() {
   });
 
   return (
-    <section className="flex flex-col w-full h-screen">
+    <section className="flex h-screen w-full flex-col">
       <TopBar
         pageTitle="Stations"
         filters={filters}

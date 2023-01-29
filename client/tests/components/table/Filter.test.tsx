@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import Filter from '../../src/components/Filter';
+import Filter from '../../../src/components/table/Filter';
 
 const filters = [
   {

@@ -1,15 +1,20 @@
-import axios from 'axios';
-import { StationsResponse } from '../types/services/station.type';
-import { FetchAllFunctionProps } from '../types/services/fetch.type';
+import axios, { AxiosError } from 'axios';
+import { StationsResponse, SingleStationResponse } from '../types/services/station.type';
+import { FetchFunctionProps, FetchAllFunctionProps } from '../types/services/fetch.type';
 
 const URL = `${API_URL}/stations`;
 
-const fetchAllStations = async ({
+async function addNewStation(data: unknown) {
+  const response = await axios.post(URL, data);
+  return response;
+}
+
+async function fetchAllStations({
   filters,
   ordering,
   pagination,
   searchText,
-}: FetchAllFunctionProps) => {
+}: FetchAllFunctionProps) {
   const queryParams = {
     search: searchText,
     orderBy: ordering.orderBy,
@@ -23,14 +28,27 @@ const fetchAllStations = async ({
   const fullURL = `${URL}?${new URLSearchParams(queryParams).toString()}${queryFilters.join('')}`;
   const response = await axios.get(fullURL);
   return response.data as StationsResponse;
-};
+}
 
-const addNewStation = async (data: unknown) => {
-  const response = await axios.post(URL, data);
-  return response;
-};
+async function fetchSingleStation({ id }: FetchFunctionProps) {
+  try {
+    const response = await axios.get(`${URL}/${id}`);
+    return response.data as SingleStationResponse;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      if (error.response?.data?.error) {
+        throw new Error(error.response.data.error);
+      } else {
+        throw new Error('An error occurred while trying to fetch the station.');
+      }
+    } else {
+      throw error;
+    }
+  }
+}
 
 export {
-  fetchAllStations,
   addNewStation,
+  fetchAllStations,
+  fetchSingleStation,
 };

@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { TbMap2 as StationIcon } from 'react-icons/tb';
 import { AiOutlineHome as HomeIcon } from 'react-icons/ai';
 import { GiPathDistance as JourneyIcon } from 'react-icons/gi';
-import LinkButtonProps from '../types/components/navigation.type';
+import LinkButtonProps from '../types/components/Navigation.type';
 
 function LinkButton({ name, path, children }: LinkButtonProps) {
   const isActive = useLocation().pathname === path;

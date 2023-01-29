@@ -1,14 +1,13 @@
 import React from 'react';
 import { AiOutlineLoading3Quarters as LoadingIcon } from 'react-icons/ai';
-import LoadingProps from '../types/components/loading.type';
 
-function Loading({ colSpan }: LoadingProps) {
+function Loading() {
   return (
-    <tr>
-      <td colSpan={colSpan}>
-        <LoadingIcon className="text-4xl animate-spin" />
-      </td>
-    </tr>
+    <div className="flex flex-col items-center justify-center w-full h-full gap-1">
+      <LoadingIcon className="text-6xl animate-spin" />
+      <span className="animate-pulse">Loading data...</span>
+      <span className="opacity-0 animate-fadeIn">I'm still working on it</span>
+    </div>
   );
 }
 

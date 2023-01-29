@@ -9,8 +9,8 @@ import {
   PaginationProps,
   PaginationButtonProps,
   PaginationSelectProps,
-} from '../types/components/pagination.type';
-import { PAGINATION_OPTIONS as options } from '../constants';
+} from '../../types/components/table/Pagination.type';
+import { PAGINATION_OPTIONS as options } from '../../constants';
 
 function PaginationButton({
   disabled,
