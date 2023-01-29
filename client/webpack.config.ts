@@ -19,6 +19,11 @@ const rules = [
 
 const config = {
   entry: './src/index.tsx',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
+    filename: 'main.js',
+  },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
