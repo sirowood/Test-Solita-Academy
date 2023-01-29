@@ -1,6 +1,12 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Journeys, Stations, Dashboard } from '../pages/index';
+// prettier-ignore
+import {
+  Station,
+  Journeys,
+  Stations,
+  Dashboard,
+} from '../pages/index';
 
 function Router() {
   return (
@@ -9,14 +15,22 @@ function Router() {
         path="/"
         element={<Dashboard />}
       />
-      <Route
-        path="/stations"
-        element={<Stations />}
-      />
-      <Route
-        path="/journeys"
-        element={<Journeys />}
-      />
+      <Route path="/stations">
+        <Route
+          index={true}
+          element={<Stations />}
+        />
+        <Route
+          path=":id"
+          element={<Station />}
+        />
+      </Route>
+      <Route path="/journeys">
+        <Route
+          index={true}
+          element={<Journeys />}
+        />
+      </Route>
       <Route
         path="*"
         element={<Navigate to="/" />}
