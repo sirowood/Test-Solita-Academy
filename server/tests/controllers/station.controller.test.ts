@@ -46,6 +46,20 @@ describe('Independent station controllers:', () => {
 
     expect(result!.nimi).toBe('Kaivopuisto');
   });
+
+  it('Search an existing station by nimi', async () => {
+    const result = await stationController.getStationsBySearch('kai');
+
+    expect(result?.length).toBe(1);
+    expect(result[0]?.id).toBeDefined();
+    expect(result[0]?.nimi).toBe('Kaivopuisto');
+  })
+
+  it('Search a non-existing station by nimi', async () => {
+    const result = await stationController.getStationsBySearch('imnobody');
+
+    expect(result?.length).toBe(0);
+  })
 });
 
 describe('Dependent station controllers:', () => {

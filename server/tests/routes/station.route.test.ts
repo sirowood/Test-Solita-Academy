@@ -228,6 +228,29 @@ describe('POST /api/stations', () => {
   });
 });
 
+describe('GET /api/stations/search/:nimi', () => {
+  it('Without nimi', async () => {
+    const response = await api.get('/api/stations/search/');
+    const { error } = response.body;
+
+    expect(response.status).toBe(400);
+    expect(error).toBe('Invalid id parameter. id must be a number');
+  });
+
+  it('With valid nimi and existing station', async () => {
+    const response = await api.get('/api/stations/search/kai');
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBe(1);
+    expect(response.body[0].nimi).toBe('Kaivopuisto');
+  });
+
+  it('With valid nimi but non-existing station', async () => {
+    const response = await api.get('/api/stations/search/ihaveagoodidea');
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBe(0);
+  });
+});
+
 afterAll(async () => {
   await rollbackMigrations();
   await sequelize.close();

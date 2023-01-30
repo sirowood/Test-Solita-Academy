@@ -116,6 +116,140 @@ const STATION_INITIAL_STATE = {
 
 const CARD_DETAILS_INITIAL_STATE = [{ name: '', value: '' }];
 
+const ADD_STATION_FIELDS = [
+  {
+    required: true,
+    fieldName: 'nimi',
+    displayName: 'Nimi',
+    type: 'text',
+    initialValue: '',
+  },
+  {
+    required: true,
+    fieldName: 'namn',
+    displayName: 'Namn',
+    type: 'text',
+    initialValue: '',
+  },
+  {
+    required: true,
+    fieldName: 'name',
+    displayName: 'Name',
+    type: 'text',
+    initialValue: '',
+  },
+  {
+    required: true,
+    fieldName: 'osoite',
+    displayName: 'Osoite',
+    type: 'text',
+    initialValue: '',
+  },
+  {
+    required: true,
+    fieldName: 'adress',
+    displayName: 'Adress',
+    type: 'text',
+    initialValue: '',
+  },
+  {
+    required: true,
+    fieldName: 'kapasiteet',
+    displayName: 'Kapasiteet',
+    type: 'number',
+    initialValue: '',
+    min: 1,
+  },
+  {
+    required: true,
+    fieldName: 'x',
+    displayName: 'X',
+    type: 'number',
+    initialValue: '',
+    min: -180,
+    max: 180,
+  },
+  {
+    required: true,
+    fieldName: 'y',
+    displayName: 'Y',
+    type: 'number',
+    initialValue: '',
+    min: -90,
+    max: 90,
+  },
+  {
+    required: false,
+    fieldName: 'kaupunki',
+    displayName: 'Kaupunki',
+    type: 'text',
+    initialValue: '',
+  },
+  {
+    required: false,
+    fieldName: 'stad',
+    displayName: 'Stad',
+    type: 'text',
+    initialValue: '',
+  },
+  {
+    required: false,
+    fieldName: 'operaattor',
+    displayName: 'Operaattor',
+    type: 'text',
+    initialValue: '',
+  },
+];
+
+const ADD_JOURNEY_FIELDS = [
+  {
+    required: true,
+    fieldName: 'departureTime',
+    displayName: 'Departure Time',
+    type: 'string',
+    initialValue: '',
+  },
+  {
+    required: true,
+    fieldName: 'arrivalTime',
+    displayName: 'Arrival Time',
+    type: 'string',
+    initialValue: '',
+  },
+  {
+    required: true,
+    select: true,
+    fieldName: 'departureStationId',
+    displayName: 'Departure station',
+    type: 'string',
+    initialValue: '',
+  },
+  {
+    required: true,
+    select: true,
+    fieldName: 'arrivalStationId',
+    displayName: 'Arrival Station',
+    type: 'string',
+    initialValue: '',
+  },
+  {
+    required: true,
+    fieldName: 'coveredDistance',
+    displayName: 'Covered Distance',
+    type: 'number',
+    initialValue: '',
+  },
+  {
+    required: true,
+    fieldName: 'duration',
+    displayName: 'Duration',
+    type: 'number',
+    initialValue: '',
+  },
+];
+
+const MESSAGE = { text: '', backgroundColor: '' };
+
 export {
   USEORDERING_INITIAL_STATE,
   USEPAGINATION_INITIAL_STATE,
@@ -128,4 +262,7 @@ export {
   JOURNEYS_FILTERS,
   STATION_INITIAL_STATE,
   CARD_DETAILS_INITIAL_STATE,
+  ADD_STATION_FIELDS,
+  ADD_JOURNEY_FIELDS,
+  MESSAGE,
 };

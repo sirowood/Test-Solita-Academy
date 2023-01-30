@@ -14,8 +14,8 @@ function LinkButton({ name, path, children }: LinkButtonProps) {
         className={`${
           isActive
             ? 'rounded-[28px] bg-solita-400 text-white hover:cursor-default'
-            : 'rounded-md text-solita-400 hover:bg-solita-400/50 active:translate-y-0.5 active:text-gray-400'
-        } mx-auto p-3 text-4xl duration-150 hover:text-white`}
+            : 'rounded-md text-solita-400 hover:bg-solita-400/50 hover:text-white/80 active:translate-y-0.5'
+        } mx-auto p-3 text-4xl duration-150`}
         to={path}
       >
         {children}
@@ -29,8 +29,8 @@ function LinkButton({ name, path, children }: LinkButtonProps) {
       <div
         className={`${
           isActive ? '' : 'group-hover:block'
-        } absolute left-[84px] hidden select-none
-          rounded bg-solita-500 py-1 px-2`}
+        } absolute left-[84px] hidden select-none rounded
+          bg-solita-500 py-1 px-2 text-white shadow-lg`}
       >
         {name}
       </div>

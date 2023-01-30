@@ -1,4 +1,4 @@
-type Station = {
+type StationBase = {
   id: number,
   nimi: string,
   namn: string,
@@ -11,6 +11,9 @@ type Station = {
   kapasiteet: number,
   x: number,
   y: number,
+};
+
+type Station = StationBase & {
   [key: string]: string | number,
 };
 
@@ -21,19 +24,7 @@ type StationsResponse = {
   items: Station[],
 };
 
-type SingleStationResponse = {
-  id: number,
-  nimi: string,
-  namn: string,
-  name: string,
-  osoite: string,
-  adress: string,
-  kaupunki: string,
-  stad: string,
-  operaattor: string,
-  kapasiteet: number,
-  x: number,
-  y: number,
+type SingleStationResponse = StationBase & {
   avgDepartureDistance: number,
   avgArrivalDistance: number,
   numDepartureJourneys: number,

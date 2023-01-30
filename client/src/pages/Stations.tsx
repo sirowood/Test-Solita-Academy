@@ -1,4 +1,5 @@
 import React from 'react';
+import PageLayout from '../components/PageLayout';
 import Table from '../components/table/Table';
 import TopBar from '../components/table/TopBar';
 import useTables from '../hooks/useTables';
@@ -26,7 +27,7 @@ function Stations() {
   });
 
   return (
-    <section className="flex h-screen w-full flex-col">
+    <PageLayout className="flex-col">
       <TopBar
         pageTitle="Stations"
         filters={filters}
@@ -46,7 +47,7 @@ function Stations() {
         changePageSize={changePageSize}
         changeCurrentPage={changeCurrentPage}
       ></Table>
-    </section>
+    </PageLayout>
   );
 }
 

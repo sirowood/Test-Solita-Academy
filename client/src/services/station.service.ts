@@ -1,12 +1,25 @@
 import axios, { AxiosError } from 'axios';
 import { StationsResponse, SingleStationResponse } from '../types/services/station.type';
+import { AddFunctionProps } from '../types/services/add.type';
 import { FetchFunctionProps, FetchAllFunctionProps } from '../types/services/fetch.type';
 
 const URL = `${API_URL}/stations`;
 
-async function addNewStation(data: unknown) {
-  const response = await axios.post(URL, data);
-  return response;
+async function addStation({ ...newStation }: AddFunctionProps) {
+  try {
+    const response = await axios.post(URL, { ...newStation });
+    return response.data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      if (error.response?.data?.error) {
+        throw new Error(error.response.data.error);
+      } else {
+        throw new Error('An error occurred while trying to add new station.');
+      }
+    } else {
+      throw error;
+    }
+  }
 }
 
 async function fetchAllStations({
@@ -47,8 +60,32 @@ async function fetchSingleStation({ id }: FetchFunctionProps) {
   }
 }
 
+type SearchFunctionProps = { nimi: string };
+type SearchFunctionResponse = {
+  id: number,
+  nimi: string,
+}[] | [];
+
+async function fetchStationsBySearch({ nimi }: SearchFunctionProps) {
+  try {
+    const response = await axios.get(`${URL}/search/${nimi}`);
+    return response.data as SearchFunctionResponse;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      if (error.response?.data?.error) {
+        throw new Error(error.response.data.error);
+      } else {
+        throw new Error('An error occurred while trying to search the station.');
+      }
+    } else {
+      throw error;
+    }
+  }
+}
+
 export {
-  addNewStation,
+  addStation,
   fetchAllStations,
   fetchSingleStation,
+  fetchStationsBySearch,
 };

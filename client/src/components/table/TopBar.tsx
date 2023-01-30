@@ -20,9 +20,9 @@ function TopBar({
   return (
     <section className="flex flex-row items-center justify-between h-12 p-2 shadow-lg">
       <h1 className="text-2xl font-extrabold select-none">{pageTitle}</h1>
-      <div className="flex flex-row items-center gap-1 p-1 rounded-md bg-solita-500">
+      <div className="flex flex-row items-center gap-1 px-3 py-1 rounded-3xl bg-solita-500">
         <input
-          className="w-20 duration-300 outline-none bg-inherit placeholder-solita-400 focus:w-40"
+          className="w-40 duration-300 outline-none bg-inherit placeholder-solita-400"
           type="text"
           value={searchText}
           placeholder="Search"
@@ -47,9 +47,11 @@ function TopBar({
       </div>
       <button
         type="button"
-        className="p-0 text-xl text-white/50 hover:text-white"
+        className="text-xl text-white/50 hover:text-white"
       >
-        <AddIcon />
+        <a href={`/${pageTitle.toLocaleLowerCase()}/add`}>
+          <AddIcon />
+        </a>
       </button>
     </section>
   );
