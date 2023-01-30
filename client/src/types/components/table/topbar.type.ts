@@ -1,4 +1,4 @@
-import { FilterStateProps } from '../hooks/useFilterDebounce.type';
+import { FilterStateProps } from '../../hooks/useFilterDebounce.type';
 
 type TopBarProps = {
   filters: FilterStateProps,

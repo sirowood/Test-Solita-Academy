@@ -1,6 +1,6 @@
 import React from 'react';
-import { DataStateProps } from '../hooks/useData.type';
-import OrderingStateProps from '../hooks/useOdering.type';
+import { DataStateProps } from '../../hooks/useData.type';
+import OrderingStateProps from '../../hooks/useOdering.type';
 
 type TableProps = {
   data: DataStateProps,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BiReset as ResetIcon } from 'react-icons/bi';
-import FilterProps from '../types/components/filter.type';
+import FilterProps from '../../types/components/table/filter.type';
 
 function Filter({
   filters,

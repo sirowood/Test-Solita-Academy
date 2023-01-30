@@ -83,7 +83,7 @@ const getSingleStation = async (id: number) => {
 
   const topOriginStations = await sequelize.query(
     `
-    SELECT stations.nimi
+    SELECT stations.id, stations.nimi
     FROM stations
     JOIN journeys ON stations.id = journeys.departure_station_id
     WHERE journeys.arrival_station_id=$id
@@ -98,7 +98,7 @@ const getSingleStation = async (id: number) => {
 
   const topDestinationStations = await sequelize.query(
     `
-    SELECT stations.nimi
+    SELECT stations.id, stations.nimi
     FROM stations
     JOIN journeys ON stations.id = journeys.arrival_station_id
     WHERE journeys.departure_station_id=$id

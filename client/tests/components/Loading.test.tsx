@@ -3,15 +3,9 @@ import { render, screen } from '@testing-library/react';
 import Loading from '../../src/components/Loading';
 
 beforeAll(() => {
-  render(
-    <table>
-      <tbody>
-        <Loading colSpan={3} />
-      </tbody>
-    </table>,
-  );
+  render(<Loading />);
 });
 
 test('should render tr element', () => {
-  expect(screen.getByRole('row')).toBeDefined();
+  expect(screen.getByText('Loading data...')).toBeDefined();
 });
