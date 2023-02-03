@@ -19,7 +19,7 @@ const USEDATA_INITIAL_STATE = {
   },
 };
 
-const USETABLE_VISIBLE_PAGES_NUMBER = 5;
+const USETABLE_VISIBLE_PAGES_NUMBER = 3;
 
 const STATIONS_COLUMNS = [
   { displayName: 'Nimi', queryName: 'nimi', isNumber: false },
@@ -235,14 +235,14 @@ const ADD_JOURNEY_FIELDS = [
   {
     required: true,
     fieldName: 'coveredDistance',
-    displayName: 'Covered Distance',
+    displayName: 'Covered Distance(m)',
     type: 'number',
     initialValue: '',
   },
   {
     required: true,
     fieldName: 'duration',
-    displayName: 'Duration',
+    displayName: 'Duration(s)',
     type: 'number',
     initialValue: '',
   },

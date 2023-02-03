@@ -11,6 +11,14 @@ import {
   TableProps,
   SortingArrowProps,
 } from '../../types/components/table/table.type';
+import {
+  tableSection,
+  tableHeadRow,
+  tableHeadCell,
+  tableBodyRow,
+  tableBodyCell,
+  tableHeadCellText,
+} from '../../styles/components/table/table.styles';
 
 function SortingArrow({ queryName, ordering }: SortingArrowProps) {
   if (queryName !== ordering.orderBy) {
@@ -38,24 +46,20 @@ function Table({
   }
 
   return (
-    <section className="flex flex-col h-full gap-2">
-      <table className="w-full">
-        <thead className="select-none">
-          <tr className="h-12 border-b-2">
-            {columns.map((column) => (
+    <section className={tableSection}>
+      <table className="table-auto">
+        <thead>
+          <tr className={tableHeadRow}>
+            {columns.map(({ isNumber, queryName, displayName }) => (
               <td
-                key={column.queryName}
-                className="hover:cursor-pointer hover:bg-solita-500/80"
-                onClick={() => changeOrdering(column.queryName)}
+                key={queryName}
+                className={tableHeadCell}
+                onClick={() => changeOrdering(queryName)}
               >
-                <div
-                  className={`${
-                    column.isNumber ? 'justify-end' : 'justify-start'
-                  } flex flex-row items-center`}
-                >
-                  {column.displayName}
+                <div className={tableHeadCellText(isNumber)}>
+                  {displayName}
                   <SortingArrow
-                    queryName={column.queryName}
+                    queryName={queryName}
                     ordering={ordering}
                   />
                 </div>
@@ -64,38 +68,24 @@ function Table({
           </tr>
         </thead>
         <tbody>
-          {data.isLoading ? (
-            <tr>
-              <td colSpan={columns.length}>
-                <div className="text-">
-                  <Loading />
-                </div>
-              </td>
-            </tr>
-          ) : (
-            data.response.items.map((item) => (
-              <tr
-                className={`${
-                  navigatable
-                    ? 'hover:cursor-pointer hover:bg-solita-500/80'
-                    : ''
-                } h-12 border-b-[1px]`}
-                key={item.id}
-                // prettier-ignore
-                onClick={() => navigatable && navigate(`${pathname}/${item.id}`)
+          {data.response.items.map((item) => (
+            <tr
+              className={tableBodyRow(navigatable)}
+              key={item.id}
+              // prettier-ignore
+              onClick={() => navigatable && navigate(`${pathname}/${item.id}`)
                 }
-              >
-                {columns.map((column) => (
-                  <td
-                    className={column.isNumber ? 'text-right' : ''}
-                    key={column.displayName}
-                  >
-                    {item[column.queryName]}
-                  </td>
-                ))}
-              </tr>
-            ))
-          )}
+            >
+              {columns.map(({ isNumber, displayName, queryName }) => (
+                <td
+                  className={tableBodyCell(isNumber)}
+                  key={displayName}
+                >
+                  {item[queryName]}
+                </td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </table>
       <Pagination

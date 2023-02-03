@@ -10,6 +10,7 @@ import {
 } from '../../types/components/form/addForm.type';
 import { AddFunctionProps } from '../../types/services/add.type';
 import { MESSAGE } from '../../constants';
+import { form, formHeading } from '../../styles/components/form/addForm.styles';
 
 function AddForm({
   fields,
@@ -56,9 +57,6 @@ function AddForm({
           backgroundColor={message.backgroundColor}
         />
       )}
-
-      <h1 className="text-3xl text-center select-none">Add {addType}</h1>
-
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -66,7 +64,8 @@ function AddForm({
         validateOnMount={true}
       >
         {({ isSubmitting, dirty, isValid, errors, resetForm }) => (
-          <Form className="flex flex-col items-center gap-4">
+          <Form className={form}>
+            <h1 className={formHeading}>Add {addType}</h1>
             <FormFields
               fields={fields}
               errors={errors}

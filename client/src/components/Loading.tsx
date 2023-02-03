@@ -1,13 +1,19 @@
 import React from 'react';
 import { AiOutlineLoading3Quarters as LoadingIcon } from 'react-icons/ai';
+import {
+  loading,
+  loadingHeading,
+  loadingIcon,
+  loadingText,
+} from '../styles/components/loading.styles';
 
 function Loading() {
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full gap-1">
-      <LoadingIcon className="text-6xl animate-spin" />
-      <span className="animate-pulse">Loading data...</span>
-      <span className="opacity-0 animate-fadeIn">I'm still working on it</span>
-    </div>
+    <section className={loading}>
+      <LoadingIcon className={loadingIcon} />
+      <span className={loadingHeading}>Loading...</span>
+      <span className={loadingText}>I'm still working on it</span>
+    </section>
   );
 }
 

@@ -5,6 +5,7 @@ import TopBar from '../components/table/TopBar';
 import useTables from '../hooks/useTables';
 import { fetchAllJourneys } from '../services/journey.service';
 import { JOURNEYS_COLUMNS, JOURNEYS_FILTERS } from '../constants';
+import journeys from '../styles/pages/journeys.styles';
 
 function Journeys() {
   const {
@@ -26,7 +27,7 @@ function Journeys() {
     fetchFunction: fetchAllJourneys,
   });
   return (
-    <PageLayout className="flex-col">
+    <PageLayout classProps={journeys}>
       <TopBar
         pageTitle="Journeys"
         filters={filters}

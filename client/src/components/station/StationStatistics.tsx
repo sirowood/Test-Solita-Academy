@@ -1,6 +1,16 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import StationStatisticsProps from '../../types/components/station/stationStatistics.type';
+import {
+  horizontalLine,
+  singleStatistics,
+  statisticsHeading,
+  statisticsNumber,
+  statisticsSubDiv,
+  tops,
+  topsHeading,
+  topsItem,
+  topsList,
+} from '../../styles/components/station/stationStatistics.styles';
 
 function formatNumber(number: number): string {
   if (number > 1000000000) {
@@ -25,44 +35,36 @@ function StationStatistics({
   topTitle,
   topStations,
 }: StationStatisticsProps) {
-  const navigate = useNavigate();
   return (
-    <section className="flex flex-col p-6 rounded-md shadow-2xl select-none items-center1 h-fit bg-solita-500/50">
-      <h2 className="text-lg font-bold text-center">{title}</h2>
+    <section className={singleStatistics}>
+      <h2 className={statisticsHeading}>{title}</h2>
 
-      <div className="flex flex-col items-center mt-2">
-        <h3 className="font-semibold">Journeys count</h3>
-        <span className="font-mono text-3xl font-semibold border-b-2">
-          {formatNumber(journeysCount)}
-        </span>
+      <div className={statisticsSubDiv}>
+        <h3>Journeys count</h3>
+        <span className={statisticsNumber}>{formatNumber(journeysCount)}</span>
       </div>
 
-      <div className="flex flex-col items-center mt-2">
-        <h3 className="font-semibold">Avg distance(m)</h3>
-        <span className="font-mono text-3xl font-semibold border-b-2">
-          {formatNumber(avgDistance)}
-        </span>
+      <div className={statisticsSubDiv}>
+        <h3>Avg distance(m)</h3>
+        <span className={statisticsNumber}>{formatNumber(avgDistance)}</span>
       </div>
 
-      <hr className="mt-4 border-solita-400" />
+      <span className={horizontalLine} />
 
-      <div className="flex flex-col mt-4">
-        <h3 className="font-semibold text-center">Top {topTitle}</h3>
-        <ol className="flex flex-col gap-1">
-          {topStations.map((station, index) => (
+      <section className={tops}>
+        <h3 className={topsHeading}>Top {topTitle}</h3>
+        <ol className={topsList}>
+          {topStations.map((station) => (
             <a
               key={station.id}
               href={`/stations/${station.id}`}
-              className="py-2 duration-150 rounded hover:bg-solita-400 hover:shadow-lg"
-              onClick={() => navigate(`/stations/${station.id}`)}
+              className={topsItem}
             >
-              <li>
-                {index + 1}. {station.nimi}
-              </li>
+              <li>{station.nimi}</li>
             </a>
           ))}
         </ol>
-      </div>
+      </section>
     </section>
   );
 }

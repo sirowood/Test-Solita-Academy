@@ -7,5 +7,5 @@ beforeAll(() => {
 });
 
 test('should render tr element', () => {
-  expect(screen.getByText('Loading data...')).toBeDefined();
+  expect(screen.getByText('Loading...')).toBeDefined();
 });

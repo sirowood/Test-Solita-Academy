@@ -1,16 +1,9 @@
 import React from 'react';
 import PageLayoutProps from '../types/components/pageLayout.type';
+import pageLayout from '../styles/components/pageLayout.styles';
 
-function PageLayout({ className, children }: PageLayoutProps) {
-  return (
-    <main
-      className={`${
-        className || ''
-      } flex h-screen w-full bg-solita-400 text-white`}
-    >
-      {children}
-    </main>
-  );
+function PageLayout({ classProps, children }: PageLayoutProps) {
+  return <main className={pageLayout(classProps)}>{children}</main>;
 }
 
 export default PageLayout;
