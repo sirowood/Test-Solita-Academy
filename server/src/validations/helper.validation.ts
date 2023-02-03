@@ -1,28 +1,28 @@
-const isString = (text: unknown): text is string => {
+function isString(text: unknown): text is string {
   return typeof text === 'string' || text instanceof String;
-};
+}
 
-const isDate = (date: string) => {
+function isDate(date: string) {
   return Boolean(Date.parse(date));
-};
+}
 
-const isNumber = (text: unknown) => {
+function isNumber(text: unknown) {
   return !isNaN(Number(text));
-};
+}
 
-const throwMissingError = (target: string) => {
+function throwMissingError(target: string) {
   throw {
     name: 'Missing data',
     message: `Missing ${target}`
   };
-};
+}
 
-const throwInvalidError = (message: string) => {
+function throwInvalidError(message: string) {
   throw {
     name: 'Invalid data',
     message,
   };
-};
+}
 
 export {
   isString,

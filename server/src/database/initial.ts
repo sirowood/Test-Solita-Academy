@@ -13,7 +13,7 @@ type InitialData = {
   headers: string[],
 };
 
-const newParser = (url: string, headers: string[]) => {
+function newParser(url: string, headers: string[]) {
   const parser = needle
     .get(url, { follow_max: 1, compressed: true })
     .pipe(parse({
@@ -25,23 +25,23 @@ const newParser = (url: string, headers: string[]) => {
     }));
 
   return parser;
-};
+}
 
-const validJourney = (newEntry: JourneyFields) => {
+function validJourney(newEntry: JourneyFields) {
   return allStationsId.includes(Number(newEntry.arrivalStationId))
-  && allStationsId.includes(Number(newEntry.departureStationId))
-  && Date.parse(newEntry.arrivalTime as string) > Date.parse(newEntry.departureTime as string)
-  && Number(newEntry.coveredDistance) >= 10
-  && Number(newEntry.duration) >= 10;
-};
+    && allStationsId.includes(Number(newEntry.departureStationId))
+    && Date.parse(newEntry.arrivalTime as string) > Date.parse(newEntry.departureTime as string)
+    && Number(newEntry.coveredDistance) >= 10
+    && Number(newEntry.duration) >= 10;
+}
 
-const validStation = (newEntry: StationFields) => {
+function validStation(newEntry: StationFields) {
   return Math.abs(Number(newEntry.x)) <= 90 && Math.abs(Number(newEntry.y)) <= 180;
-};
+}
 
 const allStationsId: number[] = [];
 
-const startInitialization = async (initialData: InitialData): Promise<void> => {
+async function startInitialization(initialData: InitialData): Promise<void> {
   const {
     dataGroup,
     urls,
@@ -50,16 +50,16 @@ const startInitialization = async (initialData: InitialData): Promise<void> => {
 
   const entriesToImport: unknown[] = [];
 
-  const writeEntriesToDatabase = () => {
+  function writeEntriesToDatabase() {
     if (dataGroup === 'stations') {
       void Station.bulkCreate(entriesToImport as NewStation[], { ignoreDuplicates: true });
     } else {
       void Journey.bulkCreate(entriesToImport as NewJourney[], { ignoreDuplicates: true });
     }
     entriesToImport.length = 0;
-  };
+  }
 
-  const processNewEntry = (newEntry: unknown) => {
+  function processNewEntry(newEntry: unknown) {
     if (dataGroup === 'stations') {
       if (!validStation(newEntry as StationFields)) {
         return;
@@ -77,13 +77,13 @@ const startInitialization = async (initialData: InitialData): Promise<void> => {
 
       entriesToImport.push(newEntry as NewJourney);
     }
-  };
+  }
 
-  const handleStreamEnd = () => {
+  function handleStreamEnd() {
     if (entriesToImport.length > 0) {
       writeEntriesToDatabase();
     }
-  };
+  }
 
   for (const [index, url] of urls.entries()) {
     info(`Importing ${dataGroup} - ${index + 1}/${urls.length}`);
@@ -94,12 +94,12 @@ const startInitialization = async (initialData: InitialData): Promise<void> => {
     parser.on('end', handleStreamEnd);
     await finished(parser);
   }
-};
+}
 
-const initializeData = async () => {
+async function initializeData() {
   await startInitialization(stationData);
   await startInitialization(journeyData);
   await Station.updateStationTableSequence();
-};
+}
 
 export default initializeData;

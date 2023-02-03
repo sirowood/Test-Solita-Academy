@@ -5,7 +5,7 @@ import { transformStation } from "./helper.controller";
 import { NewStation, GetAllStationsParams } from '../types/station.type';
 import { error } from '../utils/logger';
 
-const addStation = async (newStationEntry: NewStation) => {
+async function addStation(newStationEntry: NewStation) {
   let stationCreated;
 
   try {
@@ -21,11 +21,11 @@ const addStation = async (newStationEntry: NewStation) => {
   }
 
   return stationCreated;
-};
+}
 
-const getAllStations = async (
+async function getAllStations(
   { size, currentPage, limit, offset, sortField, sortOrder, filters, searchString }: GetAllStationsParams
-) => {
+) {
   const searchFields = [
     'nimi', 'namn', 'name', 'osoite',
     'adress', 'kaupunki', 'stad', 'operaattor'
@@ -50,9 +50,9 @@ const getAllStations = async (
   const transformedStations = transformStation(allStations, size, currentPage);
 
   return transformedStations;
-};
+}
 
-const getSingleStation = async (id: number) => {
+async function getSingleStation(id: number) {
   const station = await Station.findOne({
     attributes: {
       include: [
@@ -125,9 +125,9 @@ const getSingleStation = async (id: number) => {
     topDestinationStations,
   };
   return result;
-};
+}
 
-const getStationsBySearch = async (nimi: string) => {
+async function getStationsBySearch(nimi: string) {
   const where = {
     nimi: {
       [Op.iLike]: `%${nimi}%`,
@@ -140,7 +140,7 @@ const getStationsBySearch = async (nimi: string) => {
   });
 
   return stations;
-};
+}
 
 export {
   addStation,

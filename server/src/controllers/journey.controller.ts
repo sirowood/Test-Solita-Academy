@@ -4,7 +4,7 @@ import { transformJourney } from "./helper.controller";
 import { NewJourney, GetAllJourneysParams } from '../types/journey.type';
 import { error } from '../utils/logger';
 
-const addJourney = async (newJourneyEntry: NewJourney) => {
+async function addJourney(newJourneyEntry: NewJourney) {
   let journeyCreated;
 
   try {
@@ -17,11 +17,11 @@ const addJourney = async (newJourneyEntry: NewJourney) => {
   }
 
   return journeyCreated;
-};
+}
 
-const getAllJourneys = async (
+async function getAllJourneys(
   { size, currentPage, limit, offset, sortField, sortOrder, filters, searchString }: GetAllJourneysParams
-) => {
+) {
   const attributes: FindAttributeOptions = {
     include: [
       [sequelize.col('"departureStation"."nimi"'), 'departureStationName'],
@@ -56,7 +56,7 @@ const getAllJourneys = async (
   const transformedJourneys = transformJourney(allJourneys, size, currentPage);
 
   return transformedJourneys;
-};
+}
 
 export {
   addJourney,
