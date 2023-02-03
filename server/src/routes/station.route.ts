@@ -35,7 +35,7 @@ stationRoute.get('/:id', (async (req, res, next) => {
     }
     res.send(result);
   } catch (e) {
-    next (e);
+    next(e);
   }
 }) as RequestHandler);
 
@@ -47,7 +47,23 @@ stationRoute.post('/', (async (req, res, next) => {
     const result = await stationService.addStation(newStationEntry);
     res.status(201).send(result);
   } catch (e) {
-      next(e);
+    next(e);
+  }
+}) as RequestHandler);
+
+stationRoute.get('/search/:nimi', (async (req, res, next) => {
+  const { nimi } = req.params;
+
+  if (!nimi) {
+    next();
+    return;
+  }
+
+  try {
+    const result = await stationService.getStationsBySearch(nimi);
+    res.send(result);
+  } catch (e) {
+    next(e);
   }
 }) as RequestHandler);
 

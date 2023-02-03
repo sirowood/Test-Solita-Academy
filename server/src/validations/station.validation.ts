@@ -22,7 +22,8 @@ const parseNumber = (param: unknown, target: string): number => {
   if (!param) {
     throwMissingError(target);
   }
-  if (!isString(param) || !isNumber(param)) {
+
+  if (!isNumber(param)) {
     throwInvalidError(`${target}: '${param}' is not a valid number`);
   }
   return Number(param);

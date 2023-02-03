@@ -6,14 +6,14 @@ const isDate = (date: string) => {
   return Boolean(Date.parse(date));
 };
 
-const isNumber = (text: string) => {
+const isNumber = (text: unknown) => {
   return !isNaN(Number(text));
 };
 
 const throwMissingError = (target: string) => {
   throw {
     name: 'Missing data',
-    message:`Missing ${target}`
+    message: `Missing ${target}`
   };
 };
 

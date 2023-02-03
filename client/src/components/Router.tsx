@@ -1,11 +1,12 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-// prettier-ignore
+import AddJourney from '../pages/AddJourney';
 import {
   Station,
   Journeys,
   Stations,
   Dashboard,
+  AddStation,
 } from '../pages/index';
 
 function Router() {
@@ -24,11 +25,19 @@ function Router() {
           path=":id"
           element={<Station />}
         />
+        <Route
+          path="add"
+          element={<AddStation />}
+        />
       </Route>
       <Route path="/journeys">
         <Route
           index={true}
           element={<Journeys />}
+        />
+        <Route
+          path="add"
+          element={<AddJourney />}
         />
       </Route>
       <Route

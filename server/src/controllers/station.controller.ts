@@ -56,8 +56,14 @@ const getSingleStation = async (id: number) => {
   const station = await Station.findOne({
     attributes: {
       include: [
-        [fn('AVG', col('departureJourneys.covered_distance')), 'avgDepartureDistance'],
-        [fn('AVG', col('arrivalJourneys.covered_distance')), 'avgArrivalDistance'],
+        [
+          fn('AVG', fn('COALESCE', col('departureJourneys.covered_distance'), 0)),
+          'avgDepartureDistance'
+        ],
+        [
+          fn('AVG', fn('COALESCE', col('arrivalJourneys.covered_distance'), 0)),
+          'avgArrivalDistance'
+        ]
       ]
     },
     include: [
@@ -121,8 +127,24 @@ const getSingleStation = async (id: number) => {
   return result;
 };
 
+const getStationsBySearch = async (nimi: string) => {
+  const where = {
+    nimi: {
+      [Op.iLike]: `%${nimi}%`,
+    }
+  };
+
+  const stations = await Station.findAll({
+    attributes: ['id', 'nimi'],
+    where,
+  });
+
+  return stations;
+};
+
 export {
   addStation,
   getAllStations,
   getSingleStation,
+  getStationsBySearch,
 };

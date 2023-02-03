@@ -1,4 +1,5 @@
 import React from 'react';
+import PageLayout from '../components/PageLayout';
 import Table from '../components/table/Table';
 import TopBar from '../components/table/TopBar';
 import useTables from '../hooks/useTables';
@@ -25,7 +26,7 @@ function Journeys() {
     fetchFunction: fetchAllJourneys,
   });
   return (
-    <section className="w-full">
+    <PageLayout className="flex-col">
       <TopBar
         pageTitle="Journeys"
         filters={filters}
@@ -45,7 +46,7 @@ function Journeys() {
         changePageSize={changePageSize}
         changeCurrentPage={changeCurrentPage}
       ></Table>
-    </section>
+    </PageLayout>
   );
 }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PageLayout from '../components/PageLayout';
 import useStation from '../hooks/useStation';
 import Loading from '../components/Loading';
 import StationError from '../components/station/StationError';
@@ -9,15 +10,23 @@ function Station() {
   const { data, error, isLoading } = useStation();
 
   if (isLoading) {
-    return <Loading />;
+    return (
+      <PageLayout>
+        <Loading />
+      </PageLayout>
+    );
   }
 
   if (error) {
-    return <StationError error={error} />;
+    return (
+      <PageLayout>
+        <StationError error={error} />
+      </PageLayout>
+    );
   }
 
   return (
-    <section className="flex flex-row flex-wrap gap-4 p-4">
+    <PageLayout className="flex-row flex-wrap gap-4 p-4">
       <StationCard
         nimi={data.nimi}
         osoite={data.osoite}
@@ -39,7 +48,7 @@ function Station() {
         topTitle="origins"
         topStations={data.topOriginStations}
       />
-    </section>
+    </PageLayout>
   );
 }
 

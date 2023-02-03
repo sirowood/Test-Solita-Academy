@@ -19,7 +19,7 @@ const parseStationId = (id: unknown, target: string): number => {
   if (!id) {
     throwMissingError(target);
   }
-  if (!isString(id) || !isNumber(id)) {
+  if (!isNumber(id)) {
     throwInvalidError(`Unable to convert ${target}: '${id}' to number`);
   }
   if (Number(id) <= 0) {
@@ -32,7 +32,8 @@ const parseValidNumber = (param: unknown, target: string): number => {
   if (!param) {
     throwMissingError(target);
   }
-  if (!isString(param) || !isNumber(param)) {
+
+  if (!isNumber(param)) {
     throwInvalidError(`Unable to convert ${target}: '${param}' to number`);
   }
   if (Number(param) < 10) {

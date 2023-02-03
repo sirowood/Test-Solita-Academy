@@ -1,8 +1,26 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { JourneysResponse } from '../types/services/journey.type';
+import { AddFunctionProps } from '../types/services/add.type';
 import { FetchAllFunctionProps } from '../types/services/fetch.type';
 
 const URL = `${API_URL}/journeys`;
+
+async function addJourney({ ...newJourney }: AddFunctionProps) {
+  try {
+    const response = await axios.post(URL, { ...newJourney });
+    return response.data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      if (error.response?.data?.error) {
+        throw new Error(error.response.data.error);
+      } else {
+        throw new Error('An error occurred while trying to add new station.');
+      }
+    } else {
+      throw error;
+    }
+  }
+}
 
 async function fetchAllJourneys({
   filters,
@@ -25,12 +43,7 @@ async function fetchAllJourneys({
   return response.data as JourneysResponse;
 }
 
-async function addNewJourney(data: unknown) {
-  const response = await axios.post(URL, data);
-  return response;
-}
-
 export {
   fetchAllJourneys,
-  addNewJourney,
+  addJourney,
 };

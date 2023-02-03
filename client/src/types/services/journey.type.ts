@@ -8,7 +8,7 @@ type Journey = {
   arrivalStationId: number,
   departureStationName: string,
   arrivalStationName: string,
-  [key: string]: string | number,
+  [key: string]: string | number | undefined,
 };
 
 type JourneysResponse = {
