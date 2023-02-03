@@ -1,5 +1,5 @@
 type PageLayoutProps = {
-  className?: string;
+  classProps?: string;
   children: React.ReactNode;
 };
 

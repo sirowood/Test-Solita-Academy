@@ -2,6 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BiReset as ResetIcon } from 'react-icons/bi';
 import FormButtonsProps from '../../types/components/form/formButtons.type';
+import {
+  button,
+  formButtons,
+  resetButton,
+} from '../../styles/components/form/formButtons.styles';
 
 function FormButtons({
   dirty,
@@ -13,24 +18,24 @@ function FormButtons({
   const navigate = useNavigate();
 
   return (
-    <section className="flex flex-row items-center">
+    <section className={formButtons}>
       <button
         type="button"
-        className="px-4 py-1 rounded bg-solita-500"
+        className={button}
         onClick={() => navigate(`/${addType}s`)}
       >
         Cancel
       </button>
       <button
-        className="duration-300 disabled:text-gray-500"
+        className={resetButton}
         disabled={!dirty}
         type="button"
         onClick={() => resetForm()}
       >
-        <ResetIcon className="text-3xl" />
+        <ResetIcon />
       </button>
       <button
-        className="px-4 py-1 rounded bg-solita-500 disabled:text-solita-400"
+        className={button}
         type="submit"
         disabled={isSubmitting || !dirty || !isValid}
       >

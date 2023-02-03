@@ -9,7 +9,7 @@ type PaginationProps = {
 type PaginationButtonProps = {
   disabled: boolean;
   children: React.ReactNode;
-  className?: string;
+  classProps?: string;
   onClick: () => void;
 };
 

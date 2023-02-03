@@ -8,6 +8,7 @@ import {
   Option,
   SelectFieldProps,
 } from '../../types/components/form/selectField.type';
+import selectField from '../../styles/components/form/selectField.styles';
 
 function SelectField({ field, displayName }: SelectFieldProps) {
   const { setFieldValue, values } = useFormikContext<AddJourneyProps>();
@@ -56,24 +57,43 @@ function SelectField({ field, displayName }: SelectFieldProps) {
   }, [values]);
 
   return (
-    <div className="flex flex-row items-end w-48">
-      <Select
-        className="w-full text-black"
-        blurInputOnSelect
-        placeholder={displayName}
-        options={options}
-        inputValue={value}
-        value={selectedOption}
-        isLoading={isLoading}
-        onChange={onChange}
-        onInputChange={setValue}
-        styles={{
-          indicatorSeparator: () => ({
-            display: 'none',
-          }),
-        }}
-      />
-    </div>
+    <Select
+      className={selectField}
+      blurInputOnSelect
+      placeholder={displayName}
+      options={options}
+      inputValue={value}
+      value={selectedOption}
+      isLoading={isLoading}
+      onChange={onChange}
+      onInputChange={setValue}
+      styles={{
+        indicatorSeparator: () => ({
+          display: 'none',
+        }),
+        control: (base) => ({
+          ...base,
+          backgroundColor: 'transparent',
+          borderColor: selectedOption ? 'white' : '#6B7280',
+        }),
+        placeholder: (base) => ({
+          ...base,
+          color: '#6B7280',
+        }),
+        dropdownIndicator: (base) => ({
+          ...base,
+          color: '#6B7280',
+        }),
+        input: (base) => ({
+          ...base,
+          color: 'white',
+        }),
+        singleValue: (base) => ({
+          ...base,
+          color: 'white',
+        }),
+      }}
+    />
   );
 }
 

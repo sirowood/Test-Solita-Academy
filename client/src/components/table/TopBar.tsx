@@ -6,6 +6,15 @@ import {
 } from 'react-icons/bs';
 import Filter from './Filter';
 import TopBarProps from '../../types/components/table/topbar.type';
+import {
+  input,
+  search,
+  topbar,
+  buttons,
+  heading,
+  searchIcon,
+  singleButton,
+} from '../../styles/components/table/topbar.styles';
 
 function TopBar({
   filters,
@@ -18,41 +27,43 @@ function TopBar({
   changeShowFilters,
 }: TopBarProps) {
   return (
-    <section className="flex flex-row items-center justify-between h-12 p-2 shadow-lg">
-      <h1 className="text-2xl font-extrabold select-none">{pageTitle}</h1>
-      <div className="flex flex-row items-center gap-1 px-3 py-1 rounded-3xl bg-solita-500">
+    <section className={topbar}>
+      <h1 className={heading}>{pageTitle}</h1>
+      <section className={search}>
         <input
-          className="w-40 duration-300 outline-none bg-inherit placeholder-solita-400"
+          className={input}
           type="text"
           value={searchText}
           placeholder="Search"
           onChange={({ target }) => setSearchText(target.value)}
         />
-        <SearchIcon />
-      </div>
-      <div className="relative">
+        <SearchIcon className={searchIcon} />
+      </section>
+
+      <section className={buttons}>
         <button
           type="button"
-          className="p-0 text-xl text-white/50 hover:text-white"
+          className={singleButton}
           onClick={changeShowFilters}
         >
           <FilterIcon />
         </button>
-        <Filter
-          filters={filters}
-          showFilters={showFilters}
-          resetFilters={resetFilters}
-          changeFilters={changeFilters}
-        />
-      </div>
-      <button
-        type="button"
-        className="text-xl text-white/50 hover:text-white"
-      >
-        <a href={`/${pageTitle.toLocaleLowerCase()}/add`}>
-          <AddIcon />
-        </a>
-      </button>
+        <button
+          type="button"
+          className={singleButton}
+        >
+          <a href={`/${pageTitle.toLocaleLowerCase()}/add`}>
+            <AddIcon />
+          </a>
+        </button>
+      </section>
+
+      <Filter
+        filters={filters}
+        showFilters={showFilters}
+        resetFilters={resetFilters}
+        changeFilters={changeFilters}
+      />
     </section>
   );
 }

@@ -1,10 +1,11 @@
 import React from 'react';
 import PageLayout from '../components/PageLayout';
-import Table from '../components/table/Table';
 import TopBar from '../components/table/TopBar';
+import Table from '../components/table/Table';
 import useTables from '../hooks/useTables';
 import { fetchAllStations } from '../services/station.service';
 import { STATIONS_COLUMNS, STATIONS_FILTERS } from '../constants';
+import stations from '../styles/pages/stations.styles';
 
 function Stations() {
   const {
@@ -27,7 +28,7 @@ function Stations() {
   });
 
   return (
-    <PageLayout className="flex-col">
+    <PageLayout classProps={stations}>
       <TopBar
         pageTitle="Stations"
         filters={filters}

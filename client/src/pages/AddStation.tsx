@@ -4,10 +4,11 @@ import AddForm from '../components/form/AddForm';
 import { addStation } from '../services/station.service';
 import { addStationValidationSchema } from '../schemas/form.schema';
 import { ADD_STATION_FIELDS } from '../constants';
+import addStationProps from '../styles/pages/addStation.styles';
 
 function AddStation() {
   return (
-    <PageLayout className="relative flex-col p-4">
+    <PageLayout classProps={addStationProps}>
       <AddForm
         addType="station"
         fields={ADD_STATION_FIELDS}

@@ -4,43 +4,34 @@ import { TbMap2 as StationIcon } from 'react-icons/tb';
 import { AiOutlineHome as HomeIcon } from 'react-icons/ai';
 import { GiPathDistance as JourneyIcon } from 'react-icons/gi';
 import LinkButtonProps from '../types/components/navigation.type';
+import {
+  linkButton,
+  navigation,
+  link,
+  tooltipArrow,
+  tooltipText,
+} from '../styles/components/navigation.styles';
 
 function LinkButton({ name, path, children }: LinkButtonProps) {
   const isActive = useLocation().pathname === path;
 
   return (
-    <div className="relative flex flex-col items-center justify-center group">
+    <div className={linkButton}>
       <Link
-        className={`${
-          isActive
-            ? 'rounded-[28px] bg-solita-400 text-white hover:cursor-default'
-            : 'rounded-md text-solita-400 hover:bg-solita-400/50 hover:text-white/80 active:translate-y-0.5'
-        } mx-auto p-3 text-4xl duration-150`}
+        className={link(isActive)}
         to={path}
       >
         {children}
       </Link>
-      <div
-        className={`${
-          isActive ? '' : 'group-hover:block'
-        } absolute -right-1 hidden border-4
-          border-y-transparent border-r-solita-500 border-l-transparent`}
-      />
-      <div
-        className={`${
-          isActive ? '' : 'group-hover:block'
-        } absolute left-[84px] hidden select-none rounded
-          bg-solita-500 py-1 px-2 text-white shadow-lg`}
-      >
-        {name}
-      </div>
+      <div className={tooltipArrow(isActive)} />
+      <div className={tooltipText(isActive)}>{name}</div>
     </div>
   );
 }
 
 function Navigation() {
   return (
-    <nav className="flex flex-col flex-shrink-0 w-20 gap-1 pt-1 bg-solita-500">
+    <nav className={navigation}>
       <LinkButton
         name="Dashboard"
         path="/"

@@ -30,7 +30,7 @@ const addJourneyValidationSchema = yup.object({
     .string()
     .matches(
       /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/,
-      'Invalid date format. Correct format: YYYY-MM-DD HH:MM:SS',
+      'Correct format: YYYY-MM-DD HH:MM:SS',
     )
     .test('valid-datetime', 'Invalid datetime', (value) => {
       if (!value) {

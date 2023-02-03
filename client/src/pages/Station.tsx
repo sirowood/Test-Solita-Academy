@@ -5,6 +5,7 @@ import Loading from '../components/Loading';
 import StationError from '../components/station/StationError';
 import StationCard from '../components/station/StationCard';
 import StationStatistics from '../components/station/StationStatistics';
+import { station, statisticsContainer } from '../styles/pages/station.styles';
 
 function Station() {
   const { data, error, isLoading } = useStation();
@@ -26,7 +27,7 @@ function Station() {
   }
 
   return (
-    <PageLayout className="flex-row flex-wrap gap-4 p-4">
+    <PageLayout classProps={station}>
       <StationCard
         nimi={data.nimi}
         osoite={data.osoite}
@@ -34,20 +35,22 @@ function Station() {
         kapasiteet={data.kapasiteet}
         operaattor={data.operaattor}
       />
-      <StationStatistics
-        title="Departures"
-        journeysCount={data.numDepartureJourneys}
-        avgDistance={data.avgDepartureDistance}
-        topTitle="destinations"
-        topStations={data.topDestinationStations}
-      />
-      <StationStatistics
-        title="Arrivals"
-        journeysCount={data.numArrivalJourneys}
-        avgDistance={data.avgArrivalDistance}
-        topTitle="origins"
-        topStations={data.topOriginStations}
-      />
+      <section className={statisticsContainer}>
+        <StationStatistics
+          title="Departures"
+          journeysCount={data.numDepartureJourneys}
+          avgDistance={data.avgDepartureDistance}
+          topTitle="destinations"
+          topStations={data.topDestinationStations}
+        />
+        <StationStatistics
+          title="Arrivals"
+          journeysCount={data.numArrivalJourneys}
+          avgDistance={data.avgArrivalDistance}
+          topTitle="origins"
+          topStations={data.topOriginStations}
+        />
+      </section>
     </PageLayout>
   );
 }

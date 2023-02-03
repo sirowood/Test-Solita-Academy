@@ -11,21 +11,24 @@ import {
   PaginationSelectProps,
 } from '../../types/components/table/pagination.type';
 import { PAGINATION_OPTIONS as options } from '../../constants';
+import {
+  pagination,
+  paginationPages,
+  paginationSelect,
+  paginationButtons,
+  paginationButton,
+} from '../../styles/components/table/pagination.styles';
 
 function PaginationButton({
   disabled,
   children,
-  className,
+  classProps,
   onClick,
 }: PaginationButtonProps) {
   return (
     <button
       type="button"
-      className={`${
-        disabled
-          ? 'border-gray-400 text-gray-400 hover:cursor-default'
-          : 'duration-150 hover:bg-white hover:text-solita-400'
-      } flex h-8 w-8 flex-row items-center justify-center duration-150 ${className}`}
+      className={paginationButton(disabled, classProps)}
       disabled={disabled}
       onClick={onClick}
     >
@@ -38,7 +41,7 @@ function PaginationSelect({ defaultValue, onChange }: PaginationSelectProps) {
   return (
     <div>
       <select
-        className="p-1 text-center align-middle rounded-md outline-none w-max bg-solita-500"
+        className={paginationSelect}
         defaultValue={defaultValue}
         onChange={onChange}
       >
@@ -91,8 +94,8 @@ function Pagination({
   }
 
   return (
-    <section className="flex flex-row items-center gap-4">
-      <div className="flex flex-row items-center divide-x-[1px] border border-white">
+    <section className={pagination}>
+      <div className={paginationButtons}>
         <PaginationButton
           disabled={isFirstPage()}
           onClick={toFirstPage}
@@ -110,7 +113,7 @@ function Pagination({
             key={page}
             disabled={isCurrentPage(page)}
             onClick={() => changeCurrentPage(page)}
-            className={isCurrentPage(page) ? 'bg-white text-solita-400' : ''}
+            classProps={isCurrentPage(page) ? 'bg-white text-solita-400' : ''}
           >
             {page}
           </PaginationButton>
@@ -128,14 +131,13 @@ function Pagination({
           <RightArrowIcon />
         </PaginationButton>
       </div>
-      <div>
-        <span>Page</span>
-        <span className="font-bold">{` ${currentPage} of ${totalPages}`}</span>
+      <div className={paginationPages}>
+        <span>{`Page ${currentPage} of ${totalPages}`}</span>
+        <PaginationSelect
+          defaultValue="10"
+          onChange={changePageSize}
+        />
       </div>
-      <PaginationSelect
-        defaultValue="10"
-        onChange={changePageSize}
-      />
     </section>
   );
 }

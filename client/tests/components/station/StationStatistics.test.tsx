@@ -22,5 +22,5 @@ test('should render correctly', () => {
   expect(screen.getByText('2,0 k')).toBeDefined();
   expect(screen.getByText('2,3 k')).toBeDefined();
   expect(screen.getByText('Top destinations')).toBeDefined();
-  expect(screen.getByText('1. top 1')).toBeDefined();
+  expect(screen.getByText('top 1')).toBeDefined();
 });

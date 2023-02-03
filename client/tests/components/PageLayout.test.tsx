@@ -14,7 +14,7 @@ test('should render children correctly', () => {
 
 test('should pass the classname correctly', () => {
   render(
-    <PageLayout className="fakeName">
+    <PageLayout classProps="fakeName">
       <div>I am a child</div>
     </PageLayout>,
   );
