@@ -1,7 +1,7 @@
 import { isDate, isString, isNumber, throwMissingError, throwInvalidError } from './helper.validation';
 import { JourneyFields, NewJourney } from '../types/journey.type';
 
-const parseDate = (date: unknown, target: string): string => {
+function parseDate(date: unknown, target: string): string {
   if (!date) {
     throwMissingError(target);
   }
@@ -9,13 +9,13 @@ const parseDate = (date: unknown, target: string): string => {
     throwInvalidError(`Unable to convert ${target}: '${date}' to Date`);
   }
   return date as string;
-};
+}
 
-const isValidDate = (arrivalTime: unknown, departureTime: unknown) => {
+function isValidDate(arrivalTime: unknown, departureTime: unknown) {
   return Date.parse(arrivalTime as string) - Date.parse(departureTime as string) > 0;
-};
+}
 
-const parseStationId = (id: unknown, target: string): number => {
+function parseStationId(id: unknown, target: string): number {
   if (!id) {
     throwMissingError(target);
   }
@@ -26,9 +26,9 @@ const parseStationId = (id: unknown, target: string): number => {
     throwInvalidError(`${target}: ${id} is <= 0`);
   }
   return Number(id);
-};
+}
 
-const parseValidNumber = (param: unknown, target: string): number => {
+function parseValidNumber(param: unknown, target: string): number {
   if (!param) {
     throwMissingError(target);
   }
@@ -40,9 +40,9 @@ const parseValidNumber = (param: unknown, target: string): number => {
     throwInvalidError(`${target} is < 10`);
   }
   return Number(param);
-};
+}
 
-const toNewJourneyEntry = (newEntry: JourneyFields): NewJourney => {
+function toNewJourneyEntry(newEntry: JourneyFields): NewJourney {
   const {
     departureTime,
     arrivalTime,
@@ -65,6 +65,6 @@ const toNewJourneyEntry = (newEntry: JourneyFields): NewJourney => {
     throwInvalidError('arrival time is before departure time');
   }
   return validNewEntry;
-};
+}
 
 export default toNewJourneyEntry;

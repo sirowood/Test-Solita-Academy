@@ -22,18 +22,18 @@ const migrator = new Umzug(migrationConfig);
 export type Migration = typeof migrator._types.migration;
 
 
-const runMigrations = async () => {
+async function runMigrations() {
   try {
     await migrator.up();
     info('Migrations up to date.');
-  } catch(e: unknown) {
+  } catch (e: unknown) {
     if (e instanceof Error) {
       error(`Migration up failed: ${e.message}`);
     }
   }
-};
+}
 
-const rollbackMigrations = async () => {
+async function rollbackMigrations() {
   info('Establishing database connection...');
   try {
     await sequelize.authenticate();
@@ -45,9 +45,9 @@ const rollbackMigrations = async () => {
       error(`Migration down failed: ${e.message}`);
     }
   }
-};
+}
 
-const connectToDatabase = async () => {
+async function connectToDatabase() {
   info('Establishing database connection...');
   try {
     await sequelize.authenticate();
@@ -59,7 +59,7 @@ const connectToDatabase = async () => {
       throw new Error(e.message);
     }
   }
-};
+}
 
 export {
   sequelize,

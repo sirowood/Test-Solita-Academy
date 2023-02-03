@@ -5,7 +5,7 @@ import { info } from '../../utils/logger';
 
 const { INTEGER, TEXT, FLOAT, DATE, NOW } = DataTypes;
 
-const up: Migration = async ({ context: queryInterface }) => {
+const up: Migration = async function ({ context: queryInterface }) {
   info('Initializing database...');
   info('Create stations table.');
   await queryInterface.createTable('stations', {
@@ -91,7 +91,7 @@ const up: Migration = async ({ context: queryInterface }) => {
       references: { model: 'stations', key: 'id' },
     },
     covered_distance: {
-      type:FLOAT,
+      type: FLOAT,
       allowNull: false,
     },
     duration: {
@@ -114,17 +114,17 @@ const up: Migration = async ({ context: queryInterface }) => {
   await queryInterface.addIndex(
     'journeys',
     ['departure_station_id', 'arrival_station_id'],
-    { name: 'departure_arrival_stations'}
+    { name: 'departure_arrival_stations' }
   );
   await queryInterface.addIndex(
     'journeys',
     ['departure_station_id'],
-    { name: 'departure_stations'}
+    { name: 'departure_stations' }
   );
   await queryInterface.addIndex(
     'journeys',
     ['arrival_station_id'],
-    { name: 'arrival_stations'}
+    { name: 'arrival_stations' }
   );
 
   info('Add composite unique constraint to journeys');
@@ -133,7 +133,7 @@ const up: Migration = async ({ context: queryInterface }) => {
     {
       name: 'unique_journey_constraint',
       type: 'unique',
-      fields: ['departure_time', 'arrival_time','departure_station_id', 'arrival_station_id', 'covered_distance', 'duration']
+      fields: ['departure_time', 'arrival_time', 'departure_station_id', 'arrival_station_id', 'covered_distance', 'duration']
     },
   );
 
@@ -143,7 +143,7 @@ const up: Migration = async ({ context: queryInterface }) => {
   }
 };
 
-const down: Migration = async ({ context: queryInterface }) => {
+const down: Migration = async function ({ context: queryInterface }) {
   info('Drop all tables');
   await queryInterface.dropAllTables();
 };
