@@ -1,11 +1,11 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import AddJourney from '../pages/AddJourney';
 import {
   Station,
   Journeys,
   Stations,
   Dashboard,
+  AddJourney,
   AddStation,
 } from '../pages/index';
 
