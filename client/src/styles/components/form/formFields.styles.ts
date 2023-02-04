@@ -31,6 +31,8 @@ const formInputGroup = clsx(
 
 const formInputErrorMessage = clsx(
   [
+    'z-0',
+    'text-sm',
     'absolute',
     '-bottom-[20px]',
     'text-red-400',

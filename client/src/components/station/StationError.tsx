@@ -1,14 +1,19 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import StationErrorProp from '../../types/components/station/stationError.type';
+import {
+  stationError,
+  errorMessage,
+  returnButton,
+} from '../../styles/components/station/stationError.styles';
 
 function StationError({ error }: StationErrorProp) {
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full">
-      <span className="text-lg font-bold">{error}</span>
+    <div className={stationError}>
+      <span className={errorMessage}>{error}</span>
       <button
-        className="px-2 py-1 rounded shadow-md bg-solita-500"
+        className={returnButton}
         onClick={() => navigate('/stations')}
       >
         Back
