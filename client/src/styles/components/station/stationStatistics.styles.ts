@@ -40,7 +40,6 @@ const statisticsNumber = clsx(
   [
     'font-mono',
     'text-xl',
-    'border-b-2',
   ],
 );
 

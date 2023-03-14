@@ -4,6 +4,8 @@ type CardProps = {
   kaupunki: string,
   kapasiteet: number,
   operaattor: string,
+  x: number,
+  y: number,
 };
 
 export default CardProps;

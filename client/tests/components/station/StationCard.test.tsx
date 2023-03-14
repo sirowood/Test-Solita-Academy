@@ -10,6 +10,8 @@ test('should render correctly', () => {
       kaupunki="Test kaupunki"
       kapasiteet={20}
       operaattor="Test operaattor"
+      x={20.1}
+      y={60.1}
     />,
   );
 

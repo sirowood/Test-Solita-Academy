@@ -34,6 +34,8 @@ function Station() {
         kaupunki={data.kaupunki}
         kapasiteet={data.kapasiteet}
         operaattor={data.operaattor}
+        x={data.x}
+        y={data.y}
       />
       <section className={statisticsContainer}>
         <StationStatistics
