@@ -42,6 +42,7 @@ const formInputErrorMessage = clsx(
 function formInput(error: string | undefined) {
   const base = clsx(
     [
+      'z-10',
       'peer',
       'outline-none',
       'appearance-none',
@@ -84,6 +85,7 @@ function formInput(error: string | undefined) {
 function formInputFloatingLabel(error: string | undefined) {
   const base = clsx(
     [
+      'z-0',
       'absolute',
       'left-0',
       'bottom-1',
