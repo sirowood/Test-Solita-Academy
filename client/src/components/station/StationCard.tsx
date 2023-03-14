@@ -1,11 +1,12 @@
 import React from 'react';
-import CardProps from '../../types/components/station/stationCard.type';
+import StationMap from './StationMap';
 import {
   stationAddress,
   stationCapacity,
   stationCard,
   stationName,
 } from '../../styles/components/station/stationCard.styles';
+import CardProps from '../../types/components/station/stationCard.type';
 
 function StationCard({
   nimi,
@@ -13,6 +14,8 @@ function StationCard({
   kaupunki,
   kapasiteet,
   operaattor,
+  x,
+  y,
 }: CardProps) {
   return (
     <section className={stationCard}>
@@ -21,6 +24,10 @@ function StationCard({
       <p className={stationCapacity}>{kapasiteet}</p>
       <p>{operaattor}</p>
       <p>{kaupunki}</p>
+      <StationMap
+        lat={y}
+        lng={x}
+      />
     </section>
   );
 }
