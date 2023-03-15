@@ -43,13 +43,19 @@ type GetAllStationsParams = {
   searchString: string
 };
 
+type TopStations = {
+  id: number,
+  nimi: string,
+  [key: string]: number | string,
+}[];
+
 type GetSingleStationData = FullStation & {
   avgDepartureDistance?: number,
   numDepartureJourneys?: number,
   avgArrivalDistance?: number,
   numArrivalJourneys?: number,
-  topOriginStations: object[],
-  topDestinationStations: object[],
+  topOriginStations: TopStations,
+  topDestinationStations: TopStations,
 };
 
 export {
@@ -57,5 +63,6 @@ export {
   NewStation,
   FullStation,
   GetAllStationsParams,
+  TopStations,
   GetSingleStationData,
 };

@@ -1,5 +1,5 @@
 import { Router, RequestHandler } from 'express';
-import { getAllStationsParams } from './helper.route';
+import { getSingleStationQueries, getAllStationsParams } from './helper.route';
 import * as stationService from '../controllers/station.controller';
 import { StationFields } from '../types/station.type';
 import toNewStationEntry from '../validations/station.validation';
@@ -25,8 +25,10 @@ stationRoute.get('/:id', (async (req, res, next) => {
     });
   }
 
+  const month = getSingleStationQueries(req.query);
+
   try {
-    const result = await stationService.getSingleStation(+id);
+    const result = await stationService.getSingleStation(+id, month);
     if (!result) {
       return next({
         name: 'Unreachable data',

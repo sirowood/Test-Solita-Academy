@@ -1,8 +1,8 @@
-import { fn, col, literal, Op, Order, QueryTypes } from 'sequelize';
+import { fn, col, where as sequelizeWhere, literal, Op, Order, QueryTypes } from 'sequelize';
 import { sequelize } from '../database';
 import { Journey, Station } from '../database/models';
 import { transformStation } from "./helper.controller";
-import { NewStation, GetAllStationsParams, GetSingleStationData } from '../types/station.type';
+import { NewStation, GetAllStationsParams, TopStations, GetSingleStationData } from '../types/station.type';
 import { error } from '../utils/logger';
 
 async function addStation(newStationEntry: NewStation) {
@@ -52,7 +52,7 @@ async function getAllStations(
   return transformedStations;
 }
 
-async function getSingleStation(id: number): Promise<GetSingleStationData | null> {
+async function getSingleStation(id: number, month: string | undefined): Promise<GetSingleStationData | null> {
   const station = await Station.findOne({
     where: { id },
   });
@@ -61,49 +61,64 @@ async function getSingleStation(id: number): Promise<GetSingleStationData | null
     return null;
   }
 
+  function monthFilters(colName: string) {
+    if (!month) {
+      return {};
+    }
+
+    return sequelizeWhere(fn('TO_CHAR', col(colName), 'YYYY-MM'), {
+      [Op.eq]: `${month}`,
+    });
+  }
+
+  function getJourneys(
+    avgDistanceName: string,
+    numJourneysName: string,
+    stationIdColumn: string,
+    monthFilterColName: string
+  ) {
+    return Journey.findOne({
+      attributes: [
+        [fn('COALESCE', fn('AVG', col('covered_distance')), 0), avgDistanceName],
+        [literal('COUNT(*)::int'), numJourneysName],
+      ],
+      where: {
+        [Op.and]: [
+          { [stationIdColumn]: id },
+          monthFilters(monthFilterColName),
+        ],
+      },
+    });
+  }
+
+  function getStations(joinStationColName: string, whereStationColName: string, timeColName: string): Promise<TopStations> {
+    const monthClause = month
+      ? `AND TO_CHAR(${timeColName}, 'YYYY-MM')=$month`
+      : '';
+
+    return sequelize.query(
+      `
+      SELECT stations.id, stations.nimi
+      FROM stations
+      JOIN journeys ON stations.id = journeys.${joinStationColName}
+      WHERE journeys.${whereStationColName}=$id
+      ${monthClause}
+      GROUP BY stations.id
+      ORDER BY COUNT(journeys.${joinStationColName}) DESC
+      LIMIT 5;
+      `,
+      {
+        bind: { id, month },
+        type: QueryTypes.SELECT,
+      }
+    );
+  }
+
   const [departureJourneys, arrivalJourneys, topOriginStations, topDestinationStations] = await Promise.all([
-    Journey.findOne({
-      attributes: [
-        [fn('AVG', fn('COALESCE', col('covered_distance'), 0)), 'avgDepartureDistance'],
-        [literal('COUNT(*)::int'), 'numDepartureJourneys'],
-      ],
-      where: { departure_station_id: id },
-    }),
-    Journey.findOne({
-      attributes: [
-        [fn('AVG', fn('COALESCE', col('covered_distance'), 0)), 'avgArrivalDistance'],
-        [literal('COUNT(*)::int'), 'numArrivalJourneys'],
-      ],
-      where: { arrival_station_id: id },
-    }),
-    sequelize.query(
-      `
-      SELECT stations.id, stations.nimi
-      FROM stations
-      JOIN journeys ON stations.id = journeys.departure_station_id
-      WHERE journeys.arrival_station_id=$id
-      GROUP BY stations.id
-      ORDER BY COUNT(journeys.departure_station_id) DESC
-      LIMIT 5;
-      `, {
-      bind: { id },
-      type: QueryTypes.SELECT,
-    }
-    ),
-    sequelize.query(
-      `
-      SELECT stations.id, stations.nimi
-      FROM stations
-      JOIN journeys ON stations.id = journeys.arrival_station_id
-      WHERE journeys.departure_station_id=$id
-      GROUP BY stations.id
-      ORDER BY COUNT(journeys.arrival_station_id) DESC
-      LIMIT 5;
-      `, {
-      bind: { id },
-      type: QueryTypes.SELECT,
-    }
-    ),
+    getJourneys('avgDepartureDistance', 'numDepartureJourneys', 'departure_station_id', 'departure_time'),
+    getJourneys('avgArrivalDistance', 'numArrivalJourneys', 'arrival_station_id', 'arrival_time'),
+    getStations('departure_station_id', 'arrival_station_id', 'departure_time'),
+    getStations('arrival_station_id', 'departure_station_id', 'arrival_time'),
   ]);
 
   const result = {
