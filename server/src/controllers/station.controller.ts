@@ -1,8 +1,8 @@
-import { fn, col, Op, Order, QueryTypes } from 'sequelize';
+import { fn, col, literal, Op, Order, QueryTypes } from 'sequelize';
 import { sequelize } from '../database';
 import { Journey, Station } from '../database/models';
 import { transformStation } from "./helper.controller";
-import { NewStation, GetAllStationsParams } from '../types/station.type';
+import { NewStation, GetAllStationsParams, GetSingleStationData } from '../types/station.type';
 import { error } from '../utils/logger';
 
 async function addStation(newStationEntry: NewStation) {
@@ -52,25 +52,8 @@ async function getAllStations(
   return transformedStations;
 }
 
-async function getSingleStation(id: number) {
+async function getSingleStation(id: number): Promise<GetSingleStationData | null> {
   const station = await Station.findOne({
-    attributes: {
-      include: [
-        [
-          fn('AVG', fn('COALESCE', col('departureJourneys.covered_distance'), 0)),
-          'avgDepartureDistance'
-        ],
-        [
-          fn('AVG', fn('COALESCE', col('arrivalJourneys.covered_distance'), 0)),
-          'avgArrivalDistance'
-        ]
-      ]
-    },
-    include: [
-      { model: Journey, as: 'departureJourneys', attributes: [] },
-      { model: Journey, as: 'arrivalJourneys', attributes: [] },
-    ],
-    group: ['stations.id'],
     where: { id },
   });
 
@@ -78,49 +61,55 @@ async function getSingleStation(id: number) {
     return null;
   }
 
-  const [numDepartureJourneys, numArrivalJourneys] = await Promise.all([
-    Journey.count({
-      where: { departureStationId: id },
+  const [departureJourneys, arrivalJourneys, topOriginStations, topDestinationStations] = await Promise.all([
+    Journey.findOne({
+      attributes: [
+        [fn('AVG', fn('COALESCE', col('covered_distance'), 0)), 'avgDepartureDistance'],
+        [literal('COUNT(*)::int'), 'numDepartureJourneys'],
+      ],
+      where: { departure_station_id: id },
     }),
-    Journey.count({
-      where: { arrivalStationId: id },
+    Journey.findOne({
+      attributes: [
+        [fn('AVG', fn('COALESCE', col('covered_distance'), 0)), 'avgArrivalDistance'],
+        [literal('COUNT(*)::int'), 'numArrivalJourneys'],
+      ],
+      where: { arrival_station_id: id },
     }),
+    sequelize.query(
+      `
+      SELECT stations.id, stations.nimi
+      FROM stations
+      JOIN journeys ON stations.id = journeys.departure_station_id
+      WHERE journeys.arrival_station_id=$id
+      GROUP BY stations.id
+      ORDER BY COUNT(journeys.departure_station_id) DESC
+      LIMIT 5;
+      `, {
+      bind: { id },
+      type: QueryTypes.SELECT,
+    }
+    ),
+    sequelize.query(
+      `
+      SELECT stations.id, stations.nimi
+      FROM stations
+      JOIN journeys ON stations.id = journeys.arrival_station_id
+      WHERE journeys.departure_station_id=$id
+      GROUP BY stations.id
+      ORDER BY COUNT(journeys.arrival_station_id) DESC
+      LIMIT 5;
+      `, {
+      bind: { id },
+      type: QueryTypes.SELECT,
+    }
+    ),
   ]);
-
-  const topOriginStations = await sequelize.query(
-    `
-    SELECT stations.id, stations.nimi
-    FROM stations
-    JOIN journeys ON stations.id = journeys.departure_station_id
-    WHERE journeys.arrival_station_id=$id
-    GROUP BY stations.id
-    ORDER BY COUNT(journeys.departure_station_id) DESC
-    LIMIT 5;
-    `, {
-    bind: { id },
-    type: QueryTypes.SELECT,
-  }
-  );
-
-  const topDestinationStations = await sequelize.query(
-    `
-    SELECT stations.id, stations.nimi
-    FROM stations
-    JOIN journeys ON stations.id = journeys.arrival_station_id
-    WHERE journeys.departure_station_id=$id
-    GROUP BY stations.id
-    ORDER BY COUNT(journeys.arrival_station_id) DESC
-    LIMIT 5;
-    `, {
-    bind: { id },
-    type: QueryTypes.SELECT,
-  }
-  );
 
   const result = {
     ...station,
-    numDepartureJourneys,
-    numArrivalJourneys,
+    ...departureJourneys,
+    ...arrivalJourneys,
     topOriginStations,
     topDestinationStations,
   };
@@ -131,7 +120,7 @@ async function getStationsBySearch(nimi: string) {
   const where = {
     nimi: {
       [Op.iLike]: `%${nimi}%`,
-    }
+    },
   };
 
   const stations = await Station.findAll({
