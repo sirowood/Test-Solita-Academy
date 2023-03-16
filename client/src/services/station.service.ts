@@ -1,7 +1,11 @@
 import axios, { AxiosError } from 'axios';
-import { StationsResponse, SingleStationResponse } from '../types/services/station.type';
+import {
+  SingleStationResponse,
+  SearchFunctionProps,
+  SearchFunctionResponse,
+} from '../types/services/station.type';
 import { AddFunctionProps } from '../types/services/add.type';
-import { FetchFunctionProps, FetchAllFunctionProps } from '../types/services/fetch.type';
+import { FetchFunctionProps, FetchAllFunctionProps, CombinedResponse } from '../types/services/fetch.type';
 
 const URL = `${API_URL}/stations`;
 
@@ -24,28 +28,29 @@ async function addStation({ ...newStation }: AddFunctionProps) {
 
 async function fetchAllStations({
   filters,
-  ordering,
+  orderBy,
+  orderDirection,
   pagination,
   searchText,
 }: FetchAllFunctionProps) {
   const queryParams = {
     search: searchText,
-    orderBy: ordering.orderBy,
+    orderBy,
     size: pagination.pageSize,
     page: pagination.currentPage,
-    orderDirection: ordering.orderASC ? 'ASC' : 'DESC',
+    orderDirection,
   };
 
   const queryFilters = filters.map((filter) => `&${filter.filterName}From=${filter.filterProperties.from}&${filter.filterName}To=${filter.filterProperties.to}`);
 
   const fullURL = `${URL}?${new URLSearchParams(queryParams).toString()}${queryFilters.join('')}`;
   const response = await axios.get(fullURL);
-  return response.data as StationsResponse;
+  return response.data as CombinedResponse;
 }
 
-async function fetchSingleStation({ id }: FetchFunctionProps) {
+async function fetchSingleStation({ id, month }: FetchFunctionProps) {
   try {
-    const response = await axios.get(`${URL}/${id}`);
+    const response = await axios.get(`${URL}/${id}?month=${month}`);
     return response.data as SingleStationResponse;
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -59,12 +64,6 @@ async function fetchSingleStation({ id }: FetchFunctionProps) {
     }
   }
 }
-
-type SearchFunctionProps = { nimi: string };
-type SearchFunctionResponse = {
-  id: number,
-  nimi: string,
-}[] | [];
 
 async function fetchStationsBySearch({ nimi }: SearchFunctionProps) {
   try {

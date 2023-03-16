@@ -3,7 +3,7 @@ import clsx from 'clsx';
 const mapDiv = clsx(
   [
     'w-full',
-    'h-80',
+    'aspect-square',
     'rounded-md',
     'overflow-hidden',
   ],

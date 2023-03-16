@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import StationStatisticsProps from '../../types/components/station/stationStatistics.type';
 import {
   horizontalLine,
@@ -39,13 +40,13 @@ function StationStatistics({
         <h3 className={topsHeading}>Top {topTitle}</h3>
         <div className={topsList}>
           {topStations.map((station) => (
-            <a
+            <Link
               className={topsItem}
               key={station.id}
-              href={`/stations/${station.id}`}
+              to={`/stations/${station.id}`}
             >
               {station.nimi}
-            </a>
+            </Link>
           ))}
         </div>
       </section>

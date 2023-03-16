@@ -3,20 +3,8 @@ import clsx from 'clsx';
 const filter = clsx(
   [
     'absolute',
-    'top-full',
-    'left-1/2',
-    '-translate-x-1/2',
-    'h-max',
-    'w-max',
-    'rounded-lg',
-    'bg-solita-500',
-    'flex',
-    'flex-col',
-    'items-center',
-    'gap-4',
-    'p-2',
-    'text-sm',
-    'shadow-lg',
+    'top-0',
+    'left-0',
   ],
 );
 
@@ -33,7 +21,7 @@ const filterRow = clsx(
     'flex',
     'flex-row',
     'items-center',
-    'gap-1',
+    'gap-2',
   ],
 );
 

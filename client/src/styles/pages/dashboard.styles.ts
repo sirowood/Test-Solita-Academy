@@ -1,26 +1,21 @@
 import clsx from 'clsx';
 
-const dashboard = clsx(
+const dashBoardSection = clsx(
   [
-    'flex-col',
-    'items-center',
-    'justify-center',
-    'select-none',
-  ],
-);
-
-const section = clsx(
-  [
+    'w-full',
+    'h-full',
     'flex',
     'flex-col',
     'items-center',
-    '-translate-y-1/2',
+    'justify-center',
+    'text-white',
   ],
 );
 
 const heading = clsx(
   [
     'text-4xl',
+    'text-center',
     'font-extrabold',
     'animate-bounce',
   ],
@@ -28,6 +23,5 @@ const heading = clsx(
 
 export {
   heading,
-  section,
-  dashboard,
+  dashBoardSection,
 };

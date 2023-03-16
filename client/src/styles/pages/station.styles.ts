@@ -1,19 +1,24 @@
 import clsx from 'clsx';
 
-const station = clsx(
+const stationSection = clsx(
   [
+    'h-full',
+    'flex',
     'flex-col',
     'items-center',
     'gap-8',
     'p-4',
+    'overflow-y-auto',
   ],
 );
 
-const statisticsContainer = clsx(
-  station,
+const statisticsSection = clsx(
   [
     'w-full',
     'flex',
+    'flex-col',
+    'items-center',
+    'gap-8',
     'pt-0',
   ],
   [
@@ -22,4 +27,7 @@ const statisticsContainer = clsx(
   ],
 );
 
-export { station, statisticsContainer };
+export {
+  stationSection,
+  statisticsSection,
+};

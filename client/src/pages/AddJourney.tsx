@@ -1,14 +1,15 @@
 import React from 'react';
 import PageLayout from '../components/PageLayout';
+import TopBar from '../components/TopBar';
 import AddForm from '../components/form/AddForm';
 import { addJourney } from '../services/journey.service';
 import { addJourneyValidationSchema } from '../schemas/form.schema';
 import { ADD_JOURNEY_FIELDS } from '../constants';
-import addJourneyProps from '../styles/pages/addJourney.styles';
 
 function AddJourney() {
   return (
-    <PageLayout classProps={addJourneyProps}>
+    <PageLayout>
+      <TopBar title="Add Journey" />
       <AddForm
         addType="journey"
         fields={ADD_JOURNEY_FIELDS}

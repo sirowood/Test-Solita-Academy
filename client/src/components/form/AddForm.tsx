@@ -10,7 +10,7 @@ import {
 } from '../../types/components/form/addForm.type';
 import { AddFunctionProps } from '../../types/services/add.type';
 import { MESSAGE } from '../../constants';
-import { form, formHeading } from '../../styles/components/form/addForm.styles';
+import { form } from '../../styles/components/form/addForm.styles';
 
 function AddForm({
   fields,
@@ -65,7 +65,6 @@ function AddForm({
       >
         {({ isSubmitting, dirty, isValid, errors, resetForm }) => (
           <Form className={form}>
-            <h1 className={formHeading}>Add {addType}</h1>
             <FormFields
               fields={fields}
               errors={errors}

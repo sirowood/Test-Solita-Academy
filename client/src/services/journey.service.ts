@@ -1,7 +1,6 @@
 import axios, { AxiosError } from 'axios';
-import { JourneysResponse } from '../types/services/journey.type';
 import { AddFunctionProps } from '../types/services/add.type';
-import { FetchAllFunctionProps } from '../types/services/fetch.type';
+import { FetchAllFunctionProps, CombinedResponse } from '../types/services/fetch.type';
 
 const URL = `${API_URL}/journeys`;
 
@@ -24,23 +23,24 @@ async function addJourney({ ...newJourney }: AddFunctionProps) {
 
 async function fetchAllJourneys({
   filters,
-  ordering,
+  orderBy,
+  orderDirection,
   pagination,
   searchText,
 }: FetchAllFunctionProps) {
   const queryParams = {
     search: searchText,
-    orderBy: ordering.orderBy,
+    orderBy,
+    orderDirection,
     size: pagination.pageSize,
     page: pagination.currentPage,
-    orderDirection: ordering.orderASC ? 'ASC' : 'DESC',
   };
 
   const queryFilters = filters.map((filter) => `&${filter.filterName}From=${filter.filterProperties.from}&${filter.filterName}To=${filter.filterProperties.to}`);
 
   const fullURL = `${URL}?${new URLSearchParams(queryParams).toString()}${queryFilters.join('')}`;
   const response = await axios.get(fullURL);
-  return response.data as JourneysResponse;
+  return response.data as CombinedResponse;
 }
 
 export {

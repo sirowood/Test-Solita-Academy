@@ -11,7 +11,7 @@ function usePagination() {
 
   function changePageSize(event: React.ChangeEvent<HTMLSelectElement>) {
     const { value: newPageSize } = event.target;
-    setPagination({ ...pagination, pageSize: newPageSize });
+    setPagination({ currentPage: '1', pageSize: newPageSize });
   }
 
   function changeCurrentPage(newCurrentPage: string) {

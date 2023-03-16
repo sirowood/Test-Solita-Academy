@@ -1,8 +1,3 @@
-const USEORDERING_INITIAL_STATE = {
-  orderBy: 'id',
-  orderASC: true,
-};
-
 const USEPAGINATION_INITIAL_STATE = {
   pageSize: '10',
   currentPage: '1',
@@ -19,32 +14,57 @@ const USEDATA_INITIAL_STATE = {
   },
 };
 
-const USETABLE_VISIBLE_PAGES_NUMBER = 3;
-
-const STATIONS_COLUMNS = [
-  { displayName: 'Nimi', queryName: 'nimi', isNumber: false },
-  { displayName: 'Osoite', queryName: 'osoite', isNumber: false },
-  { displayName: 'Kapasiteet', queryName: 'kapasiteet', isNumber: true },
-];
-
-const JOURNEYS_COLUMNS = [
-  { displayName: 'Departure Time', queryName: 'departureTime', isNumber: false },
-  { displayName: 'Arrival Time', queryName: 'arrivalTime', isNumber: false },
-  { displayName: 'Departure Station', queryName: 'departureStationName', isNumber: false },
-  { displayName: 'Arrival Station', queryName: 'arrivalStationName', isNumber: false },
-  { displayName: 'Distance (Km)', queryName: 'coveredDistance', isNumber: true },
-  { displayName: 'Duration (Minutes)', queryName: 'duration', isNumber: true },
-];
-
 const PAGINATION_OPTIONS = [
   { label: '10', value: '10' },
   { label: '20', value: '20' },
   { label: '40', value: '40' },
 ];
 
+const JOURNEYS_ORDERS = [
+  {
+    value: 'departureStationName',
+    label: 'Departure Station',
+  },
+  {
+    value: 'arrivalStationName',
+    label: 'Arrival Station',
+  },
+  {
+    value: 'departureTime',
+    label: 'Departure Time',
+  },
+  {
+    value: 'arrivalTime',
+    label: 'Arrival Time',
+  },
+  {
+    value: 'coveredDistance',
+    label: 'Covered Distance',
+  },
+  {
+    value: 'duration',
+    label: 'Duration',
+  },
+];
+
+const STATIONS_ORDERS = [
+  {
+    value: 'nimi',
+    label: 'Name',
+  },
+  {
+    value: 'osoite',
+    label: 'Address',
+  },
+  {
+    value: 'kapasiteet',
+    label: 'Capacity',
+  },
+];
+
 const STATIONS_FILTERS = [
   {
-    displayName: 'Kapasiteet',
+    displayName: 'Capacity',
     filterName: 'kapasiteet',
     type: 'number',
     filterProperties: {
@@ -251,13 +271,11 @@ const ADD_JOURNEY_FIELDS = [
 const MESSAGE = { text: '', backgroundColor: '' };
 
 export {
-  USEORDERING_INITIAL_STATE,
   USEPAGINATION_INITIAL_STATE,
   USEDATA_INITIAL_STATE,
-  USETABLE_VISIBLE_PAGES_NUMBER,
-  STATIONS_COLUMNS,
-  JOURNEYS_COLUMNS,
   PAGINATION_OPTIONS,
+  JOURNEYS_ORDERS,
+  STATIONS_ORDERS,
   STATIONS_FILTERS,
   JOURNEYS_FILTERS,
   STATION_INITIAL_STATE,

@@ -33,8 +33,17 @@ type SingleStationResponse = StationBase & {
   topDestinationStations: { id: number, nimi: string }[],
 };
 
+type SearchFunctionProps = { nimi: string };
+
+type SearchFunctionResponse = {
+  id: number,
+  nimi: string,
+}[] | [];
+
 export {
   Station,
   StationsResponse,
   SingleStationResponse,
+  SearchFunctionProps,
+  SearchFunctionResponse,
 };

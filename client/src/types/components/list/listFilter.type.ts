@@ -1,14 +1,15 @@
 import { FilterStateProps } from '../../hooks/useFilterDebounce.type';
 
 type FilterProps = {
-  filters: FilterStateProps,
-  showFilters: boolean,
-  resetFilters: () => void,
+  filters: FilterStateProps;
+  showFilters: boolean;
+  resetFilters: () => void;
   changeFilters: (
     filterName: string,
     filterProperty: string,
     newValue: string,
-  ) => void,
+  ) => void;
+  changeShowFilters: () => void;
 };
 
 export default FilterProps;

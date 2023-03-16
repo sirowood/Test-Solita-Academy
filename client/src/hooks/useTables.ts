@@ -11,9 +11,10 @@ function useTables({
   fetchFunction,
 }: UseTableProps) {
   const {
-    ordering,
-    resetOrdering,
-    changeOrdering,
+    orderBy,
+    orderDirection,
+    changeOrderBy,
+    changeOrderDirection,
   } = useOdering();
 
   const {
@@ -43,7 +44,8 @@ function useTables({
     updateData,
   } = useData({
     filters,
-    ordering,
+    orderBy,
+    orderDirection,
     pagination,
     searchText,
     fetchFunction,
@@ -51,28 +53,27 @@ function useTables({
 
   useEffect(() => {
     updateData();
-  }, [pagination, ordering]);
+  }, [pagination, orderBy, orderDirection]);
 
   useEffect(() => {
-    resetOrdering();
     resetPagination();
     updateData();
   }, [debouncedSearchText, debouncedFilters]);
 
   return {
     data,
+    orderDirection,
     filters,
-    ordering,
     searchText,
     showFilters,
-    currentPage: pagination.currentPage,
     resetFilters,
     setSearchText,
     changeFilters,
-    changeOrdering,
     changePageSize,
     changeShowFilters,
     changeCurrentPage,
+    changeOrderBy,
+    changeOrderDirection,
   };
 }
 
