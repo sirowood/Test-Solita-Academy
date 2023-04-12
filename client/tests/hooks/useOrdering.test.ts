@@ -1,31 +1,38 @@
 import { renderHook, act } from '@testing-library/react';
 import useOrdering from '../../src/hooks/useOdering';
-import { USEORDERING_INITIAL_STATE } from '../../src/constants';
 
-test('should return the correct initial state', () => {
-  const { result } = renderHook(() => useOrdering());
-  expect(result.current.ordering).toEqual(USEORDERING_INITIAL_STATE);
-});
+describe('useOrdering', () => {
+  test('should initialize with default values', () => {
+    const { result } = renderHook(() => useOrdering());
 
-test('should change ordering', () => {
-  const { result } = renderHook(() => useOrdering());
+    expect(result.current.orderBy).toBe('id');
+    expect(result.current.orderDirection).toBe('ASC');
+  });
 
-  act(() => result.current.changeOrdering('departureTime'));
-  expect(result.current.ordering.orderBy).toBe('departureTime');
-  expect(result.current.ordering.orderASC).toBe(true);
+  test('should update order direction when changeOrderDirection is called', () => {
+    const { result } = renderHook(() => useOrdering());
 
-  act(() => result.current.changeOrdering('departureTime'));
-  expect(result.current.ordering.orderASC).toBe(false);
+    act(() => {
+      result.current.changeOrderDirection();
+    });
 
-  act(() => result.current.changeOrdering('departureTime'));
-  expect(result.current.ordering.orderBy).toBe('id');
-  expect(result.current.ordering.orderASC).toBe(true);
-});
+    expect(result.current.orderDirection).toBe('DESC');
 
-test('should reset ordering', () => {
-  const { result } = renderHook(() => useOrdering());
+    act(() => {
+      result.current.changeOrderDirection();
+    });
 
-  act(() => result.current.changeOrdering('departureTime'));
-  act(() => result.current.resetOrdering());
-  expect(result.current.ordering).toEqual(USEORDERING_INITIAL_STATE);
+    expect(result.current.orderDirection).toBe('ASC');
+
+  });
+
+  test('should update order by when changeOrderBy is called', () => {
+    const { result } = renderHook(() => useOrdering());
+
+    act(() => {
+      result.current.changeOrderBy({ target: { value: 'departureTime' } } as React.ChangeEvent<HTMLSelectElement>);
+    });
+
+    expect(result.current.orderBy).toBe('departureTime');
+  });
 });
