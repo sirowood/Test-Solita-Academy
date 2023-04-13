@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-const pageLayoutBase = clsx(
+const pageLayout = clsx(
   [
     'w-full',
     'h-full',
@@ -10,11 +10,5 @@ const pageLayoutBase = clsx(
     'text-white',
   ],
 );
-
-function pageLayout(classProps: string | undefined) {
-  return classProps
-    ? clsx(pageLayoutBase, classProps)
-    : pageLayoutBase;
-}
 
 export default pageLayout;

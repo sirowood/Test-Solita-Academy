@@ -12,14 +12,4 @@ describe('PageLayout', () => {
 
     expect(getByText('I am a child')).toBeDefined();
   });
-
-  it('should pass the classname correctly', () => {
-    const { getByRole } = render(
-      <PageLayout classProps="fakeName">
-        <div>I am a child</div>
-      </PageLayout>,
-    );
-
-    expect(getByRole('main').className.includes('fakeName')).toBe(true);
-  });
 });

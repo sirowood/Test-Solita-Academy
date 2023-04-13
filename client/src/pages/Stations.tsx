@@ -9,7 +9,6 @@ import StationItems from '../components/stations/StationItems';
 import useTables from '../hooks/useTables';
 import { fetchAllStations } from '../services/station.service';
 import { STATIONS_ORDERS, STATIONS_FILTERS } from '../constants';
-import stations from '../styles/pages/stations.styles';
 
 function Stations() {
   const {
@@ -32,7 +31,7 @@ function Stations() {
   });
 
   return (
-    <PageLayout classProps={stations}>
+    <PageLayout>
       <TopBar title="Stations">
         <ListTopBar
           searchText={searchText}
