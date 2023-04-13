@@ -6,22 +6,7 @@ import {
   FiArrowRight,
   FiFilter,
 } from 'react-icons/fi';
-
-type ListControlBarProps = {
-  loading: boolean;
-  currentPage: number;
-  totalPages: number;
-  orderDirection: string;
-  orderOptions: {
-    value: string;
-    label: string;
-  }[];
-  changeCurrentPage: (newCurrentPage: string) => void;
-  changePageSize: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  changeShowFilters: () => void;
-  changeOrderBy: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  changeOrderDirection: () => void;
-};
+import ListControlBarProps from '../../types/components/list/listControlBar.type';
 
 function ListControlBar({
   loading,
@@ -87,7 +72,7 @@ function ListControlBar({
         </select>
         <button
           type="button"
-          title={`Order direction: ${orderDirection}`}
+          title="Change order direction"
           className="text-gray-400 duration-75 hover:cursor-pointer hover:text-white"
           onClick={changeOrderDirection}
         >
