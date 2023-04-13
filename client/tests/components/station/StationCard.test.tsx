@@ -1,23 +1,25 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import StationCard from '../../../src/components/station/StationCard';
 
-test('should render correctly', () => {
-  render(
-    <StationCard
-      nimi="Test nimi"
-      osoite="Test osoite"
-      kaupunki="Test kaupunki"
-      kapasiteet={20}
-      operaattor="Test operaattor"
-      x={20.1}
-      y={60.1}
-    />,
-  );
+describe('StationCard', () => {
+  it('should render correctly', () => {
+    const { getByText } = render(
+      <StationCard
+        nimi="Test nimi"
+        osoite="Test osoite"
+        kaupunki="Test kaupunki"
+        kapasiteet={20}
+        operaattor="Test operaattor"
+        x={20.1}
+        y={60.1}
+      />,
+    );
 
-  expect(screen.getByText('Test nimi')).toBeDefined();
-  expect(screen.getByText('Test osoite')).toBeDefined();
-  expect(screen.getByText('Test kaupunki')).toBeDefined();
-  expect(screen.getByText(20)).toBeDefined();
-  expect(screen.getByText('Test operaattor')).toBeDefined();
+    expect(getByText('Test nimi')).toBeDefined();
+    expect(getByText('Test osoite')).toBeDefined();
+    expect(getByText('Test kaupunki')).toBeDefined();
+    expect(getByText(20)).toBeDefined();
+    expect(getByText('Test operaattor')).toBeDefined();
+  });
 });

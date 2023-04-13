@@ -1,9 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import StationItems from '../../../src/components/stations/StationItems';
 
-describe('StationItems component', () => {
+describe('StationItems', () => {
   it('renders the correct station items', () => {
     const stationItems = [
       {
@@ -36,17 +36,17 @@ describe('StationItems component', () => {
       },
     ];
 
-    render(
+    const { getByText } = render(
       <MemoryRouter>
         <StationItems items={stationItems} />
       </MemoryRouter>,
     );
 
     stationItems.forEach((item) => {
-      expect(screen.getByText(item.nimi)).toBeDefined();
-      expect(screen.getByText(item.osoite)).toBeDefined();
-      expect(screen.getByText(item.kaupunki)).toBeDefined();
-      expect(screen.getByText(item.kapasiteet)).toBeDefined();
+      expect(getByText(item.nimi)).toBeDefined();
+      expect(getByText(item.osoite)).toBeDefined();
+      expect(getByText(item.kaupunki)).toBeDefined();
+      expect(getByText(item.kapasiteet)).toBeDefined();
     });
   });
 });

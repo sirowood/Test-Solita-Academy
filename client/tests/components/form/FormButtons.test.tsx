@@ -1,6 +1,6 @@
 import React from 'react';
 import { MemoryRouter, useNavigate } from 'react-router-dom';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import FormButtons from '../../../src/components/form/FormButtons';
 
 jest.mock('react-router-dom', () => ({
@@ -8,65 +8,65 @@ jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn(),
 }));
 
-const resetForm = jest.fn();
+describe('FormButtons', () => {
+  const mockProps = {
+    dirty: true,
+    addType: 'journey',
+    isValid: false,
+    isSubmitting: false,
+    resetForm: jest.fn(),
+  };
 
-const fakeProps = {
-  dirty: true,
-  addType: 'journey',
-  isValid: false,
-  isSubmitting: false,
-  resetForm: resetForm,
-};
+  it('renders correctly', () => {
+    const { getByText } = render(
+      <MemoryRouter>
+        <FormButtons {...mockProps} />
+      </MemoryRouter>,
+    );
 
-test('should render correctly', () => {
-  render(
-    <MemoryRouter>
-      <FormButtons {...fakeProps} />
-    </MemoryRouter>,
-  );
+    const addButton = getByText('Add');
+    const cancelButton = getByText('Cancel');
 
-  const addButton = screen.getByText('Add');
-  const cancelButton = screen.getByText('Cancel');
+    expect(addButton).toBeDefined();
+    expect(addButton.hasAttribute('disabled')).toBe(true);
+    expect(cancelButton).toBeDefined();
+  });
 
-  expect(addButton).toBeDefined();
-  expect(addButton.hasAttribute('disabled')).toBe(true);
-  expect(cancelButton).toBeDefined();
-});
+  it('reset button should not be disabled', () => {
+    const { queryAllByRole } = render(
+      <MemoryRouter>
+        <FormButtons {...mockProps} />
+      </MemoryRouter>,
+    );
 
-test('reset button should not be disabled', () => {
-  render(
-    <MemoryRouter>
-      <FormButtons {...fakeProps} />
-    </MemoryRouter>,
-  );
+    const resetButton = queryAllByRole('button')[1];
+    expect(resetButton.hasAttribute('disabled')).toBe(false);
+  });
 
-  const resetButton = screen.queryAllByRole('button')[1];
-  expect(resetButton.hasAttribute('disabled')).toBe(false);
-});
+  it('should call the resetForm function when the reset button is clicked', () => {
+    const { queryAllByRole } = render(
+      <MemoryRouter>
+        <FormButtons {...mockProps} />
+      </MemoryRouter>,
+    );
 
-test('should call the resetForm function when the reset button is clicked', () => {
-  render(
-    <MemoryRouter>
-      <FormButtons {...fakeProps} />
-    </MemoryRouter>,
-  );
+    const resetButton = queryAllByRole('button')[1];
+    fireEvent.click(resetButton);
+    expect(mockProps.resetForm).toHaveBeenCalled();
+  });
 
-  const resetButton = screen.queryAllByRole('button')[1];
-  fireEvent.click(resetButton);
-  expect(resetForm).toHaveBeenCalled();
-});
+  it('should navigate to the expected URL when the cancel button is clicked', () => {
+    const navigate = jest.fn();
+    (useNavigate as jest.Mock).mockReturnValue(navigate);
 
-test('should navigate to the expected URL when the cancel button is clicked', () => {
-  const navigate = jest.fn();
-  (useNavigate as jest.Mock).mockReturnValue(navigate);
+    const { getByText } = render(
+      <MemoryRouter>
+        <FormButtons {...mockProps} />
+      </MemoryRouter>,
+    );
 
-  render(
-    <MemoryRouter>
-      <FormButtons {...fakeProps} />
-    </MemoryRouter>,
-  );
-
-  const cancelButton = screen.getByText('Cancel');
-  fireEvent.click(cancelButton);
-  expect(navigate).toHaveBeenCalledWith('/journeys');
+    const cancelButton = getByText('Cancel');
+    fireEvent.click(cancelButton);
+    expect(navigate).toHaveBeenCalledWith('/journeys');
+  });
 });

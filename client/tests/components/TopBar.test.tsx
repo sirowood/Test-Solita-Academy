@@ -9,12 +9,13 @@ describe('TopBar', () => {
   const mockStore = configureStore([]);
   const store = mockStore({ showNav: true });
 
-  it('renders the title', () => {
+  it('renders the title correctly', () => {
     const { getByText } = render(
       <Provider store={store}>
         <TopBar title="Test Title" />
       </Provider>,
     );
+
     expect(getByText('Test Title')).toBeDefined();
   });
 
@@ -24,7 +25,9 @@ describe('TopBar', () => {
         <TopBar title="Test Title" />
       </Provider>,
     );
+
     fireEvent.click(getByTitle('Toggle menu button'));
+
     expect(store.getActions()).toEqual([toggleNavigationBar()]);
   });
 });

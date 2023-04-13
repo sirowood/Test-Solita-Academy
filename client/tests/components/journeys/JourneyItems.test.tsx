@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import JourneyItems from '../../../src/components/journeys/JourneyItems';
 
 describe('JourneyItems', () => {
@@ -29,13 +29,13 @@ describe('JourneyItems', () => {
       },
     ];
 
-    render(<JourneyItems items={journeyItems} />);
+    const { getByText } = render(<JourneyItems items={journeyItems} />);
 
     journeyItems.forEach((item) => {
-      expect(screen.getByText(item.departureStationName)).toBeDefined();
-      expect(screen.getByText(item.arrivalStationName)).toBeDefined();
-      expect(screen.getByText(`${item.coveredDistance} km`)).toBeDefined();
-      expect(screen.getByText(`${item.duration}`)).toBeDefined();
+      expect(getByText(item.departureStationName)).toBeDefined();
+      expect(getByText(item.arrivalStationName)).toBeDefined();
+      expect(getByText(`${item.coveredDistance} km`)).toBeDefined();
+      expect(getByText(`${item.duration}`)).toBeDefined();
     });
   });
 });

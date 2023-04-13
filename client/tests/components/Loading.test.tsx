@@ -1,11 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import Loading from '../../src/components/Loading';
 
-beforeAll(() => {
-  render(<Loading />);
-});
+describe('Loading', () => {
+  it('render correctly', () => {
+    const { getByText } = render(<Loading />);
 
-test('should render tr element', () => {
-  expect(screen.getByText('Loading...')).toBeDefined();
+    expect(getByText('Loading...')).toBeDefined();
+  });
 });

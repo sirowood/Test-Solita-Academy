@@ -30,11 +30,12 @@ describe('ListControlBar', () => {
 
   it('calls changeCurrentPage function on clicking previous and next buttons', () => {
     const { getByTitle } = render(<ListControlBar {...mockProps} />);
-
     fireEvent.click(getByTitle('Next page'));
+
     expect(mockProps.changeCurrentPage).toHaveBeenCalledWith('3');
 
     fireEvent.click(getByTitle('Previous page'));
+
     expect(mockProps.changeCurrentPage).toHaveBeenCalledWith('1');
   });
 
@@ -43,6 +44,7 @@ describe('ListControlBar', () => {
 
     const pageSizeSelect = getByTitle('Page size');
     fireEvent.change(pageSizeSelect, { target: { value: '20' } });
+
     expect(mockProps.changePageSize).toHaveBeenCalledTimes(1);
     expect(mockProps.changePageSize).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -53,15 +55,15 @@ describe('ListControlBar', () => {
 
   it('calls changeShowFilters function on clicking set filters button', () => {
     const { getByTitle } = render(<ListControlBar {...mockProps} />);
-
     fireEvent.click(getByTitle('Set filters'));
+
     expect(mockProps.changeShowFilters).toHaveBeenCalledTimes(1);
   });
 
   it('calls changeOrderDirection function on clicking change order direction button', () => {
     const { getByTitle } = render(<ListControlBar {...mockProps} />);
-
     fireEvent.click(getByTitle('Change order direction'));
+
     expect(mockProps.changeOrderDirection).toHaveBeenCalledTimes(1);
   });
 });

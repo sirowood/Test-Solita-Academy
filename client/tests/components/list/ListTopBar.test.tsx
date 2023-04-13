@@ -29,6 +29,7 @@ describe('ListTopBar', () => {
 
     const searchInput = getByPlaceholderText('Search');
     fireEvent.change(searchInput, { target: { value: 'new search text' } });
+
     expect(mockProps.setSearchText).toHaveBeenCalledTimes(1);
     expect(mockProps.setSearchText).toHaveBeenCalledWith('new search text');
   });
