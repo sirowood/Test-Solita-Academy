@@ -1,15 +1,15 @@
 import React from 'react';
 import { Modal, ModalHeader, ModalBody } from '../modal';
 import AddForm from '../form/AddForm';
-import { addJourneyValidationSchema } from '../../schemas/form.schema';
-import { addJourney } from '../../services/journey.service';
-import { ADD_JOURNEY_FIELDS } from '../../constants';
+import { addJourneyValidationSchema } from '../../../schemas/form.schema';
+import { addJourney } from '../../../services/journey.service';
+import { ADD_JOURNEY_FIELDS } from '../../../constants';
 
-type AddJourneyProps = {
+type AddJourneyModalProps = {
   changeOpen: () => void;
 };
 
-function AddJourney({ changeOpen }: AddJourneyProps) {
+function AddJourneyModal({ changeOpen }: AddJourneyModalProps) {
   return (
     <Modal changeOpen={changeOpen}>
       <ModalHeader>Add Journey</ModalHeader>
@@ -25,4 +25,4 @@ function AddJourney({ changeOpen }: AddJourneyProps) {
   );
 }
 
-export default AddJourney;
+export default AddJourneyModal;

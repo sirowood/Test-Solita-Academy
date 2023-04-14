@@ -2,13 +2,13 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { toggleModal } from '../reducers/modal';
 import PageLayout from '../components/PageLayout';
-import AddStation from '../components/stations/AddStation';
+import AddStationModal from '../components/list/stations/AddStationModal';
 import TopBar from '../components/TopBar';
 import ListTopBar from '../components/list/ListTopBar';
 import ListControlBar from '../components/list/ListControlBar';
 import ListFilter from '../components/list/ListFilter';
 import ListSection from '../components/list/ListSection';
-import StationItems from '../components/stations/StationItems';
+import StationItems from '../components/list/stations/StationItems';
 import useTables from '../hooks/useTables';
 import { fetchAllStations } from '../services/station.service';
 import { STATIONS_ORDERS, STATIONS_FILTERS } from '../constants';
@@ -41,7 +41,7 @@ function Stations() {
 
   return (
     <>
-      <AddStation changeOpen={changeOpen} />
+      <AddStationModal changeOpen={changeOpen} />
 
       <PageLayout>
         <ListFilter

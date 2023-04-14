@@ -9,8 +9,8 @@ import {
   stationName,
   rightArrowIconDiv,
   footerSubDiv,
-} from '../../styles/components/journeys/JourneyItems.styles';
-import { Journey } from '../../types/services/journey.type';
+} from '../../../styles/components/list/journeys/JourneyItems.styles';
+import { Journey } from '../../../types/services/journey.type';
 
 function JourneyItems({ items }: { items: Journey[] }) {
   return (

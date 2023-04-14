@@ -1,5 +1,6 @@
 import React from 'react';
 import { BiReset as ResetIcon } from 'react-icons/bi';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from './modal';
 import FilterProps from '../../types/components/list/listFilter.type';
 import {
   button,

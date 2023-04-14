@@ -8,8 +8,8 @@ import {
   bodyTextDiv,
   textSubDiv,
   capacityDiv,
-} from '../../styles/components/stations/StationItems.styles';
-import { Station } from '../../types/services/station.type';
+} from '../../../styles/components/list/stations/StationItems.styles';
+import { Station } from '../../../types/services/station.type';
 
 function StationItems({ items }: { items: Station[] }) {
   return (

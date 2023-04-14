@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useFormikContext } from 'formik';
 import Select, { SingleValue } from 'react-select';
-import useDebounce from '../../hooks/useSearchDebounce';
-import { fetchStationsBySearch } from '../../services/station.service';
-import { AddJourneyProps } from '../../types/services/add.type';
+import useDebounce from '../../../hooks/useSearchDebounce';
+import { fetchStationsBySearch } from '../../../services/station.service';
+import { AddJourneyProps } from '../../../types/services/add.type';
 import {
   Option,
   SelectFieldProps,
-} from '../../types/components/form/selectField.type';
-import selectField from '../../styles/components/form/selectField.styles';
+} from '../../../types/components/list/form/selectField.type';
+import selectField from '../../../styles/components/list/form/selectField.styles';
 
 function SelectField({ field, displayName }: SelectFieldProps) {
   const { setFieldValue, values } = useFormikContext<AddJourneyProps>();

@@ -1,5 +1,5 @@
-import { AddFunction } from '../../services/add.type';
-import { addJourneyValidationSchema, addStationValidationSchema } from '../../../schemas/form.schema';
+import { AddFunction } from '../../../services/add.type';
+import { addJourneyValidationSchema, addStationValidationSchema } from '../../../../schemas/form.schema';
 
 type Fields = {
   required: boolean,

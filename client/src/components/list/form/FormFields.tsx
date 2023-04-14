@@ -1,14 +1,14 @@
 import React from 'react';
 import { ErrorMessage, Field } from 'formik';
 import SelectField from './SelectField';
-import FormFieldsProps from '../../types/components/form/formFields.type';
+import FormFieldsProps from '../../../types/components/list/form/formFields.type';
 import {
   formFields,
   formInput,
   formInputErrorMessage,
   formInputFloatingLabel,
   formInputGroup,
-} from '../../styles/components/form/formFields.styles';
+} from '../../../styles/components/list/form/formFields.styles';
 
 function FormFields({ fields, errors }: FormFieldsProps) {
   return (

@@ -1,15 +1,15 @@
 import React from 'react';
 import { Modal, ModalHeader, ModalBody } from '../modal';
 import AddForm from '../form/AddForm';
-import { addStationValidationSchema } from '../../schemas/form.schema';
-import { addStation } from '../../services/station.service';
-import { ADD_STATION_FIELDS } from '../../constants';
+import { addStationValidationSchema } from '../../../schemas/form.schema';
+import { addStation } from '../../../services/station.service';
+import { ADD_STATION_FIELDS } from '../../../constants';
 
-type AddStationProps = {
+type AddStationModalProps = {
   changeOpen: () => void;
 };
 
-function AddStation({ changeOpen }: AddStationProps) {
+function AddStationModal({ changeOpen }: AddStationModalProps) {
   return (
     <Modal changeOpen={changeOpen}>
       <ModalHeader>Add Station</ModalHeader>
@@ -25,4 +25,4 @@ function AddStation({ changeOpen }: AddStationProps) {
   );
 }
 
-export default AddStation;
+export default AddStationModal;

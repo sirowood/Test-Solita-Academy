@@ -5,9 +5,9 @@ import FormFields from './FormFields';
 import {
   AccProps,
   AddFormProps,
-} from '../../types/components/form/addForm.type';
-import { AddFunctionProps } from '../../types/services/add.type';
-import { form } from '../../styles/components/form/addForm.styles';
+} from '../../../types/components/list/form/addForm.type';
+import { AddFunctionProps } from '../../../types/services/add.type';
+import { form } from '../../../styles/components/list/form/addForm.styles';
 
 function AddForm({
   fields,
