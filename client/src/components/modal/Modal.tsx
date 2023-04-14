@@ -1,31 +1,25 @@
 import React from 'react';
 
-type AddModalProps = {
-  open: boolean;
+type ModalProps = {
   changeOpen: () => void;
   children: React.ReactNode;
+  className?: string;
 };
 
-function AddModal({ open, changeOpen, children }: AddModalProps) {
-  if (!open) {
-    return null;
-  }
-
+function Modal({ changeOpen, children, className }: ModalProps) {
   return (
-    <section className="absolute top-0 left-0 h-full w-full">
+    <aside className={`absolute top-0 left-0 h-full w-full ${className}`}>
       <div
         role="presentation"
         className="absolute z-10 h-full w-full bg-gray-800/30 backdrop-blur-sm"
         onClick={changeOpen}
       />
+
       <div className="absolute top-1/2 left-1/2 z-20 flex h-max max-h-[90%] w-[90%] -translate-x-1/2 -translate-y-1/2 flex-col overflow-y-auto rounded-md bg-solita-500 shadow-2xl sm:max-w-xl">
-        <div className="sticky top-0 z-30 bg-solita-500 p-4 text-2xl font-semibold shadow-md shadow-gray-900">
-          Add Station
-        </div>
-        <div>{children}</div>
+        {children}
       </div>
-    </section>
+    </aside>
   );
 }
 
-export default AddModal;
+export default Modal;

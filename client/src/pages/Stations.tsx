@@ -38,45 +38,47 @@ function Stations() {
   }
 
   return (
-    <PageLayout>
+    <>
       <AddStation
         open={open}
         changeOpen={changeOpen}
       />
 
-      <ListFilter
-        filters={filters}
-        showFilters={showFilters}
-        resetFilters={resetFilters}
-        changeFilters={changeFilters}
-        changeShowFilters={changeShowFilters}
-      />
-
-      <TopBar title="Stations">
-        <ListTopBar
-          searchText={searchText}
-          setSearchText={setSearchText}
-          changeOpen={changeOpen}
+      <PageLayout>
+        <ListFilter
+          filters={filters}
+          showFilters={showFilters}
+          resetFilters={resetFilters}
+          changeFilters={changeFilters}
+          changeShowFilters={changeShowFilters}
         />
-      </TopBar>
 
-      <ListControlBar
-        loading={data.isLoading}
-        currentPage={data.response.currentPage}
-        totalPages={data.response.totalPages}
-        orderDirection={orderDirection}
-        orderOptions={STATIONS_ORDERS}
-        changeCurrentPage={changeCurrentPage}
-        changePageSize={changePageSize}
-        changeShowFilters={changeShowFilters}
-        changeOrderBy={changeOrderBy}
-        changeOrderDirection={changeOrderDirection}
-      />
+        <TopBar title="Stations">
+          <ListTopBar
+            searchText={searchText}
+            setSearchText={setSearchText}
+            changeOpen={changeOpen}
+          />
+        </TopBar>
 
-      <ListSection>
-        <StationItems items={data.response.items} />
-      </ListSection>
-    </PageLayout>
+        <ListControlBar
+          loading={data.isLoading}
+          currentPage={data.response.currentPage}
+          totalPages={data.response.totalPages}
+          orderDirection={orderDirection}
+          orderOptions={STATIONS_ORDERS}
+          changeCurrentPage={changeCurrentPage}
+          changePageSize={changePageSize}
+          changeShowFilters={changeShowFilters}
+          changeOrderBy={changeOrderBy}
+          changeOrderDirection={changeOrderDirection}
+        />
+
+        <ListSection>
+          <StationItems items={data.response.items} />
+        </ListSection>
+      </PageLayout>
+    </>
   );
 }
 
