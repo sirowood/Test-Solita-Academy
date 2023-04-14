@@ -15,17 +15,12 @@ type Fields = {
 type ValidaionSchema = typeof addJourneyValidationSchema | typeof addStationValidationSchema;
 
 type AddFormProps = {
-  addType: string,
   fields: Fields,
   addFunction: AddFunction,
   validationSchema: ValidaionSchema,
+  changeOpen: () => void,
 };
 
 type AccProps = { [key: string]: string | number };
 
-type MessageState = {
-  text: string,
-  backgroundColor: string,
-};
-
-export { Fields, AddFormProps, AccProps, MessageState, ValidaionSchema };
+export { Fields, AddFormProps, AccProps, ValidaionSchema };

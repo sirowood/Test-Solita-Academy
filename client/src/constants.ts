@@ -268,8 +268,6 @@ const ADD_JOURNEY_FIELDS = [
   },
 ];
 
-const MESSAGE = { text: '', backgroundColor: '' };
-
 export {
   USEPAGINATION_INITIAL_STATE,
   USEDATA_INITIAL_STATE,
@@ -282,5 +280,4 @@ export {
   CARD_DETAILS_INITIAL_STATE,
   ADD_STATION_FIELDS,
   ADD_JOURNEY_FIELDS,
-  MESSAGE,
 };

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PageLayout from '../components/PageLayout';
+import AddJourney from '../components/journeys/AddJourney';
 import TopBar from '../components/TopBar';
 import ListTopBar from '../components/list/ListTopBar';
 import ListControlBar from '../components/list/ListControlBar';
@@ -30,12 +31,32 @@ function Journeys() {
     fetchFunction: fetchAllJourneys,
   });
 
+  const [open, setOpen] = useState(true);
+
+  function changeOpen() {
+    setOpen(!open);
+  }
+
   return (
     <PageLayout>
+      <AddJourney
+        open={open}
+        changeOpen={changeOpen}
+      />
+
+      <ListFilter
+        filters={filters}
+        showFilters={showFilters}
+        resetFilters={resetFilters}
+        changeFilters={changeFilters}
+        changeShowFilters={changeShowFilters}
+      />
+
       <TopBar title="Journeys">
         <ListTopBar
           searchText={searchText}
           setSearchText={setSearchText}
+          changeOpen={changeOpen}
         />
       </TopBar>
 
@@ -55,14 +76,6 @@ function Journeys() {
       <ListSection>
         <JourneyItems items={data.response.items} />
       </ListSection>
-
-      <ListFilter
-        filters={filters}
-        showFilters={showFilters}
-        resetFilters={resetFilters}
-        changeFilters={changeFilters}
-        changeShowFilters={changeShowFilters}
-      />
     </PageLayout>
   );
 }

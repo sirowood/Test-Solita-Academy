@@ -25,7 +25,7 @@ function ListFilter({
       <div
         role="presentation"
         onClick={changeShowFilters}
-        className="fixed z-10 h-screen w-screen bg-gray-700/90"
+        className="fixed z-10 h-screen w-screen bg-gray-800/30 backdrop-blur-sm"
       />
       <div className="fixed top-1/2 left-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-4 rounded-md bg-solita-500 p-8">
         {filters.map(({ displayName, type, filterProperties, filterName }) => (
@@ -61,7 +61,7 @@ function ListFilter({
         <button
           title="Reset filters button"
           className={button}
-          type="button"
+          type="reset"
           onClick={resetFilters}
         >
           <ResetIcon />

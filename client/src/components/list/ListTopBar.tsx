@@ -1,15 +1,17 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import { BiSearch, BiPlus } from 'react-icons/bi';
 
 type ListTopBarProps = {
   searchText: string;
   setSearchText: (newSearchText: string) => void;
+  changeOpen: () => void;
 };
 
-function ListTopBar({ searchText, setSearchText }: ListTopBarProps) {
-  const { pathname } = useLocation();
-
+function ListTopBar({
+  searchText,
+  setSearchText,
+  changeOpen,
+}: ListTopBarProps) {
   return (
     <div className="ml-auto flex flex-row items-center gap-2">
       <div className="flex flex-row items-center gap-2 rounded-2xl bg-solita-500 pr-2">
@@ -22,12 +24,12 @@ function ListTopBar({ searchText, setSearchText }: ListTopBarProps) {
         />
         <BiSearch className="h-6 w-6" />
       </div>
-      <Link
+      <button
         className="rounded border-[1px] border-gray-400 text-gray-400 duration-75 hover:cursor-pointer hover:border-white hover:text-white active:scale-95"
-        to={`${pathname}/add`}
+        onClick={changeOpen}
       >
         <BiPlus className="h-6 w-6" />
-      </Link>
+      </button>
     </div>
   );
 }

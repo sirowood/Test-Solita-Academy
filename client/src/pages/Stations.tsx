@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PageLayout from '../components/PageLayout';
+import AddStation from '../components/stations/AddStation';
 import TopBar from '../components/TopBar';
 import ListTopBar from '../components/list/ListTopBar';
 import ListControlBar from '../components/list/ListControlBar';
@@ -30,12 +31,32 @@ function Stations() {
     fetchFunction: fetchAllStations,
   });
 
+  const [open, setOpen] = useState(true);
+
+  function changeOpen() {
+    setOpen(!open);
+  }
+
   return (
     <PageLayout>
+      <AddStation
+        open={open}
+        changeOpen={changeOpen}
+      />
+
+      <ListFilter
+        filters={filters}
+        showFilters={showFilters}
+        resetFilters={resetFilters}
+        changeFilters={changeFilters}
+        changeShowFilters={changeShowFilters}
+      />
+
       <TopBar title="Stations">
         <ListTopBar
           searchText={searchText}
           setSearchText={setSearchText}
+          changeOpen={changeOpen}
         />
       </TopBar>
 
@@ -50,14 +71,6 @@ function Stations() {
         changeShowFilters={changeShowFilters}
         changeOrderBy={changeOrderBy}
         changeOrderDirection={changeOrderDirection}
-      />
-
-      <ListFilter
-        filters={filters}
-        showFilters={showFilters}
-        resetFilters={resetFilters}
-        changeFilters={changeFilters}
-        changeShowFilters={changeShowFilters}
       />
 
       <ListSection>
