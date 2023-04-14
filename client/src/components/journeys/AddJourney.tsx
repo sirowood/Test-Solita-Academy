@@ -6,15 +6,10 @@ import { addJourney } from '../../services/journey.service';
 import { ADD_JOURNEY_FIELDS } from '../../constants';
 
 type AddJourneyProps = {
-  open: boolean;
   changeOpen: () => void;
 };
 
-function AddJourney({ open, changeOpen }: AddJourneyProps) {
-  if (!open) {
-    return null;
-  }
-
+function AddJourney({ changeOpen }: AddJourneyProps) {
   return (
     <Modal changeOpen={changeOpen}>
       <ModalHeader>Add Journey</ModalHeader>

@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 type ModalProps = {
   changeOpen: () => void;
@@ -7,6 +9,12 @@ type ModalProps = {
 };
 
 function Modal({ changeOpen, children, className }: ModalProps) {
+  const { showModal } = useSelector((state: RootState) => state);
+
+  if (!showModal) {
+    return null;
+  }
+
   return (
     <aside className={`absolute top-0 left-0 h-full w-full ${className}`}>
       <div

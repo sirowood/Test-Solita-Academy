@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { toggleModal } from '../reducers/modal';
 import PageLayout from '../components/PageLayout';
 import AddStation from '../components/stations/AddStation';
 import TopBar from '../components/TopBar';
@@ -31,18 +33,15 @@ function Stations() {
     fetchFunction: fetchAllStations,
   });
 
-  const [open, setOpen] = useState(true);
+  const dispatch = useDispatch();
 
   function changeOpen() {
-    setOpen(!open);
+    dispatch(toggleModal());
   }
 
   return (
     <>
-      <AddStation
-        open={open}
-        changeOpen={changeOpen}
-      />
+      <AddStation changeOpen={changeOpen} />
 
       <PageLayout>
         <ListFilter

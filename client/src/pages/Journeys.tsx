@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { toggleModal } from '../reducers/modal';
 import PageLayout from '../components/PageLayout';
 import AddJourney from '../components/journeys/AddJourney';
 import TopBar from '../components/TopBar';
@@ -31,18 +33,15 @@ function Journeys() {
     fetchFunction: fetchAllJourneys,
   });
 
-  const [open, setOpen] = useState(true);
+  const dispatch = useDispatch();
 
   function changeOpen() {
-    setOpen(!open);
+    dispatch(toggleModal());
   }
 
   return (
     <PageLayout>
-      <AddJourney
-        open={open}
-        changeOpen={changeOpen}
-      />
+      <AddJourney changeOpen={changeOpen} />
 
       <ListFilter
         filters={filters}

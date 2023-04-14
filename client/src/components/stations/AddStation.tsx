@@ -6,15 +6,10 @@ import { addStation } from '../../services/station.service';
 import { ADD_STATION_FIELDS } from '../../constants';
 
 type AddStationProps = {
-  open: boolean;
   changeOpen: () => void;
 };
 
-function AddStation({ open, changeOpen }: AddStationProps) {
-  if (!open) {
-    return null;
-  }
-
+function AddStation({ changeOpen }: AddStationProps) {
   return (
     <Modal changeOpen={changeOpen}>
       <ModalHeader>Add Station</ModalHeader>
