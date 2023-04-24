@@ -17,7 +17,20 @@ const formHeading = clsx(
   ],
 );
 
+const formFooter = clsx(
+  [
+    'z-30',
+    'sticky',
+    'bottom-0',
+    'w-full',
+    'gap-2',
+    'bg-solita-500',
+    'shadow-[0_-4px_6px_-1px_#212121]',
+  ],
+);
+
 export {
   form,
   formHeading,
+  formFooter,
 };

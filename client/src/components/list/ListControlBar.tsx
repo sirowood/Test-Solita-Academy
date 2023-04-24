@@ -6,6 +6,15 @@ import {
   FiArrowRight,
   FiFilter,
 } from 'react-icons/fi';
+import {
+  arrowButton,
+  arrowsDiv,
+  genericButton,
+  listControlBarSection,
+  orderDiv,
+  orderSelect,
+  pageSizeSelect,
+} from '../../styles/components/list/listControlBar.styles';
 import ListControlBarProps from '../../types/components/list/listControlBar.type';
 
 function ListControlBar({
@@ -21,10 +30,10 @@ function ListControlBar({
   changeOrderDirection,
 }: ListControlBarProps) {
   return (
-    <section className="flex shrink-0 flex-row items-center gap-2 overflow-x-auto bg-solita-400 p-2 shadow-xl">
-      <div className="flex flex-row items-center gap-1">
+    <section className={listControlBarSection}>
+      <div className={arrowsDiv}>
         <button
-          className="rounded border-[1px] border-gray-400 text-gray-400 duration-75 hover:cursor-pointer hover:border-white hover:text-white active:scale-95 disabled:border-gray-600 disabled:text-gray-600 disabled:hover:cursor-default disabled:active:scale-100"
+          className={arrowButton}
           type="button"
           title="Previous page"
           disabled={currentPage === 1 || loading}
@@ -33,7 +42,7 @@ function ListControlBar({
           <FiArrowLeft className="h-6 w-6" />
         </button>
         <button
-          className="rounded border-[1px] border-gray-400 text-gray-400 duration-75 hover:cursor-pointer hover:border-white hover:text-white active:scale-95 disabled:border-gray-600 disabled:text-gray-600 disabled:hover:cursor-default disabled:active:scale-100"
+          className={arrowButton}
           type="button"
           title="Next page"
           disabled={currentPage === totalPages || loading}
@@ -44,7 +53,7 @@ function ListControlBar({
       </div>
       <div>
         <select
-          className="appearance-none rounded bg-solita-500 px-2 py-1 outline-none"
+          className={pageSizeSelect}
           title="Page size"
           onChange={changePageSize}
         >
@@ -53,10 +62,10 @@ function ListControlBar({
           <option value="40">40 / page</option>
         </select>
       </div>
-      <div className="flex flex-row items-center gap-2">
+      <div className={orderDiv}>
         <select
           title="Order by"
-          className="w-24 appearance-none truncate rounded bg-solita-500 px-2 py-1 outline-none sm:w-max"
+          className={orderSelect}
           defaultValue="id"
           onChange={changeOrderBy}
         >
@@ -73,7 +82,7 @@ function ListControlBar({
         <button
           type="button"
           title="Change order direction"
-          className="text-gray-400 duration-75 hover:cursor-pointer hover:text-white"
+          className={genericButton}
           onClick={changeOrderDirection}
         >
           {orderDirection === 'ASC' ? (
@@ -90,7 +99,7 @@ function ListControlBar({
         <button
           type="button"
           title="Set filters"
-          className="text-gray-400 duration-75 hover:cursor-pointer hover:text-white"
+          className={genericButton}
           onClick={changeShowFilters}
         >
           <FiFilter className="h-6 w-6" />

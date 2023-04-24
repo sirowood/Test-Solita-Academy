@@ -7,7 +7,10 @@ import {
   AddFormProps,
 } from '../../../types/components/list/form/addForm.type';
 import { AddFunctionProps } from '../../../types/services/add.type';
-import { form } from '../../../styles/components/list/form/addForm.styles';
+import {
+  form,
+  formFooter,
+} from '../../../styles/components/list/form/addForm.styles';
 
 function AddForm({
   fields,
@@ -48,7 +51,7 @@ function AddForm({
             fields={fields}
             errors={errors}
           />
-          <DialogFooter className="sticky bottom-0 z-30 w-full gap-2 bg-solita-500 shadow-[0_-4px_6px_-1px_#212121]">
+          <DialogFooter className={formFooter}>
             <Button
               color="blue-gray"
               onClick={changeOpen}

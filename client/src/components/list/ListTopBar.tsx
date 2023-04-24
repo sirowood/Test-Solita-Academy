@@ -1,5 +1,11 @@
 import React from 'react';
 import { BiSearch, BiPlus } from 'react-icons/bi';
+import {
+  addNewButton,
+  listTopBarDiv,
+  searchDiv,
+  searchInput,
+} from '../../styles/components/list/listTopBar.styles';
 
 type ListTopBarProps = {
   searchText: string;
@@ -13,10 +19,10 @@ function ListTopBar({
   changeOpen,
 }: ListTopBarProps) {
   return (
-    <div className="ml-auto flex flex-row items-center gap-2">
-      <div className="flex flex-row items-center gap-2 rounded-2xl bg-solita-500 pr-2">
+    <div className={listTopBarDiv}>
+      <div className={searchDiv}>
         <input
-          className="h-8 w-20 appearance-none rounded-r-none rounded-l-2xl bg-solita-500 px-2 outline-none duration-150 focus:w-36"
+          className={searchInput}
           type="text"
           placeholder="Search"
           value={searchText}
@@ -25,7 +31,7 @@ function ListTopBar({
         <BiSearch className="h-6 w-6" />
       </div>
       <button
-        className="rounded border-[1px] border-gray-400 text-gray-400 duration-75 hover:cursor-pointer hover:border-white hover:text-white active:scale-95"
+        className={addNewButton}
         onClick={changeOpen}
       >
         <BiPlus className="h-6 w-6" />

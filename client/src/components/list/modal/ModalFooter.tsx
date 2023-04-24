@@ -1,4 +1,5 @@
 import React from 'react';
+import modalFooter from '../../../styles/components/list/modal/modalFooter.styles';
 
 type ModalFooterProps = {
   children: React.ReactNode;
@@ -6,11 +7,7 @@ type ModalFooterProps = {
 };
 
 function ModalFooter({ children, className }: ModalFooterProps) {
-  return (
-    <div className={`flex w-full flex-row justify-end gap-2 p-2 ${className}`}>
-      {children}
-    </div>
-  );
+  return <div className={`${modalFooter} ${className}`}>{children}</div>;
 }
 
 export default ModalFooter;

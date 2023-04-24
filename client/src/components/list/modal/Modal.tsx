@@ -1,4 +1,9 @@
 import React from 'react';
+import {
+  modalAside,
+  modalBackground,
+  modalWindow,
+} from '../../../styles/components/list/modal/modal.styles';
 
 type ModalProps = {
   open: boolean;
@@ -13,16 +18,14 @@ function Modal({ open, changeOpen, children, className }: ModalProps) {
   }
 
   return (
-    <aside className={`absolute top-0 left-0 h-full w-full ${className}`}>
+    <aside className={`${modalAside} ${className}`}>
       <div
         role="presentation"
-        className="absolute z-10 h-full w-full bg-gray-800/30 backdrop-blur-sm"
+        className={modalBackground}
         onClick={changeOpen}
       />
 
-      <div className="absolute top-1/2 left-1/2 z-20 flex h-max max-h-[90%] w-[90%] -translate-x-1/2 -translate-y-1/2 flex-col overflow-y-auto rounded-md bg-solita-500 shadow-2xl sm:max-w-xl">
-        {children}
-      </div>
+      <div className={modalWindow}>{children}</div>
     </aside>
   );
 }
