@@ -1,9 +1,9 @@
 import { FetchFunction } from '../services/fetch.type';
 import { FilterStateProps } from './useFilterDebounce.type';
 
-type UseTableProps = {
+type UseListProps = {
   fetchFunction: FetchFunction,
   initialFilters: FilterStateProps,
 };
 
-export default UseTableProps;
+export default UseListProps;

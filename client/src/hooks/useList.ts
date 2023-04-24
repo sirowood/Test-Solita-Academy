@@ -1,15 +1,26 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import useData from './useData';
 import useOdering from './useOdering';
 import usePagination from './usePagination';
 import useFilterDebounce from './useFilterDebounce';
 import useSearchDebounce from './useSearchDebounce';
-import UseTableProps from '../types/hooks/useTables.type';
+import UseListProps from '../types/hooks/UseList.type';
 
-function useTables({
+function useList({
   initialFilters,
   fetchFunction,
-}: UseTableProps) {
+}: UseListProps) {
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showFiltersModal, setShowFiltersModal] = useState(false);
+
+  function changeShowAddModal() {
+    setShowAddModal(!showAddModal);
+  }
+
+  function changeShowFiltersModal() {
+    setShowFiltersModal(!showFiltersModal);
+  }
+
   const {
     orderBy,
     orderDirection,
@@ -32,11 +43,9 @@ function useTables({
 
   const {
     filters,
-    showFilters,
     debouncedFilters,
     resetFilters,
     changeFilters,
-    changeShowFilters,
   } = useFilterDebounce({ initialFilters, milliseconds: 500 });
 
   const {
@@ -65,16 +74,18 @@ function useTables({
     orderDirection,
     filters,
     searchText,
-    showFilters,
+    showAddModal,
+    showFiltersModal,
     resetFilters,
     setSearchText,
     changeFilters,
     changePageSize,
-    changeShowFilters,
+    changeShowAddModal,
+    changeShowFiltersModal,
     changeCurrentPage,
     changeOrderBy,
     changeOrderDirection,
   };
 }
 
-export default useTables;
+export default useList;

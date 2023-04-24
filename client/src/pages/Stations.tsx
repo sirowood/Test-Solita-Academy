@@ -1,6 +1,4 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { toggleModal } from '../reducers/modal';
 import PageLayout from '../components/PageLayout';
 import AddStationModal from '../components/list/stations/AddStationModal';
 import TopBar from '../components/TopBar';
@@ -9,7 +7,7 @@ import ListControlBar from '../components/list/ListControlBar';
 import ListFilter from '../components/list/ListFilter';
 import ListSection from '../components/list/ListSection';
 import StationItems from '../components/list/stations/StationItems';
-import useTables from '../hooks/useTables';
+import useList from '../hooks/useList';
 import { fetchAllStations } from '../services/station.service';
 import { STATIONS_ORDERS, STATIONS_FILTERS } from '../constants';
 
@@ -19,44 +17,42 @@ function Stations() {
     orderDirection,
     filters,
     searchText,
-    showFilters,
+    showAddModal,
+    showFiltersModal,
     resetFilters,
     changeFilters,
     setSearchText,
     changePageSize,
-    changeShowFilters,
+    changeShowAddModal,
+    changeShowFiltersModal,
     changeCurrentPage,
     changeOrderBy,
     changeOrderDirection,
-  } = useTables({
+  } = useList({
     initialFilters: STATIONS_FILTERS,
     fetchFunction: fetchAllStations,
   });
 
-  const dispatch = useDispatch();
-
-  function changeOpen() {
-    dispatch(toggleModal());
-  }
-
   return (
     <>
-      <AddStationModal changeOpen={changeOpen} />
+      <AddStationModal
+        open={showAddModal}
+        changeOpen={changeShowAddModal}
+      />
 
+      <ListFilter
+        filters={filters}
+        showFilters={showFiltersModal}
+        resetFilters={resetFilters}
+        changeFilters={changeFilters}
+        changeShowFilters={changeShowFiltersModal}
+      />
       <PageLayout>
-        <ListFilter
-          filters={filters}
-          showFilters={showFilters}
-          resetFilters={resetFilters}
-          changeFilters={changeFilters}
-          changeShowFilters={changeShowFilters}
-        />
-
         <TopBar title="Stations">
           <ListTopBar
             searchText={searchText}
             setSearchText={setSearchText}
-            changeOpen={changeOpen}
+            changeOpen={changeShowAddModal}
           />
         </TopBar>
 
@@ -68,7 +64,7 @@ function Stations() {
           orderOptions={STATIONS_ORDERS}
           changeCurrentPage={changeCurrentPage}
           changePageSize={changePageSize}
-          changeShowFilters={changeShowFilters}
+          changeShowFilters={changeShowFiltersModal}
           changeOrderBy={changeOrderBy}
           changeOrderDirection={changeOrderDirection}
         />

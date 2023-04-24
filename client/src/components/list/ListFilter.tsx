@@ -1,10 +1,8 @@
 import React from 'react';
-import { BiReset as ResetIcon } from 'react-icons/bi';
+import { Button } from '@material-tailwind/react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from './modal';
 import FilterProps from '../../types/components/list/listFilter.type';
 import {
-  button,
-  filter,
   filterRow,
   filterInput,
   singleFilter,
@@ -17,18 +15,13 @@ function ListFilter({
   changeFilters,
   changeShowFilters,
 }: FilterProps) {
-  if (!showFilters) {
-    return null;
-  }
-
   return (
-    <section className={filter}>
-      <div
-        role="presentation"
-        onClick={changeShowFilters}
-        className="fixed z-10 h-screen w-screen bg-gray-800/30 backdrop-blur-sm"
-      />
-      <div className="fixed top-1/2 left-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-4 rounded-md bg-solita-500 p-8">
+    <Modal
+      open={showFilters}
+      changeOpen={changeShowFilters}
+    >
+      <ModalHeader>Filters</ModalHeader>
+      <ModalBody>
         {filters.map(({ displayName, type, filterProperties, filterName }) => (
           <div
             key={filterName}
@@ -59,16 +52,18 @@ function ListFilter({
             </div>
           </div>
         ))}
-        <button
-          title="Reset filters button"
-          className={button}
-          type="reset"
-          onClick={resetFilters}
-        >
-          <ResetIcon />
-        </button>
-      </div>
-    </section>
+        <ModalFooter>
+          <Button
+            title="Reset filters button"
+            color="amber"
+            type="reset"
+            onClick={resetFilters}
+          >
+            Reset
+          </Button>
+        </ModalFooter>
+      </ModalBody>
+    </Modal>
   );
 }
 

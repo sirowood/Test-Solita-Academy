@@ -1,17 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../store';
 
 type ModalProps = {
+  open: boolean;
   changeOpen: () => void;
   children: React.ReactNode;
   className?: string;
 };
 
-function Modal({ changeOpen, children, className }: ModalProps) {
-  const { showModal } = useSelector((state: RootState) => state);
-
-  if (!showModal) {
+function Modal({ open, changeOpen, children, className }: ModalProps) {
+  if (!open) {
     return null;
   }
 

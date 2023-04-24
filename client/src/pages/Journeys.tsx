@@ -1,6 +1,4 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { toggleModal } from '../reducers/modal';
 import PageLayout from '../components/PageLayout';
 import AddJourneyModal from '../components/list/journeys/AddJourneyModal';
 import TopBar from '../components/TopBar';
@@ -9,7 +7,7 @@ import ListControlBar from '../components/list/ListControlBar';
 import ListFilter from '../components/list/ListFilter';
 import ListSection from '../components/list/ListSection';
 import JourneyItems from '../components/list/journeys/JourneyItems';
-import useTables from '../hooks/useTables';
+import useList from '../hooks/useList';
 import { fetchAllJourneys } from '../services/journey.service';
 import { JOURNEYS_ORDERS, JOURNEYS_FILTERS } from '../constants';
 
@@ -19,44 +17,43 @@ function Journeys() {
     orderDirection,
     filters,
     searchText,
-    showFilters,
+    showAddModal,
+    showFiltersModal,
     resetFilters,
     changeFilters,
     setSearchText,
     changePageSize,
-    changeShowFilters,
+    changeShowAddModal,
+    changeShowFiltersModal,
     changeCurrentPage,
     changeOrderBy,
     changeOrderDirection,
-  } = useTables({
+  } = useList({
     initialFilters: JOURNEYS_FILTERS,
     fetchFunction: fetchAllJourneys,
   });
 
-  const dispatch = useDispatch();
-
-  function changeOpen() {
-    dispatch(toggleModal());
-  }
-
   return (
     <>
-      <AddJourneyModal changeOpen={changeOpen} />
+      <AddJourneyModal
+        open={showAddModal}
+        changeOpen={changeShowAddModal}
+      />
 
       <PageLayout>
         <ListFilter
           filters={filters}
-          showFilters={showFilters}
+          showFilters={showFiltersModal}
           resetFilters={resetFilters}
           changeFilters={changeFilters}
-          changeShowFilters={changeShowFilters}
+          changeShowFilters={changeShowFiltersModal}
         />
 
         <TopBar title="Journeys">
           <ListTopBar
             searchText={searchText}
             setSearchText={setSearchText}
-            changeOpen={changeOpen}
+            changeOpen={changeShowAddModal}
           />
         </TopBar>
 
@@ -68,7 +65,7 @@ function Journeys() {
           orderOptions={JOURNEYS_ORDERS}
           changeCurrentPage={changeCurrentPage}
           changePageSize={changePageSize}
-          changeShowFilters={changeShowFilters}
+          changeShowFilters={changeShowFiltersModal}
           changeOrderBy={changeOrderBy}
           changeOrderDirection={changeOrderDirection}
         />
