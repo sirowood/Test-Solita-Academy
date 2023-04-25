@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import StationErrorProp from '../../types/components/station/stationError.type';
 import {
   stationError,
   errorMessage,
   returnButton,
 } from '../../styles/components/station/stationError.styles';
+import StationErrorProp from '../../types/components/station/stationError.type';
 
 function StationError({ error }: StationErrorProp) {
   const navigate = useNavigate();

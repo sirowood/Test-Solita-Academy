@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 import Router from './components/Router';
-import Navigation from './components/Navigation';
+import Navigation from './components/navigation/Navigation';
 
 function App() {
   return (

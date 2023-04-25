@@ -3,14 +3,14 @@ import { DialogFooter, Button } from '@material-tailwind/react';
 import { Formik, Form, FormikHelpers } from 'formik';
 import FormFields from './FormFields';
 import {
+  form,
+  formFooter,
+} from '../../../styles/components/list/form/addForm.styles';
+import {
   AccProps,
   AddFormProps,
 } from '../../../types/components/list/form/addForm.type';
 import { AddFunctionProps } from '../../../types/services/add.type';
-import {
-  form,
-  formFooter,
-} from '../../../styles/components/list/form/addForm.styles';
 
 function AddForm({
   fields,

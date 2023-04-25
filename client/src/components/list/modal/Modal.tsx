@@ -4,13 +4,7 @@ import {
   modalBackground,
   modalWindow,
 } from '../../../styles/components/list/modal/modal.styles';
-
-type ModalProps = {
-  open: boolean;
-  changeOpen: () => void;
-  children: React.ReactNode;
-  className?: string;
-};
+import ModalProps from '../../../types/components/list/modal/modal.type';
 
 function Modal({ open, changeOpen, children, className }: ModalProps) {
   if (!open) {

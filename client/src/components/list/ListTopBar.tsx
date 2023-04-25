@@ -6,12 +6,7 @@ import {
   searchDiv,
   searchInput,
 } from '../../styles/components/list/listTopBar.styles';
-
-type ListTopBarProps = {
-  searchText: string;
-  setSearchText: (newSearchText: string) => void;
-  changeOpen: () => void;
-};
+import ListTopBarProps from '../../types/components/list/listTopBar.type';
 
 function ListTopBar({
   searchText,

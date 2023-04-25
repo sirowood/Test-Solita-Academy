@@ -4,11 +4,7 @@ import AddForm from '../form/AddForm';
 import { addJourneyValidationSchema } from '../../../schemas/form.schema';
 import { addJourney } from '../../../services/journey.service';
 import { ADD_JOURNEY_FIELDS } from '../../../constants';
-
-type AddJourneyModalProps = {
-  open: boolean;
-  changeOpen: () => void;
-};
+import AddJourneyModalProps from '../../../types/components/list/journeys/addJourneyModal.type';
 
 function AddJourneyModal({ open, changeOpen }: AddJourneyModalProps) {
   return (

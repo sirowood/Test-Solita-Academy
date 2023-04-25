@@ -4,15 +4,14 @@ import Select, { SingleValue } from 'react-select';
 import useDebounce from '../../../hooks/useSearchDebounce';
 import { fetchStationsBySearch } from '../../../services/station.service';
 import { AddJourneyProps } from '../../../types/services/add.type';
+import selectField from '../../../styles/components/list/form/selectField.styles';
 import {
   Option,
   SelectFieldProps,
 } from '../../../types/components/list/form/selectField.type';
-import selectField from '../../../styles/components/list/form/selectField.styles';
 
 function SelectField({ field, displayName }: SelectFieldProps) {
   const { setFieldValue, values } = useFormikContext<AddJourneyProps>();
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [options, setOptions] = useState<Option[]>([]);
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);

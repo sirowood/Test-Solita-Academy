@@ -1,9 +1,6 @@
 import React from 'react';
 import listSection from '../../styles/components/list/listSection.styles';
-
-type ListSectionProps = {
-  children: React.ReactNode;
-};
+import ListSectionProps from '../../types/components/list/listSection.type';
 
 function ListSection({ children }: ListSectionProps) {
   return <section className={listSection}>{children}</section>;

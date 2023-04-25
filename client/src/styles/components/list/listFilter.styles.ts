@@ -5,6 +5,7 @@ const singleFilter = clsx(
     'flex',
     'flex-col',
     'items-center',
+    'text-white',
   ],
 );
 

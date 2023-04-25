@@ -1,13 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AiOutlineMenu } from 'react-icons/ai';
+import { RootState } from '../store';
+import { toggleNavigationBar } from '../reducers/navigation';
 import {
   topBarSection,
   toggleButton,
   topBarTitle,
 } from '../styles/components/topbar.styles';
-import { RootState } from '../store';
-import { toggleNavigationBar } from '../reducers/navigation';
 import TopBarProps from '../types/components/topbar.type';
 
 function TopBar({ title, children }: TopBarProps) {

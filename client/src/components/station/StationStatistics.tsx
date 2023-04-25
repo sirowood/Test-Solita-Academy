@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import StationStatisticsProps from '../../types/components/station/stationStatistics.type';
 import {
   horizontalLine,
   singleStatistics,
@@ -12,6 +11,7 @@ import {
   topsItem,
   topsList,
 } from '../../styles/components/station/stationStatistics.styles';
+import StationStatisticsProps from '../../types/components/station/stationStatistics.type';
 
 function StationStatistics({
   title,

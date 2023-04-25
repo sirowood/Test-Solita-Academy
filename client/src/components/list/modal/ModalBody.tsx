@@ -1,9 +1,5 @@
 import React from 'react';
-
-type ModalBodyProps = {
-  children: React.ReactNode;
-  className?: string;
-};
+import ModalBodyProps from '../../../types/components/list/modal/modalBody.type';
 
 function ModalBody({ children, className }: ModalBodyProps) {
   return <div className={className}>{children}</div>;

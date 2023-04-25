@@ -4,11 +4,7 @@ import AddForm from '../form/AddForm';
 import { addStationValidationSchema } from '../../../schemas/form.schema';
 import { addStation } from '../../../services/station.service';
 import { ADD_STATION_FIELDS } from '../../../constants';
-
-type AddStationModalProps = {
-  open: boolean;
-  changeOpen: () => void;
-};
+import AddStationModalProps from '../../../types/components/list/stations/addStationModal.type';
 
 function AddStationModal({ open, changeOpen }: AddStationModalProps) {
   return (
