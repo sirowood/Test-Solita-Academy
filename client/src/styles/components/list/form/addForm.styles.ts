@@ -10,13 +10,6 @@ const form = clsx(
   ],
 );
 
-const formHeading = clsx(
-  [
-    'text-3xl',
-    'select-none',
-  ],
-);
-
 const formFooter = clsx(
   [
     'z-30',
@@ -29,8 +22,25 @@ const formFooter = clsx(
   ],
 );
 
+function messageDiv(color: string) {
+  const base = clsx(
+    [
+      'w-full',
+      'rounded-md',
+      'p-2',
+      'text-center',
+      'font-semibold',
+      'text-white',
+      'animate-fadeInFromBottom',
+    ],
+  );
+  const bgColor = `bg-${color}`;
+
+  return clsx(base, bgColor);
+}
+
 export {
   form,
-  formHeading,
   formFooter,
+  messageDiv,
 };

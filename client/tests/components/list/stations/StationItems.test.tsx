@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import StationItems from '../../../src/components/stations/StationItems';
+import StationItems from '../../../../src/components/list/stations/StationItems';
 
 describe('StationItems', () => {
   it('renders the correct station items', () => {

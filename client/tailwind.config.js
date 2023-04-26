@@ -21,6 +21,10 @@ module.exports = withMT({
           '50%': { opacity: 100 },
           '100%': { opacity: 0 },
         },
+        fadeInFromBottom: {
+          '0%': { opacity: 0, transform: 'translateY(100%)' },
+          '100%': { opacity: 100, transform: 'translateY(0)' },
+        },
         widthGrow: {
           '0%': { width: 0, paddingLeft: 0, paddingRight: 0 },
           '100%': { width: 80, paddingLeft: 8, paddingRight: 8 },
@@ -28,6 +32,7 @@ module.exports = withMT({
       },
       animation: {
         fadeIn: 'fadeIn 5s ease-in-out 5s infinite',
+        fadeInFromBottom: 'fadeInFromBottom .5s ease-in-out forwards',
         widthGrow: 'widthGrow .2s ease-in-out forwards',
         widthShrink: 'widthGrow .2s ease-in-out reverse forwards',
       },

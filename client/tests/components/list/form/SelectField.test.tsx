@@ -1,10 +1,10 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import { Formik } from 'formik';
-import SelectField from '../../../src/components/form/SelectField';
-import { fetchStationsBySearch } from '../../../src/services/station.service';
+import SelectField from '../../../../src/components/list/form/SelectField';
+import { fetchStationsBySearch } from '../../../../src/services/station.service';
 
-jest.mock('../../../src/services/station.service', () => ({
+jest.mock('../../../../src/services/station.service', () => ({
   fetchStationsBySearch: jest.fn(),
 }));
 

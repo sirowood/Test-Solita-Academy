@@ -1,12 +1,12 @@
 import { renderHook, act, waitFor } from '@testing-library/react';
-import useTables from '../../src/hooks/useTables';
+import useList from '../../src/hooks/useList';
 import { JOURNEYS_FILTERS } from '../../src/constants';
 
-describe('useTables', () => {
+describe('useList', () => {
   test('should return the expected values and functions', async () => {
     const fetchFunction = jest.fn();
 
-    const { result } = renderHook(() => useTables({
+    const { result } = renderHook(() => useList({
       initialFilters: JOURNEYS_FILTERS,
       fetchFunction,
     }));
@@ -16,12 +16,14 @@ describe('useTables', () => {
       expect(result.current.orderDirection).toBeDefined();
       expect(result.current.filters).toBeDefined();
       expect(result.current.searchText).toBeDefined();
-      expect(result.current.showFilters).toBeDefined();
+      expect(result.current.showFiltersModal).toBeDefined();
+      expect(result.current.showAddModal).toBeDefined();
       expect(result.current.resetFilters).toBeDefined();
       expect(result.current.setSearchText).toBeDefined();
       expect(result.current.changeFilters).toBeDefined();
       expect(result.current.changePageSize).toBeDefined();
-      expect(result.current.changeShowFilters).toBeDefined();
+      expect(result.current.changeShowFiltersModal).toBeDefined();
+      expect(result.current.changeShowAddModal).toBeDefined();
       expect(result.current.changeCurrentPage).toBeDefined();
       expect(result.current.changeOrderBy).toBeDefined();
       expect(result.current.changeOrderDirection).toBeDefined();

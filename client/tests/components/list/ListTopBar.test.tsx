@@ -7,6 +7,7 @@ describe('ListTopBar', () => {
   const mockProps = {
     searchText: '',
     setSearchText: jest.fn(),
+    changeOpen: jest.fn(),
   };
 
   it('renders correctly', () => {
@@ -17,7 +18,7 @@ describe('ListTopBar', () => {
     );
 
     expect(getByPlaceholderText('Search')).toBeDefined();
-    expect(getByRole('link')).toBeDefined();
+    expect(getByRole('button', { name: 'Add new button' })).toBeDefined();
   });
 
   it('calls setSearchText function on changing search text input', () => {

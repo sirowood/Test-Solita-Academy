@@ -1,10 +1,10 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { Formik, FormikErrors } from 'formik';
-import FormFields from '../../../src/components/form/FormFields';
-import { ADD_JOURNEY_FIELDS } from '../../../src/constants';
+import FormFields from '../../../../src/components/list/form/FormFields';
+import { ADD_JOURNEY_FIELDS } from '../../../../src/constants';
 
-jest.mock('../../../src/services/station.service', () => ({
+jest.mock('../../../../src/services/station.service', () => ({
   fetchStationsBySearch: jest.fn(),
 }));
 

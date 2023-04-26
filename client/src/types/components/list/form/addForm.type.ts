@@ -23,4 +23,9 @@ type AddFormProps = {
 
 type AccProps = { [key: string]: string | number };
 
-export { Fields, AddFormProps, AccProps, ValidaionSchema };
+type MessageProps = {
+  text: string;
+  color: string;
+};
+
+export { Fields, AddFormProps, AccProps, ValidaionSchema, MessageProps };

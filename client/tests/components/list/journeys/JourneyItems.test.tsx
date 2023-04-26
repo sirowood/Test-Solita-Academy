@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import JourneyItems from '../../../src/components/journeys/JourneyItems';
+import JourneyItems from '../../../../src/components/list/journeys/JourneyItems';
 
 describe('JourneyItems', () => {
   it('renders the correct journey items', () => {

@@ -2,8 +2,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from '../../src/store';
-import Navigation from '../../src/components/Navigation';
+import store from '../../../src/store';
+import Navigation from '../../../src/components/navigation/Navigation';
 
 describe('Navigation', () => {
   it('should render nav element', () => {

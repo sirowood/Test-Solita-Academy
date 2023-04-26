@@ -13,7 +13,7 @@ async function addJourney({ ...newJourney }: AddFunctionProps) {
       if (error.response?.data?.error) {
         throw new Error(error.response.data.error);
       } else {
-        throw new Error('An error occurred while trying to add new station.');
+        throw new Error('An error occurred while trying to add new journey.');
       }
     } else {
       throw error;

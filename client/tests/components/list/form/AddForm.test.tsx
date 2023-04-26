@@ -2,23 +2,24 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import AddForm from '../../../src/components/form/AddForm';
-import { fetchStationsBySearch } from '../../../src/services/station.service';
-import { addJourneyValidationSchema } from '../../../src/schemas/form.schema';
-import { ADD_JOURNEY_FIELDS } from '../../../src/constants';
+import '@testing-library/jest-dom/extend-expect';
+import AddForm from '../../../../src/components/list/form/AddForm';
+import { fetchStationsBySearch } from '../../../../src/services/station.service';
+import { addJourneyValidationSchema } from '../../../../src/schemas/form.schema';
+import { ADD_JOURNEY_FIELDS } from '../../../../src/constants';
 
-jest.mock('../../../src/services/station.service', () => ({
+jest.mock('../../../../src/services/station.service', () => ({
   fetchStationsBySearch: jest.fn(),
 }));
 
 describe('AddForm', () => {
-  const addType = 'journey';
-  const addFunction = jest.fn();
   const mockProps = {
     fields: ADD_JOURNEY_FIELDS,
-    addType,
+    addType: 'journey',
     validationSchema: addJourneyValidationSchema,
-    addFunction,
+    open: true,
+    addFunction: jest.fn(),
+    changeOpen: jest.fn(),
   };
 
   beforeEach(async () => {
@@ -37,7 +38,7 @@ describe('AddForm', () => {
     });
   });
 
-  it('add button works functional', async () => {
+  it('submit the form correctly', async () => {
     const fakeResponse = [
       { id: 1, nimi: 'Station 1' },
       { id: 2, nimi: 'Station 2' },
@@ -81,7 +82,7 @@ describe('AddForm', () => {
       fireEvent.click(arrivalStationOption[0]);
     });
 
-    const addButton = screen.getByText('Add');
+    const addButton = screen.getByRole('button', { name: 'Submit' });
     await waitFor(async () => {
       fireEvent.click(addButton);
       expect(screen.getByText('Success!')).toBeDefined();

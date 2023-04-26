@@ -26,6 +26,7 @@ function ListTopBar({
         <BiSearch className="h-6 w-6" />
       </div>
       <button
+        title="Add new button"
         className={addNewButton}
         onClick={changeOpen}
       >
