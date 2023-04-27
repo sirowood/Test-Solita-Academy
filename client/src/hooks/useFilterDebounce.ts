@@ -2,14 +2,9 @@ import { useState, useEffect } from 'react';
 import { UseFilterDebounceProps, FilterStateProps } from '../types/hooks/useFilterDebounce.type';
 
 function useFilter({ initialFilters, milliseconds }: UseFilterDebounceProps) {
-  const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<FilterStateProps>(initialFilters);
   const [timeoutQueue, setTimeoutQueue] = useState<NodeJS.Timeout>();
   const [debouncedFilters, setDebouncedFilters] = useState<FilterStateProps>(initialFilters);
-
-  function changeShowFilters() {
-    setShowFilters(!showFilters);
-  }
 
   function changeFilters(filterName: string, propertyName: string, newValue: string) {
     const newFilters = filters.map((filter) => (filter.filterName === filterName
@@ -43,11 +38,9 @@ function useFilter({ initialFilters, milliseconds }: UseFilterDebounceProps) {
 
   return {
     filters,
-    showFilters,
     debouncedFilters,
     resetFilters,
     changeFilters,
-    changeShowFilters,
   };
 }
 

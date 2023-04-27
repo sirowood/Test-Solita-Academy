@@ -1,53 +1,80 @@
 import React from 'react';
 import PageLayout from '../components/PageLayout';
-import Table from '../components/table/Table';
-import TopBar from '../components/table/TopBar';
-import useTables from '../hooks/useTables';
+import AddJourneyModal from '../components/list/journeys/AddJourneyModal';
+import TopBar from '../components/TopBar';
+import ListTopBar from '../components/list/ListTopBar';
+import ListControlBar from '../components/list/ListControlBar';
+import ListFilter from '../components/list/ListFilter';
+import ListSection from '../components/list/ListSection';
+import JourneyItems from '../components/list/journeys/JourneyItems';
+import useList from '../hooks/useList';
 import { fetchAllJourneys } from '../services/journey.service';
-import { JOURNEYS_COLUMNS, JOURNEYS_FILTERS } from '../constants';
-import journeys from '../styles/pages/journeys.styles';
+import { JOURNEYS_ORDERS, JOURNEYS_FILTERS } from '../constants';
 
 function Journeys() {
   const {
     data,
+    orderDirection,
     filters,
-    ordering,
     searchText,
-    showFilters,
-    currentPage,
+    showAddModal,
+    showFiltersModal,
     resetFilters,
     changeFilters,
     setSearchText,
-    changeOrdering,
     changePageSize,
-    changeShowFilters,
+    changeShowAddModal,
+    changeShowFiltersModal,
     changeCurrentPage,
-  } = useTables({
+    changeOrderBy,
+    changeOrderDirection,
+  } = useList({
     initialFilters: JOURNEYS_FILTERS,
     fetchFunction: fetchAllJourneys,
   });
+
   return (
-    <PageLayout classProps={journeys}>
-      <TopBar
-        pageTitle="Journeys"
-        filters={filters}
-        searchText={searchText}
-        showFilters={showFilters}
-        resetFilters={resetFilters}
-        changeFilters={changeFilters}
-        setSearchText={setSearchText}
-        changeShowFilters={changeShowFilters}
+    <>
+      <AddJourneyModal
+        open={showAddModal}
+        changeOpen={changeShowAddModal}
       />
-      <Table
-        data={data}
-        ordering={ordering}
-        currentPage={currentPage}
-        columns={JOURNEYS_COLUMNS}
-        changeOrdering={changeOrdering}
-        changePageSize={changePageSize}
-        changeCurrentPage={changeCurrentPage}
-      ></Table>
-    </PageLayout>
+
+      <PageLayout>
+        <ListFilter
+          filters={filters}
+          showFilters={showFiltersModal}
+          resetFilters={resetFilters}
+          changeFilters={changeFilters}
+          changeShowFilters={changeShowFiltersModal}
+        />
+
+        <TopBar title="Journeys">
+          <ListTopBar
+            searchText={searchText}
+            setSearchText={setSearchText}
+            changeOpen={changeShowAddModal}
+          />
+        </TopBar>
+
+        <ListControlBar
+          loading={data.isLoading}
+          currentPage={data.response.currentPage}
+          totalPages={data.response.totalPages}
+          orderDirection={orderDirection}
+          orderOptions={JOURNEYS_ORDERS}
+          changeCurrentPage={changeCurrentPage}
+          changePageSize={changePageSize}
+          changeShowFilters={changeShowFiltersModal}
+          changeOrderBy={changeOrderBy}
+          changeOrderDirection={changeOrderDirection}
+        />
+
+        <ListSection>
+          <JourneyItems items={data.response.items} />
+        </ListSection>
+      </PageLayout>
+    </>
   );
 }
 

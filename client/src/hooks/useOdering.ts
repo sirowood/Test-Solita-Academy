@@ -1,31 +1,28 @@
 import { useState } from 'react';
-import OderingStateProps from '../types/hooks/useOdering.type';
-import { USEORDERING_INITIAL_STATE } from '../constants';
+import OrderDirection from '../types/hooks/useOdering.type';
 
 function useOdering() {
-  const [ordering, setOrdering] = useState<OderingStateProps>(USEORDERING_INITIAL_STATE);
+  const [orderBy, setOrderBy] = useState('id');
+  const [orderDirection, setOrderDirection] = useState<OrderDirection>('ASC');
 
-  function resetOrdering() {
-    setOrdering(USEORDERING_INITIAL_STATE);
-  }
-
-  function changeOrdering(columnName: string) {
-    if (columnName === ordering.orderBy) {
-      if (ordering.orderASC) {
-        setOrdering({ ...ordering, orderASC: false });
-      } else {
-        resetOrdering();
-      }
+  function changeOrderDirection() {
+    if (orderDirection === 'ASC') {
+      setOrderDirection('DESC');
     } else {
-      resetOrdering();
-      setOrdering({ ...ordering, orderBy: columnName });
+      setOrderDirection('ASC');
     }
   }
 
+  function changeOrderBy(event: React.ChangeEvent<HTMLSelectElement>) {
+    const { value: newOrderBy } = event.target;
+    setOrderBy(newOrderBy);
+  }
+
   return {
-    ordering,
-    resetOrdering,
-    changeOrdering,
+    orderBy,
+    orderDirection,
+    changeOrderBy,
+    changeOrderDirection,
   };
 }
 

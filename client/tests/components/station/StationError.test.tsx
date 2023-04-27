@@ -1,6 +1,6 @@
 import React from 'react';
 import { MemoryRouter, useNavigate } from 'react-router-dom';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import StationError from '../../../src/components/station/StationError';
 
 jest.mock('react-router-dom', () => ({
@@ -8,28 +8,29 @@ jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn(),
 }));
 
-test('should render correctly', () => {
-  render(
-    <MemoryRouter>
-      <StationError error="Test error message" />
-    </MemoryRouter>,
-  );
+describe('StationError', () => {
+  it('renders correctly', () => {
+    const { getByText } = render(
+      <MemoryRouter>
+        <StationError error="Test error message" />
+      </MemoryRouter>,
+    );
+    expect(getByText('Test error message')).toBeDefined();
+  });
 
-  expect(screen.getByText('Test error message')).toBeDefined();
-});
+  it('should navigate to /stations when button clicked', () => {
+    const navigate = jest.fn();
+    (useNavigate as jest.Mock).mockReturnValue(navigate);
 
-test('should navigate to /stations when button clicked', () => {
-  const navigate = jest.fn();
-  (useNavigate as jest.Mock).mockReturnValue(navigate);
+    const { getByRole } = render(
+      <MemoryRouter>
+        <StationError error="Test error message" />
+      </MemoryRouter>,
+    );
 
-  render(
-    <MemoryRouter>
-      <StationError error="Test error message" />
-    </MemoryRouter>,
-  );
+    const returnButton = getByRole('button');
+    fireEvent.click(returnButton);
 
-  const returnButton = screen.getByRole('button');
-  fireEvent.click(returnButton);
-
-  expect(navigate).toHaveBeenCalledWith('/stations');
+    expect(navigate).toHaveBeenCalledWith('/stations');
+  });
 });

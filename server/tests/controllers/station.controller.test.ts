@@ -36,13 +36,13 @@ describe('Independent station controllers:', () => {
   });
 
   it('Get a non-exist station will return null', async () => {
-    const result = await stationController.getSingleStation(6);
+    const result = await stationController.getSingleStation(6, '');
 
     expect(result).toBeNull();
   });
 
   it('Get an exist station', async () => {
-    const result = await stationController.getSingleStation(1);
+    const result = await stationController.getSingleStation(1, '');
 
     expect(result!.nimi).toBe('Kaivopuisto');
   });
@@ -67,44 +67,40 @@ describe('Dependent station controllers:', () => {
     await Journey.bulkCreate(journeys);
   })
 
-  it('Correct numDepartureJourneys', async () => {
-    const result = await stationController.getSingleStation(1);
+  it('Returns correct data without given month', async () => {
+    const result = await stationController.getSingleStation(1, undefined);
 
     expect(result!.numDepartureJourneys).toBe(5);
-  });
-
-  it('Correct numArrivalJourneys', async () => {
-    const result = await stationController.getSingleStation(1);
-
     expect(result!.numArrivalJourneys).toBe(5);
-  });
-
-  it('Correct avgDepartureDistance', async () => {
-    const result = await stationController.getSingleStation(1);
-
     expect(result!.avgDepartureDistance).toBe(2177.6);
-  });
-
-  it('Correct avgArrivalDistance', async () => {
-    const result = await stationController.getSingleStation(1);
-
     expect(result!.avgArrivalDistance).toBe(1086.2);
+    expect(result!.topOriginStations.length).toBe(1);
+    expect(result!.topOriginStations[0]['nimi']).toBe('Sepänkatu');
+    expect(result!.topDestinationStations.length).toBe(1);
+    expect(result!.topDestinationStations[0]['nimi']).toBe('Sepänkatu');
   });
 
-  it('Correct topOriginStations', async () => {
-    const result = await stationController.getSingleStation(1);
-    const popularDepartureStations = result!.topOriginStations as { nimi: string }[];
+  it('Returns correct data with a valid given month - 1', async () => {
+    const result = await stationController.getSingleStation(1, '2021-05');
 
-    expect(popularDepartureStations.length).toBe(1);
-    expect(popularDepartureStations[0]['nimi']).toBe('Sepänkatu');
+    expect(result!.numDepartureJourneys).toBe(5);
+    expect(result!.numArrivalJourneys).toBe(5);
+    expect(result!.avgDepartureDistance).toBe(2177.6);
+    expect(result!.avgArrivalDistance).toBe(1086.2);
+    expect(result!.topOriginStations.length).toBe(1);
+    expect(result!.topOriginStations[0]['nimi']).toBe('Sepänkatu');
+    expect(result!.topDestinationStations.length).toBe(1);
+    expect(result!.topDestinationStations[0]['nimi']).toBe('Sepänkatu');
   });
 
-  it('Correct topDestinationStations', async () => {
-    const result = await stationController.getSingleStation(1);
-    const popularDepartureStations = result?.topDestinationStations as { 'nimi': string }[];
-
-    expect(popularDepartureStations.length).toBe(1);
-    expect(popularDepartureStations[0]['nimi']).toBe('Sepänkatu');
+  it('Returns correct data with a valid given month - 2', async () => {
+    const result = await stationController.getSingleStation(1, '2021-06');
+    expect(result!.numArrivalJourneys).toBe(0);
+    expect(result!.numDepartureJourneys).toBe(0);
+    expect(result!.avgArrivalDistance).toBe(0);
+    expect(result!.avgDepartureDistance).toBe(0);
+    expect(result!.topOriginStations.length).toBe(0);
+    expect(result!.topDestinationStations.length).toBe(0);
   });
 });
 

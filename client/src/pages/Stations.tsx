@@ -1,54 +1,79 @@
 import React from 'react';
 import PageLayout from '../components/PageLayout';
-import TopBar from '../components/table/TopBar';
-import Table from '../components/table/Table';
-import useTables from '../hooks/useTables';
+import AddStationModal from '../components/list/stations/AddStationModal';
+import TopBar from '../components/TopBar';
+import ListTopBar from '../components/list/ListTopBar';
+import ListControlBar from '../components/list/ListControlBar';
+import ListFilter from '../components/list/ListFilter';
+import ListSection from '../components/list/ListSection';
+import StationItems from '../components/list/stations/StationItems';
+import useList from '../hooks/useList';
 import { fetchAllStations } from '../services/station.service';
-import { STATIONS_COLUMNS, STATIONS_FILTERS } from '../constants';
-import stations from '../styles/pages/stations.styles';
+import { STATIONS_ORDERS, STATIONS_FILTERS } from '../constants';
 
 function Stations() {
   const {
     data,
+    orderDirection,
     filters,
-    ordering,
     searchText,
-    showFilters,
-    currentPage,
+    showAddModal,
+    showFiltersModal,
     resetFilters,
     changeFilters,
     setSearchText,
-    changeOrdering,
     changePageSize,
-    changeShowFilters,
+    changeShowAddModal,
+    changeShowFiltersModal,
     changeCurrentPage,
-  } = useTables({
+    changeOrderBy,
+    changeOrderDirection,
+  } = useList({
     initialFilters: STATIONS_FILTERS,
     fetchFunction: fetchAllStations,
   });
 
   return (
-    <PageLayout classProps={stations}>
-      <TopBar
-        pageTitle="Stations"
+    <>
+      <AddStationModal
+        open={showAddModal}
+        changeOpen={changeShowAddModal}
+      />
+
+      <ListFilter
         filters={filters}
-        searchText={searchText}
-        showFilters={showFilters}
+        showFilters={showFiltersModal}
         resetFilters={resetFilters}
         changeFilters={changeFilters}
-        setSearchText={setSearchText}
-        changeShowFilters={changeShowFilters}
+        changeShowFilters={changeShowFiltersModal}
       />
-      <Table
-        data={data}
-        ordering={ordering}
-        currentPage={currentPage}
-        columns={STATIONS_COLUMNS}
-        changeOrdering={changeOrdering}
-        changePageSize={changePageSize}
-        changeCurrentPage={changeCurrentPage}
-      ></Table>
-    </PageLayout>
+      <PageLayout>
+        <TopBar title="Stations">
+          <ListTopBar
+            searchText={searchText}
+            setSearchText={setSearchText}
+            changeOpen={changeShowAddModal}
+          />
+        </TopBar>
+
+        <ListControlBar
+          loading={data.isLoading}
+          currentPage={data.response.currentPage}
+          totalPages={data.response.totalPages}
+          orderDirection={orderDirection}
+          orderOptions={STATIONS_ORDERS}
+          changeCurrentPage={changeCurrentPage}
+          changePageSize={changePageSize}
+          changeShowFilters={changeShowFiltersModal}
+          changeOrderBy={changeOrderBy}
+          changeOrderDirection={changeOrderDirection}
+        />
+
+        <ListSection>
+          <StationItems items={data.response.items} />
+        </ListSection>
+      </PageLayout>
+    </>
   );
 }
 

@@ -6,15 +6,7 @@ test('should return the correct initial state', () => {
   const { result } = renderHook(() => useFilterDebounce({ initialFilters: JOURNEYS_FILTERS, milliseconds: 500 }));
 
   expect(result.current.filters).toEqual(JOURNEYS_FILTERS);
-  expect(result.current.showFilters).toEqual(false);
   expect(result.current.debouncedFilters).toEqual(JOURNEYS_FILTERS);
-});
-
-test('should change show filters', () => {
-  const { result } = renderHook(() => useFilterDebounce({ initialFilters: JOURNEYS_FILTERS, milliseconds: 500 }));
-
-  act(() => result.current.changeShowFilters());
-  expect(result.current.showFilters).toEqual(true);
 });
 
 test('should change filters', () => {

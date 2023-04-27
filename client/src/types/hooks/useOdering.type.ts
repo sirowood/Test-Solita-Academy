@@ -1,6 +1,3 @@
-type OrderingStateProps = {
-  orderBy: string,
-  orderASC: boolean,
-};
+type OrderDirection = 'ASC' | 'DESC';
 
-export default OrderingStateProps;
+export default OrderDirection;

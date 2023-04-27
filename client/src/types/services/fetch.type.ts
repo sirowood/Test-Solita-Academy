@@ -1,25 +1,29 @@
 import { StationsResponse } from './station.type';
 import { JourneysResponse } from './journey.type';
-import OrderingStateProps from '../hooks/useOdering.type';
 import PaginationStateProps from '../hooks/usePagination.type';
 import { FilterStateProps } from '../hooks/useFilterDebounce.type';
 
 type FetchAllFunctionProps = {
-  filters: FilterStateProps,
-  searchText: string,
-  ordering: OrderingStateProps,
-  pagination: PaginationStateProps,
+  filters: FilterStateProps;
+  searchText: string;
+  orderBy: string;
+  orderDirection: string;
+  pagination: PaginationStateProps;
 };
 
 type FetchFunctionProps = {
   id: string | undefined,
+  month: string,
 };
 
+type CombinedResponse = Promise<StationsResponse> & Promise<JourneysResponse>;
+
 type FetchFunction =
-  (params: FetchAllFunctionProps) => Promise<StationsResponse | JourneysResponse>;
+  (params: FetchAllFunctionProps) => CombinedResponse;
 
 export {
   FetchAllFunctionProps,
   FetchFunctionProps,
+  CombinedResponse,
   FetchFunction,
 };

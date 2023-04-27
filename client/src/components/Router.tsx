@@ -1,13 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import {
-  Station,
-  Journeys,
-  Stations,
-  Dashboard,
-  AddJourney,
-  AddStation,
-} from '../pages/index';
+import { Station, Journeys, Stations, Dashboard } from '../pages/index';
 
 function Router() {
   return (
@@ -25,19 +18,11 @@ function Router() {
           path=":id"
           element={<Station />}
         />
-        <Route
-          path="add"
-          element={<AddStation />}
-        />
       </Route>
       <Route path="/journeys">
         <Route
           index={true}
           element={<Journeys />}
-        />
-        <Route
-          path="add"
-          element={<AddJourney />}
         />
       </Route>
       <Route

@@ -7,8 +7,8 @@ import { sequelize } from '..';
 
 class Station extends Model {
   static async getStationTableMaxSequence() {
-   const result: {max: number}[] = await sequelize.query('SELECT MAX(id) FROM stations;', { type: QueryTypes.SELECT});
-   return result[0].max || 0;
+    const result: { max: number }[] = await sequelize.query('SELECT MAX(id) FROM stations;', { type: QueryTypes.SELECT });
+    return result[0].max || 0;
   }
   static async updateStationTableSequence() {
     const maxId = await this.getStationTableMaxSequence();
@@ -29,9 +29,9 @@ class Station extends Model {
   public name!: string;
   public osoite!: string;
   public adress!: string;
-  public kaupunki!: string | null;
-  public stad!: string | null;
-  public operaattor!: string | null;
+  public kaupunki!: string | undefined;
+  public stad!: string | undefined;
+  public operaattor!: string | undefined;
   public kapasiteet!: number;
   public x!: number;
   public y!: number;

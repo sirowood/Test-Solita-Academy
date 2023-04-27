@@ -67,6 +67,17 @@ function getAllJourneysParams(query: ParsedQs) {
   return { size, currentPage, limit, offset, sortField, sortOrder, filters, searchString };
 }
 
+function getSingleStationQueries(query: ParsedQs) {
+  const month = query.month as string;
+  const regex = /^\d{4}-(0[1-9]|1[0-2])$/;
+
+  if (!month || !regex.test(month)) {
+    return undefined;
+  }
+
+  return month;
+}
+
 function getAllStationsParams(query: ParsedQs) {
   const allowedFilters = ['kapasiteet'];
   const allowedSortFields = [
@@ -96,5 +107,6 @@ function getAllStationsParams(query: ParsedQs) {
 export {
   getSearchString,
   getAllJourneysParams,
+  getSingleStationQueries,
   getAllStationsParams,
 };

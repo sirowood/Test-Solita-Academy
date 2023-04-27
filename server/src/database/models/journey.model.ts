@@ -20,6 +20,10 @@ class Journey extends Model {
 
   public departureStationName?: string;
   public arrivalStationName?: string;
+  public numDepartureJourneys?: number;
+  public numArrivalJourneys?: number;
+  public avgDepartureDistance?: number;
+  public avgArrivalDistance?: number;
 }
 
 Journey.init({
@@ -61,6 +65,6 @@ Journey.init({
     },
     raw: true,
   },
-  
+
 });
 export default Journey;

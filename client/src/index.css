@@ -3,20 +3,20 @@
 @tailwind utilities;
 
 html {
-  overflow: hidden;
+  width: 100vw;
+  height: min(100vh, 100%);
+}
+
+body {
+  width: 100%;
+  height: 100%;
 }
 
 #root {
   display: flex;
-  flex-direction: column;
-  width: 100vw;
-  height: 100vh;
-}
-
-@media only screen and (min-width: 640px) {
-  #root {
-    flex-direction: row;
-  }
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
