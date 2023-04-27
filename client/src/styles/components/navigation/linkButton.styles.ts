@@ -16,6 +16,7 @@ function link(isActive: boolean) {
       'bg-solita-400',
       'text-white',
       'hover:cursor-default',
+      'active',
     ],
   );
 
