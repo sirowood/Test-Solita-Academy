@@ -1,4 +1,3 @@
-import path from 'path';
 import { DefinePlugin } from 'webpack';
 import baseConfig from './webpack.config';
 

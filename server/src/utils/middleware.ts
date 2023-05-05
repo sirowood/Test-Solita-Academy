@@ -1,15 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
+import path from 'path';
 import { error as logError } from './logger';
 
 function logger(req: Request, _res: Response, next: NextFunction): void {
-  if (process.env.NODE_ENV !== 'test') {
+  if (process.env.NODE_ENV !== 'production') {
     console.info(`${req.method} ${req.url}`);
   }
   next();
 }
 
 function unknownEndPoint(_req: Request, res: Response, _next: NextFunction): void {
-  res.status(404).send({ error: 'Unknown endpoint' });
+  if (process.env.NODE_ENV === 'production') {
+    res.sendFile(path.join(__dirname, '../dist', 'index.html'));
+  } else {
+    res.status(404).send({ error: 'Unknown endpoint' });
+  }
 }
 
 function errorHandler(e: Error, _req: Request, res: Response, next: NextFunction) {

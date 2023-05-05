@@ -7,7 +7,7 @@
     "lint": "eslint .",
     "test": "jest --verbose --runInBand",
     "start": "webpack-dev-server --config webpack.config.dev.ts",
-    "build": "webpack --config webpack.config.build.ts"
+    "build": "webpack --config webpack.config.prod.ts"
   },
   "keywords": [
     "React",
