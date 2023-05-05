@@ -1,7 +1,6 @@
 const stationData = {
-  dataGroup: 'stations',
-  urls: ['https://opendata.arcgis.com/datasets/726277c507ef4914b0aec3cbcfcbfafc_0.csv'],
-  headers: [
+  url: 'https://opendata.arcgis.com/datasets/726277c507ef4914b0aec3cbcfcbfafc_0.csv',
+  columns: [
     'fid',
     'id',
     'nimi',
@@ -19,13 +18,12 @@ const stationData = {
 };
 
 const journeyData = {
-  dataGroup: 'journeys',
   urls: [
     'https://dev.hsl.fi/citybikes/od-trips-2021/2021-05.csv',
     'https://dev.hsl.fi/citybikes/od-trips-2021/2021-06.csv',
     'https://dev.hsl.fi/citybikes/od-trips-2021/2021-07.csv'
   ],
-  headers: [
+  columns: [
     'departureTime',
     'arrivalTime',
     'departureStationId',
