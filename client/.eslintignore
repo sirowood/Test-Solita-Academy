@@ -3,7 +3,7 @@ coverage/
 node_modules/
 tests/
 
-webpack.config.build.ts
+webpack.config.prod.ts
 webpack.config.dev.ts
 webpack.config.ts
 jest.config.ts

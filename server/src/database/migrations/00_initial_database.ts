@@ -137,9 +137,10 @@ const up: Migration = async function ({ context: queryInterface }) {
     },
   );
 
-  if (process.env.NODE_ENV === 'development') {
-    info('Initial data from csv files');
+  if (process.env.NODE_ENV !== 'test') {
+    info('Import data from csv files');
     await initializeData();
+    info('All data import done!');
   }
 };
 

@@ -6,11 +6,16 @@ import { DATABASE_URL } from '../utils/config';
 const sequelize = new Sequelize(DATABASE_URL, {
   dialect: 'postgres',
   logging: false,
+  dialectOptions: {
+    ssl: process.env.NODE_ENV === 'production' ? true : false,
+  },
 });
 
 const migrationConfig = {
   migrations: {
-    glob: 'src/database/migrations/*.ts',
+    glob: process.env.NODE_ENV === 'production'
+      ? 'build/database/migrations/*.js'
+      : 'src/database/migrations/*.ts',
   },
   storage: new SequelizeStorage({ sequelize, tableName: 'migrations' }),
   context: sequelize.getQueryInterface(),
