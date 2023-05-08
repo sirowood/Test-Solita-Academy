@@ -2,6 +2,7 @@ import clsx from 'clsx';
 
 const listSection = clsx(
   [
+    'h-full',
     'flex',
     'flex-col',
     'gap-6',

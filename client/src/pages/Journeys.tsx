@@ -1,7 +1,8 @@
 import React from 'react';
 import PageLayout from '../components/PageLayout';
-import AddJourneyModal from '../components/list/journeys/AddJourneyModal';
 import TopBar from '../components/TopBar';
+import Loading from '../components/Loading';
+import AddJourneyModal from '../components/list/journeys/AddJourneyModal';
 import ListTopBar from '../components/list/ListTopBar';
 import ListControlBar from '../components/list/ListControlBar';
 import ListFilter from '../components/list/ListFilter';
@@ -71,7 +72,11 @@ function Journeys() {
         />
 
         <ListSection>
-          <JourneyItems items={data.response.items} />
+          {data.isLoading ? (
+            <Loading />
+          ) : (
+            <JourneyItems items={data.response.items} />
+          )}
         </ListSection>
       </PageLayout>
     </>
