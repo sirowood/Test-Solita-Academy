@@ -71,13 +71,13 @@ function Journeys() {
           changeOrderDirection={changeOrderDirection}
         />
 
-        <ListSection>
-          {data.isLoading ? (
-            <Loading />
-          ) : (
+        {data.isLoading ? (
+          <Loading />
+        ) : (
+          <ListSection>
             <JourneyItems items={data.response.items} />
-          )}
-        </ListSection>
+          </ListSection>
+        )}
       </PageLayout>
     </>
   );
