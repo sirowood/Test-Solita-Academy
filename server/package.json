@@ -8,6 +8,7 @@
     "dev": "cross-env NODE_ENV=development ts-node-dev src/index.ts",
     "lint": "eslint .",
     "start": "cross-env NODE_ENV=production node build/index.js",
+    "start:e2e": "cross-env NODE_ENV=e2e node build/index.js",
     "migration:down": "cross-env NODE_ENV=development ts-node src/database/rollback.ts",
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
     "test:coverage": "jest --coverage"

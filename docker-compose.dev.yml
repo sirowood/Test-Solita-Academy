@@ -45,7 +45,16 @@ services:
     container_name: server-solita-dev-xuefeng
     depends_on:
       - database
-    command: ['./wait-for-postgres.sh', 'database', 'npm', 'run', 'dev']
+    command:
+      [
+        './wait-for-postgres.sh',
+        'database',
+        'xuefeng',
+        'solita',
+        'npm',
+        'run',
+        'dev',
+      ]
 
   client:
     image: client-solita-dev-xuefeng

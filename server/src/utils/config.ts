@@ -5,6 +5,9 @@ const PORT = process.env.PORT || 3001;
 let DATABASE_URL = '';
 
 switch (process.env.NODE_ENV) {
+  case 'e2e':
+    DATABASE_URL = 'postgres://postgres:password@database-test:5432/test';
+    break;
   case 'test':
     DATABASE_URL = 'postgres://postgres:password@localhost:3003/test';
     break;
