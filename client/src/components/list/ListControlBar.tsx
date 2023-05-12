@@ -93,7 +93,7 @@ function ListControlBar({
         </button>
       </div>
       <div className="hidden sm:block">
-        Page {currentPage} / {totalPages}
+        Page {currentPage} / {loading ? '...' : totalPages}
       </div>
       <div className="items-cen flex grow flex-row justify-end">
         <button

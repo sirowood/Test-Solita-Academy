@@ -5,6 +5,8 @@
 set -e
   
 host="$1"
+user="$2"
+db="$3"
 # Shift arguments with mapping:
 # - $0 => $0
 # - $1 => <discarded>
@@ -13,10 +15,12 @@ host="$1"
 # - ...
 # This is done for `exec "$@"` below to work correctly
 shift
+shift
+shift
   
 # Login for user (`-U`) and once logged in execute quit ( `-c \q` )
 # If we can not login sleep for 1 sec
-until PGPASSWORD=password psql -h "$host" -U "xuefeng" -d solita -c '\q'; do
+until PGPASSWORD=password psql -h "$host" -U "$user" -d $db -c '\q'; do
   >&2 echo "Postgres is unavailable - sleeping"
   sleep 1
 done

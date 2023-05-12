@@ -68,12 +68,14 @@ function AddForm({
             ) : (
               <>
                 <Button
+                  aria-label="Cancel button"
                   color="blue-gray"
                   onClick={changeOpen}
                 >
                   Cancel
                 </Button>
                 <Button
+                  aria-label="Reset button"
                   color="amber"
                   disabled={!dirty}
                   type="reset"
@@ -81,6 +83,7 @@ function AddForm({
                   Reset
                 </Button>
                 <Button
+                  aria-label="Submit button"
                   type="submit"
                   disabled={isSubmitting || !dirty || !isValid}
                 >

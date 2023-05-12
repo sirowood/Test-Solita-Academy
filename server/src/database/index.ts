@@ -13,7 +13,7 @@ const sequelize = new Sequelize(DATABASE_URL, {
 
 const migrationConfig = {
   migrations: {
-    glob: process.env.NODE_ENV === 'production'
+    glob: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'e2e'
       ? 'build/database/migrations/*.js'
       : 'src/database/migrations/*.ts',
   },
