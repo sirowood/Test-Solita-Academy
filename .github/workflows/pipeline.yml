@@ -51,3 +51,27 @@ jobs:
         run: |
           cd client
           npm run test
+
+  E2E:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check files
+        uses: actions/checkout@v3
+      - name: Install node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Run the compiled App
+        run: docker-compose -f docker-compose.e2e.yml up -d
+      - name: Check the App is ready
+        uses: cygnetdigital/wait_for_response@v2.0.0
+        with:
+          url: 'http://localhost:3001/api/health'
+          responseCode: '200'
+          timeout: 300000
+          interval: 1000
+      - name: Run E2E tests
+        run: |
+          cd client
+          npm ci
+          npm run test:e2e:ci

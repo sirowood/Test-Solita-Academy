@@ -10,7 +10,7 @@ function logger(req: Request, _res: Response, next: NextFunction): void {
 }
 
 function unknownEndPoint(_req: Request, res: Response, _next: NextFunction): void {
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'e2e') {
     res.sendFile(path.join(__dirname, '../dist', 'index.html'));
   } else {
     res.status(404).send({ error: 'Unknown endpoint' });

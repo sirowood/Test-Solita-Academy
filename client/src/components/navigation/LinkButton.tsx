@@ -13,6 +13,7 @@ function LinkButton({ name, path, children }: LinkButtonProps) {
       placement="right"
     >
       <Link
+        aria-label={name}
         className={link(isActive)}
         to={path}
       >

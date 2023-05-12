@@ -17,9 +17,9 @@
   "ts-node": {
     "compilerOptions":
       {
-        "module": "CommonJS"
+        "module": "CommonJS",
       },
   },
   "include": ["src"],
-  "exclude": ["node_modules", "build", "tests"],
+  "exclude": ["node_modules", "tests", "./cypress.config.ts"],
 }
