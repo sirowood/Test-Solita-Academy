@@ -63,6 +63,10 @@ jobs:
           node-version: '16'
       - name: Run the compiled App
         run: docker-compose -f docker-compose.e2e.yml up -d
+        env:
+          DOCKER_BUILDKIT: 1
+          DOCKER_BUILD_CONTEXT: ./server
+          DOCKERFILE: ./server/e2e.Dockerfile
       - name: Check the App is ready
         uses: cygnetdigital/wait_for_response@v2.0.0
         with:

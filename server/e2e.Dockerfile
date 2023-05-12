@@ -6,11 +6,9 @@ RUN apt-get install apt-utils -y postgresql-client
 
 WORKDIR /usr/src/app
 
-COPY ./build ./build
-
 COPY package*.json .
-
-COPY *.sh .
+COPY *.sh ./
+COPY ./build ./build
 
 RUN npm ci
 
