@@ -58,7 +58,12 @@ async function getAllJourneys(
   return transformedJourneys;
 }
 
+async function resetJourneys() {
+  await Journey.destroy({ where: {} });
+}
+
 export {
   addJourney,
   getAllJourneys,
+  resetJourneys,
 };
