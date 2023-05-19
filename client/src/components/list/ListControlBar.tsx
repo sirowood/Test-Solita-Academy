@@ -45,7 +45,7 @@ function ListControlBar({
           className={arrowButton}
           type="button"
           title="Next page"
-          disabled={currentPage === totalPages || loading}
+          disabled={currentPage === totalPages || loading || totalPages === 0}
           onClick={() => changeCurrentPage((currentPage + 1).toString())}
         >
           <FiArrowRight className="h-6 w-6" />

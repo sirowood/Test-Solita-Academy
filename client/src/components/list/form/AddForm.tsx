@@ -36,14 +36,14 @@ function AddForm({
       setMessage({ text: 'Success!', color: 'green-500' });
       setTimeout(() => {
         setMessage(null);
-        changeOpen();
+        window.location.reload();
       }, 3000);
     } catch (e) {
       if (e instanceof Error) {
         setMessage({ text: e.message, color: 'red-500' });
+        resetForm();
         setTimeout(() => {
           setMessage(null);
-          resetForm();
         }, 3000);
       }
     }
