@@ -11,7 +11,7 @@ beforeAll(async () => {
 });
 
 describe('GET /api/stations', () => {
-  it('Initially status', async () => {
+  it('initially status', async () => {
     const response = await api.get('/api/stations');
     const { totalItems } = response.body;
 
@@ -19,7 +19,7 @@ describe('GET /api/stations', () => {
     expect(totalItems).toBe(0);
   });
 
-  it('After insert 5 stations in database', async () => {
+  it('after insert 5 stations in database', async () => {
     await Station.bulkCreate(stations);
 
     const response = await api.get('/api/stations');
@@ -29,7 +29,7 @@ describe('GET /api/stations', () => {
     expect(totalItems).toBe(5);
   });
 
-  it('Pagination when size is not a number ', async () => {
+  it('pagination when size is not a number ', async () => {
     const response = await api.get('/api/stations?size=a');
     const { totalItems, totalPages, items } = response.body;
 
@@ -38,7 +38,7 @@ describe('GET /api/stations', () => {
     expect(items.length).toBe(5);
   });
 
-  it('Pagination when size is nagative ', async () => {
+  it('pagination when size is nagative ', async () => {
     const response = await api.get('/api/stations?size=-1');
     const { totalItems, totalPages, items } = response.body;
 
@@ -47,7 +47,7 @@ describe('GET /api/stations', () => {
     expect(items.length).toBe(5);
   });
 
-  it('Pagination when page is not a number ', async () => {
+  it('pagination when page is not a number ', async () => {
     const response = await api.get('/api/stations?page=a');
     const { totalItems, totalPages, items } = response.body;
 
@@ -56,7 +56,7 @@ describe('GET /api/stations', () => {
     expect(items.length).toBe(5);
   });
 
-  it('Pagination when page is nagative', async () => {
+  it('pagination when page is nagative', async () => {
     const response = await api.get('/api/stations?page=-1');
     const { totalItems, totalPages, items } = response.body;
 
@@ -65,7 +65,7 @@ describe('GET /api/stations', () => {
     expect(items.length).toBe(5);
   });
 
-  it('Pagination when page is larger than the total pages ', async () => {
+  it('pagination when page is larger than the total pages ', async () => {
     const response = await api.get('/api/stations?page=100000');
     const { totalItems, totalPages, currentPage, items } = response.body;
 
@@ -75,7 +75,7 @@ describe('GET /api/stations', () => {
     expect(items.length).toBe(0);
   });
 
-  it('Search of stations exists in database', async () => {
+  it('search of stations exists in database', async () => {
     const response = await api.get('/api/stations?search=Kai');
     const { totalItems, totalPages, currentPage, items } = response.body;
 
@@ -85,7 +85,7 @@ describe('GET /api/stations', () => {
     expect(items.length).toBe(1);
   });
 
-  it('Search of stations not exists in database', async () => {
+  it('search of stations not exists in database', async () => {
     const response = await api.get('/api/stations?search=asdfasdfasdf');
     const { totalItems, totalPages, currentPage, items } = response.body;
 
@@ -95,7 +95,7 @@ describe('GET /api/stations', () => {
     expect(items.length).toBe(0);
   });
 
-  it('Order based on valid orderBy', async () => {
+  it('order based on valid orderBy', async () => {
     const response = await api.get('/api/stations?orderBy=kapasiteet');
     const { items } = response.body;
 
@@ -104,7 +104,7 @@ describe('GET /api/stations', () => {
     expect(items[4].nimi).toBe('Sepänkatu');
   });
 
-  it('Order based on invalid orderBy', async () => {
+  it('order based on invalid orderBy', async () => {
     const response = await api.get('/api/stations?orderBy=indalidword');
     const { items } = response.body;
 
@@ -113,7 +113,7 @@ describe('GET /api/stations', () => {
     expect(items[4].nimi).toBe('Sepänkatu');
   });
 
-  it('Order in descending order of id', async () => {
+  it('order in descending order of id', async () => {
     const response = await api.get('/api/stations?orderDirection=DESC');
     const { items } = response.body;
 
@@ -122,7 +122,7 @@ describe('GET /api/stations', () => {
     expect(items[4].nimi).toBe('Kaivopuisto');
   });
 
-  it('Order with combination of orderBy and orderDirection', async () => {
+  it('order with combination of orderBy and orderDirection', async () => {
     const response = await api.get('/api/stations?orderBy=kapasiteet&orderDirection=DESC');
     const { items } = response.body;
 
@@ -131,7 +131,7 @@ describe('GET /api/stations', () => {
     expect(items[4].nimi).toBe('Laivasillankatu');
   });
 
-  it('Filter with kapasiteetFrom and kapasiteetTo', async () => {
+  it('filter with kapasiteetFrom and kapasiteetTo', async () => {
     const capacityFrom = 12;
     const capacityTo = 14;
 
@@ -149,7 +149,7 @@ describe('GET /api/stations/:id', () => {
     await Journey.bulkCreate(journeys);
   });
 
-  it('Valid id', async () => {
+  it('valid id', async () => {
     const response = await api.get('/api/stations/1');
     const {
       nimi, numDepartureJourneys, numArrivalJourneys,
@@ -165,14 +165,14 @@ describe('GET /api/stations/:id', () => {
     expect(topDestinationStations[0].nimi).toBe('Sepänkatu');
   });
 
-  it('Valid id but not exist station', async () => {
+  it('valid id but not exist station', async () => {
     const response = await api.get('/api/stations/100000');
 
     expect(response.status).toBe(404);
     expect(response.body.error).toBe('Could not find the station');
   });
 
-  it('Invalid id', async () => {
+  it('invalid id', async () => {
     const response = await api.get('/api/stations/hiddenone');
     const { error } = response.body;
 
@@ -196,14 +196,14 @@ describe('POST /api/stations', () => {
     y: '70',
   };
 
-  it('Add valid station', async () => {
+  it('add valid station', async () => {
     const response = await api.post('/api/stations').send(validStationEntry);
 
     expect(response.status).toBe(201);
     expect(response.body.nimi).toBe('test nimi');
   });
 
-  it('Add station with invalid x', async () => {
+  it('add station with invalid x', async () => {
     const invalidStationEntry = {
       ...validStationEntry,
       x: '1000'
@@ -215,7 +215,7 @@ describe('POST /api/stations', () => {
     expect(response.body.error).toBe('x: abs(1000) is > 90');
   });
 
-  it('Add station with invalid kapasiteet', async () => {
+  it('add station with invalid kapasiteet', async () => {
     const invalidStationEntry = {
       ...validStationEntry,
       kapasiteet: 'not a number'
@@ -229,7 +229,7 @@ describe('POST /api/stations', () => {
 });
 
 describe('GET /api/stations/search/:nimi', () => {
-  it('Without nimi', async () => {
+  it('without nimi', async () => {
     const response = await api.get('/api/stations/search/');
     const { error } = response.body;
 
@@ -237,18 +237,32 @@ describe('GET /api/stations/search/:nimi', () => {
     expect(error).toBe('Invalid id parameter. id must be a number');
   });
 
-  it('With valid nimi and existing station', async () => {
+  it('with valid nimi and existing station', async () => {
     const response = await api.get('/api/stations/search/kai');
     expect(response.status).toBe(200);
     expect(response.body.length).toBe(1);
     expect(response.body[0].nimi).toBe('Kaivopuisto');
   });
 
-  it('With valid nimi but non-existing station', async () => {
+  it('with valid nimi but non-existing station', async () => {
     const response = await api.get('/api/stations/search/ihaveagoodidea');
     expect(response.status).toBe(200);
     expect(response.body.length).toBe(0);
   });
+});
+
+describe('POST /api/stations/reset', () => {
+  it('works correctly', async () => {
+    await Journey.destroy({ where: {} });
+    const response = await api.post('/api/stations/reset');
+    expect(response.status).toBe(200);
+
+    const newResponse = await api.get('/api/stations');
+    const { totalItems } = newResponse.body;
+
+    expect(newResponse.status).toBe(200);
+    expect(totalItems).toBe(0);
+  })
 });
 
 afterAll(async () => {

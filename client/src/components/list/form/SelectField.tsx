@@ -57,6 +57,8 @@ function SelectField({ field, displayName }: SelectFieldProps) {
 
   return (
     <Select
+      classNamePrefix="react-select"
+      aria-label="station-menu"
       className={selectField}
       blurInputOnSelect
       placeholder={displayName}

@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  database-test:
+    image: postgres:14.6
+    restart: always
+    environment:
+      POSTGRES_DB: test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      TZ: Europe/Helsinki
+      PGTZ: Europe/Helsinki
+    ports:
+      - 3003:5432
+    container_name: database-test
+
+  app: # Run the compiled App
+    image: solita-app
+    build:
+      context: ./server
+      dockerfile: e2e.Dockerfile
+    environment:
+      TZ: Europe/Helsinki
+      PORT: 3001
+    ports:
+      - 3001:3001
+    container_name: 'solita-app'
+    depends_on:
+      - database-test
+    command:
+      [
+        './wait-for-postgres.sh',
+        'database-test',
+        'postgres',
+        'test',
+        'npm',
+        'run',
+        'start:e2e',
+      ]

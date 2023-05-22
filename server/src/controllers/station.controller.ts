@@ -146,9 +146,14 @@ async function getStationsBySearch(nimi: string) {
   return stations;
 }
 
+async function resetStations() {
+  await Station.destroy({ where: {}, truncate: true, cascade: true, restartIdentity: true });
+}
+
 export {
   addStation,
   getAllStations,
   getSingleStation,
   getStationsBySearch,
+  resetStations,
 };

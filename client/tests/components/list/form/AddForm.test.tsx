@@ -82,7 +82,7 @@ describe('AddForm', () => {
       fireEvent.click(arrivalStationOption[0]);
     });
 
-    const addButton = screen.getByRole('button', { name: 'Submit' });
+    const addButton = screen.getByRole('button', { name: 'Submit button' });
     await waitFor(async () => {
       fireEvent.click(addButton);
       expect(screen.getByText('Success!')).toBeDefined();

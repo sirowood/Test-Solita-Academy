@@ -70,13 +70,13 @@ function Stations() {
           changeOrderDirection={changeOrderDirection}
         />
 
-        <ListSection>
-          {data.isLoading ? (
-            <Loading />
-          ) : (
+        {data.isLoading ? (
+          <Loading />
+        ) : (
+          <ListSection>
             <StationItems items={data.response.items} />
-          )}
-        </ListSection>
+          </ListSection>
+        )}
       </PageLayout>
     </>
   );

@@ -2,11 +2,13 @@ dist/
 coverage/
 node_modules/
 tests/
+cypress
 
 webpack.config.prod.ts
 webpack.config.dev.ts
 webpack.config.ts
 jest.config.ts
+cypress.config.ts
 
 tailwind.config.js
 postcss.config.js

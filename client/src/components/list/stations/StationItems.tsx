@@ -17,6 +17,7 @@ function StationItems({ items }: { items: Station[] }) {
       {items.map((item) => (
         <Link
           key={item.id}
+          aria-label={`Station ${item.nimi}`}
           className={singleStationDiv}
           to={`/stations/${item.id}`}
         >

@@ -20,21 +20,26 @@ describe('Journey controllers', () => {
     searchString: ''
   };
 
-  it('Empty initially', async () => {
+  it('empty initially', async () => {
     const result = await journeyController.getAllJourneys(params);
-
     expect(result.totalItems).toBe(0);
   });
 
-  it('Add new Journey entries', async () => {
+  it('add new Journey entries', async () => {
     for (const journey of journeys) {
       await journeyController.addJourney(journey);
     }
 
     const result = await journeyController.getAllJourneys(params);
-
     expect(result.totalItems).toBe(10);
   });
+
+  it('reset works correctly', async () => {
+    await journeyController.resetJourneys();
+
+    const result = await journeyController.getAllJourneys(params);
+    expect(result.totalItems).toBe(0);
+  })
 });
 
 afterAll(async () => {

@@ -1,6 +1,6 @@
 import { Router, RequestHandler } from 'express';
 import { getSingleStationQueries, getAllStationsParams } from './helper.route';
-import * as stationService from '../controllers/station.controller';
+import * as stationController from '../controllers/station.controller';
 import { StationFields } from '../types/station.type';
 import toNewStationEntry from '../validations/station.validation';
 
@@ -9,7 +9,7 @@ const stationRoute = Router();
 stationRoute.get('/', (async (req, res) => {
   const params = getAllStationsParams(req.query);
 
-  const allStations = await stationService.getAllStations(params);
+  const allStations = await stationController.getAllStations(params);
 
   res.send(allStations);
 }) as RequestHandler);
@@ -28,7 +28,7 @@ stationRoute.get('/:id', (async (req, res, next) => {
   const month = getSingleStationQueries(req.query);
 
   try {
-    const result = await stationService.getSingleStation(+id, month);
+    const result = await stationController.getSingleStation(+id, month);
     if (!result) {
       return next({
         name: 'Unreachable data',
@@ -46,7 +46,7 @@ stationRoute.post('/', (async (req, res, next) => {
 
   try {
     const newStationEntry = toNewStationEntry(body);
-    const result = await stationService.addStation(newStationEntry);
+    const result = await stationController.addStation(newStationEntry);
     res.status(201).send(result);
   } catch (e) {
     next(e);
@@ -62,11 +62,16 @@ stationRoute.get('/search/:nimi', (async (req, res, next) => {
   }
 
   try {
-    const result = await stationService.getStationsBySearch(nimi);
+    const result = await stationController.getStationsBySearch(nimi);
     res.send(result);
   } catch (e) {
     next(e);
   }
+}) as RequestHandler);
+
+stationRoute.post('/reset', (async (_req, res) => {
+  await stationController.resetStations();
+  res.send();
 }) as RequestHandler);
 
 export default stationRoute;

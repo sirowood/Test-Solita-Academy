@@ -1,4 +1,3 @@
-
 import request from 'supertest';
 import { connectToDatabase, sequelize, rollbackMigrations } from '../../src/database';
 import { Station, Journey } from '../../src/database/models';
@@ -13,7 +12,7 @@ beforeAll(async () => {
 });
 
 describe('GET /api/journeys', () => {
-  it('Initially status', async () => {
+  it('initially status', async () => {
     const response = await api.get('/api/journeys');
     const { totalItems } = response.body;
 
@@ -21,7 +20,7 @@ describe('GET /api/journeys', () => {
     expect(totalItems).toBe(0);
   });
 
-  it('After insert 10 journeys in database', async () => {
+  it('after insert 10 journeys in database', async () => {
     await Journey.bulkCreate(journeys);
     const response = await api.get('/api/journeys');
     const { totalItems } = response.body;
@@ -29,21 +28,21 @@ describe('GET /api/journeys', () => {
     expect(totalItems).toBe(journeys.length);
   });
 
-  it('Search of journeys exists in database', async () => {
+  it('search of journeys exists in database', async () => {
     const response = await api.get('/api/journeys?search=Sepänkatu');
     const { totalItems } = response.body;
 
     expect(totalItems).toBe(10);
   });
 
-  it('Search of journeys not exists in database', async () => {
+  it('search of journeys not exists in database', async () => {
     const response = await api.get('/api/journeys?search=justnotexist');
     const { totalItems } = response.body;
 
     expect(totalItems).toBe(0);
   });
 
-  it('Filter of journeys with departureTimeFrom and departureTimeTo', async () => {
+  it('filter of journeys with departureTimeFrom and departureTimeTo', async () => {
     const dateFrom = '2021-05-28';
     const dateTo = '2021-05-29';
     const response = await api.get(`/api/journeys?departureTimeFrom=${dateFrom}&departureTimeTo=${dateTo}`);
@@ -52,7 +51,7 @@ describe('GET /api/journeys', () => {
     expect(totalItems).toBe(1);
   });
 
-  it('Filter of journeys with coveredDistanceFrom and coveredDistanceTo', async () => {
+  it('filter of journeys with coveredDistanceFrom and coveredDistanceTo', async () => {
     const distanceFrom = 3434;
     const distanceTo = 3574;
     const response = await api.get(`/api/journeys?coveredDistanceFrom=${distanceFrom}&coveredDistanceTo=${distanceTo}`);
@@ -63,7 +62,7 @@ describe('GET /api/journeys', () => {
     expect(totalItems).toBe(expectation.length);
   });
 
-  it('Filter of journeys with durationFrom and durationTo', async () => {
+  it('filter of journeys with durationFrom and durationTo', async () => {
     const durationFrom = 300;
     const durationTo = 400;
     const response = await api.get(`/api/journeys?durationFrom=${durationFrom}&durationTo=${durationTo}`);
@@ -85,14 +84,14 @@ describe('POST /api/journeys', () => {
     duration: '300',
   };
 
-  it('Add a valid journey', async () => {
+  it('add a valid journey', async () => {
     const response = await api.post('/api/journeys').send(validJourneyEntry);
 
     expect(response.status).toBe(201);
     expect(response.body.coveredDistance).toBe(1000);
   });
 
-  it('Add journey with invalid departure time', async () => {
+  it('add journey with invalid departure time', async () => {
     const invalidJourneyEntry = {
       ...validJourneyEntry,
       departureTime: '2023-01-01 07:01:99'
@@ -104,7 +103,7 @@ describe('POST /api/journeys', () => {
     expect(response.body.error).toBe(`Unable to convert departure time: '${invalidJourneyEntry.departureTime}' to Date`);
   });
 
-  it('Add journey with arrival time is earlier than departure time', async () => {
+  it('add journey with arrival time is earlier than departure time', async () => {
     const invalidJourneyEntry = {
       ...validJourneyEntry,
       departureTime: '2023-01-01 07:11:23'
@@ -116,7 +115,7 @@ describe('POST /api/journeys', () => {
     expect(response.body.error).toBe('arrival time is before departure time');
   });
 
-  it('Add journey with invalid station id', async () => {
+  it('add journey with invalid station id', async () => {
     const invalidJourneyEntry = {
       ...validJourneyEntry,
       departureStationId: '100000'
@@ -128,7 +127,7 @@ describe('POST /api/journeys', () => {
     expect(response.body.error).toBe('Station Id not exists in the database');
   });
 
-  it('Add journey with covered distance < 10', async () => {
+  it('add journey with covered distance < 10', async () => {
     const invalidJourneyEntry = {
       ...validJourneyEntry,
       coveredDistance: '5',
@@ -139,6 +138,19 @@ describe('POST /api/journeys', () => {
     expect(response.status).toBe(400);
     expect(response.body.error).toBe('covered distance is < 10');
   });
+});
+
+describe('POST /api/journeys/reset', () => {
+  it('works correctly', async () => {
+    const response = await api.post('/api/journeys/reset');
+    expect(response.status).toBe(200);
+
+    const newResponse = await api.get('/api/journeys');
+    const { totalItems } = newResponse.body;
+
+    expect(newResponse.status).toBe(200);
+    expect(totalItems).toBe(0);
+  })
 });
 
 afterAll(async () => {

@@ -36,14 +36,14 @@ function AddForm({
       setMessage({ text: 'Success!', color: 'green-500' });
       setTimeout(() => {
         setMessage(null);
-        changeOpen();
+        window.location.reload();
       }, 3000);
     } catch (e) {
       if (e instanceof Error) {
         setMessage({ text: e.message, color: 'red-500' });
+        resetForm();
         setTimeout(() => {
           setMessage(null);
-          resetForm();
         }, 3000);
       }
     }
@@ -68,12 +68,14 @@ function AddForm({
             ) : (
               <>
                 <Button
+                  aria-label="Cancel button"
                   color="blue-gray"
                   onClick={changeOpen}
                 >
                   Cancel
                 </Button>
                 <Button
+                  aria-label="Reset button"
                   color="amber"
                   disabled={!dirty}
                   type="reset"
@@ -81,6 +83,7 @@ function AddForm({
                   Reset
                 </Button>
                 <Button
+                  aria-label="Submit button"
                   type="submit"
                   disabled={isSubmitting || !dirty || !isValid}
                 >
