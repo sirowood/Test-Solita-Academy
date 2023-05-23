@@ -2,6 +2,12 @@
 
 This application will be developed using Docker from the very starting point. Due to the fact the data is too large to find a free database cloud provider, I decide to use local Postgres Docker container as the database instance.
 
+This app has been published on **Render**, the link is [Here](https://xuefeng-solita.onrender.com/).
+
+It may takes several seconds to visit the app because its sleeping status.
+
+**The App's responsive breakpoint is 640px**
+
 According to the test requirement, the application will have the following features:
 
 ### Data import
@@ -51,7 +57,7 @@ According to the test requirement, the application will have the following featu
 - [x] The average distance of a journey ending at the station
 - [x] Top 5 most popular return stations for journeys starting from the station
 - [x] Top 5 most popular departure stations for journeys ending at the station
-- [ ] Ability to filter all the calculations per month
+- [x] Ability to filter all the calculations per month
 - [x] Adding station in backend and frontend
 
 ## Techenology choices
@@ -75,7 +81,7 @@ According to the test requirement, the application will have the following featu
 ### Frontend
 
 - React.js
-- ~~Redux~~
+- Redux
 - Axios
 - TailwindCSS
 
@@ -85,7 +91,7 @@ According to the test requirement, the application will have the following featu
   - Jest
   - React Testing Library
 - Integration: Supertest
-- ~~Cypress: E2E~~
+- Cypress: E2E
 
 ## Prerequisites
 
@@ -117,14 +123,6 @@ According to the test requirement, the application will have the following featu
 - Run `npm run test` under the client folder
 
 ## Others
-
-### What could be done in the future
-
-1. Display the Stations/Journeys page in card style
-2. E2E test
-3. Build and deploy the test online
-4. Further extract the src/components/table/Pagination.tsx into smaller code
-5. Use Nginx container to configure the reverse proxy
 
 ### Additional handling the invalid journey records
 
