@@ -2,9 +2,11 @@
 
 This application will be developed using Docker from the very starting point. Due to the fact the data is too large to find a free database cloud provider, I decide to use local Postgres Docker container as the database instance.
 
-This app has been published on **Render**, the link is [Here](https://xuefeng-solita.onrender.com/).
+~~This app has been published on **Render**, the link is [Here](https://xuefeng-solita.onrender.com/).~~
 
-It may takes several seconds to visit the app because its sleeping status.
+~~It may takes several seconds to visit the app because its sleeping status.~~
+
+The link above is not working anymore due to its database has been suspended (Free database plan only works for a period of time).
 
 **The App's responsive breakpoint is 640px**
 
@@ -91,7 +93,7 @@ According to the test requirement, the application will have the following featu
   - Jest
   - React Testing Library
 - Integration: Supertest
-- Cypress: E2E
+- E2E: Cypress
 
 ## Prerequisites
 
